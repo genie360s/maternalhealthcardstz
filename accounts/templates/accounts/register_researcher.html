@@ -43,69 +43,22 @@
     <form action="{% url 'accounts:register_researcher' %}" method="POST" class=" row  ">
         {% csrf_token %}
         <div class=" d-grid g-2">
+            {{ form.non_field_errors }}
+            {% for field in form %}
+            {% if field.name != 'agree_terms' %}
             <div class="mb-3 row">
-                <label for="first Name" class="col-sm-2 col-form-label">First Name</label>
+                <label for="{{ form.label }}" class="col-sm-2 col-form-label">{{field.label}}</label>
                 <div class="col-sm-10">
-                    <input type="text" required class="form-control" id="researcher_f_name" name="first_name">
+                    {{ field}}
                 </div>
             </div>
-            <div class="mb-3 row">
-                <label for="Second Name" class="col-sm-2 col-form-label">Second Name</label>
-                <div class="col-sm-10">
-                    <input type="text" required class="form-control" id="researcher_s_name" name="last_name">
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="Insitution Name" class="col-sm-2 col-form-label">Insitution Name</label>
-                <div class="col-sm-10">
-                    <input type="text" required class="form-control" id="i_name" name="institution_name"
-                        placeholder="University Of Dar es Salaam">
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="first Name" class="col-sm-2 col-form-label">Institution ID</label>
-                <div class="col-sm-10">
-                    <input type="number" required class="form-control" id="researcher_insitution_id" placeholder="" name="institution_id" >
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="Phone Number" class="col-sm-2 col-form-label">Phone Number</label>
-                <div class="col-sm-10">
-                    <input type="tel" required class="form-control" id="researcher_phone_number" name="phone_number"
-                        placeholder="25575364****">
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="national ID" class="col-sm-2 col-form-label">National ID</label>
-                <div class="col-sm-10">
-                    <input type="text" required class="form-control" id="national_id" placeholder="19870523***********" name="res_national_id">
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="first Name" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="email" required class="form-control" id="researcher_email" name="email"
-                        placeholder="alexgmkwizu@gmail.com">
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="password" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="password" required class="form-control" id="researchers_password" name="password"
-                        placeholder="************">
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="first Name" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="text" required class="form-control" id="confirm_researchers_password"
-                        placeholder="confirm password">
-                </div>
-            </div>
+            {% endif %}
+            {% endfor %}
             <div class="mb-3 row mx-5" style="position: relative; left:5.5vw;">
                 <div class="form-check">
+                    {{ form.agree_terms }}
                     <input class="form-check-input" type="checkbox" value="True" id="invalidCheck" required name="agree_terms" >
-                    <label class="form-check-label" for="invalidCheck">
+                    <label class="form-check-label" for="{{ form.agree_terms.id_for_label }}">
                         Agree to terms and conditions
                     </label>
                     <div class="invalid-feedback">
@@ -113,6 +66,8 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="mb-3 row  p-2 ">
                 <div class="col-sm-12 position-relative  " style="left:38.5vw; text-decoration: none; color: #0d6efd;">
                     <a href="{% url 'accounts:login_researcher' %}" style="text-decoration: none; color: #0d6efd;">Have

@@ -1,7 +1,10 @@
 from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 # nida module
 from nida import load_user
+
+from accounts.forms import PatientRegistrationForm
 from .models import Researcher, Patient, Hospital, Regulator
 
 #rendering just pages
@@ -95,10 +98,11 @@ def hospitaldash_medicaldata(request):
     return render(request, 'regs/hospitaldash_medicaldata.html')
 
 
-# function to load user details from nida
+#function to load user details from nida
 
 def retrieve_user(request):
     if request.method == 'POST':
+        form = PatientRegistrationForm(request.POST)
         national_id = request.POST.get('nida_no')
         user_detail = load_user(national_id=national_id, json = True )
         print(user_detail)
@@ -107,7 +111,25 @@ def retrieve_user(request):
         context = {
             'user_detail': user_detail
         }
-        return render(request, 'regs/hospitaldash_medicaldata.html', context)
+        return render(request, 'regs/hospitaldash_registerpatient.html', context)
     else:
-        return render(request, 'regs/hospitaldash_medicaldata.html')
-    
+        return render(request, 'regs/hospitaldash_registerpatient.html')
+
+
+
+       
+def register_patient(request):
+
+    if request.method == 'POST':
+        form = PatientRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Creating a new Hospital instance and associating it with the user
+            patient = Patient.objects.create(user=user)
+            # Additional logic specific to hospitals
+            
+            login(request, user)
+            return redirect('regs/retrieve_user')
+    else:
+        form = PatientRegistrationForm()
+    return render(request, 'accounts/register_researcher.html', {'form': form})

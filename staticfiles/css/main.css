@@ -3,19 +3,25 @@
 body {
   font-family: 'Inter', sans-serif;
   color: #121212;
+  overflow-x:auto;
+
 }
 /* For WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
     width: 4px; /* Width of the scrollbar */
+
   }
   
   ::-webkit-scrollbar-track {
     background-color: #cfe2ff; /* Background color of the scrollbar track */
+
   }
+  
   
   ::-webkit-scrollbar-thumb {
     background-color: #cfe2ff; /* Color of the scrollbar thumb */
     border-radius: 5px; /* Rounded corners of the scrollbar thumb */
+
   }
   
   /* For Firefox */

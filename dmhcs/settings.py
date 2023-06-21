@@ -72,6 +72,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
+
         },
     },
 ]
@@ -158,7 +159,13 @@ MEDIA_URL = "/media/"
 
 # authentication configurattion
 
-AUTH_USER_MODEL = 'accounts.User'
+#AUTH_USER_MODEL = 'accounts.User'
 
 # session configuration
 SESSION_COOKIE_AGE = 3600 # 1 hour
+
+# config back end for authentication
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]

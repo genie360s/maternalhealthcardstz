@@ -265,3 +265,316 @@ if settings.DEBUG:
 
 example of ForeignKey
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
+
+
+
+# registrattion form native
+
+<form action="" method="get" class=" row needs-validation ">
+        <div class=" d-grid g-2">
+            <div class="mb-3 row">
+                <label for="first Name" class="col-sm-2 col-form-label">Hospital ID</label>
+                <div class="col-sm-10">
+                    <input type="text" required class="form-control" id="hospital_id" placeholder="">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="phone number" class="col-sm-2 col-form-label">Phone Number</label>
+                <div class="col-sm-10">
+                    <input type="tel" required class="form-control" id="phone_number" placeholder="">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="hospital_email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" required class="form-control" id="hospital_email" placeholder="">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="hospital_type" class="col-sm-2 col-form-label">Hospital Type</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="hospital type">
+                        <option value="referral hospital">Referral Hospital</option>
+                        <option value="regional hsopital">Regional Hospital</option>
+                        <option value="district hopital">District Hospital</option>
+                        <option value="ward hospital">Ward Hospital</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="hospital_type" class="col-sm-2 col-form-label">Affiliation</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="hospital affiliation" id="hospital_affiliation">
+                        <option value="private hospital">Private</option>
+                        <option value="religious hsopital">Religious</option>
+                        <option value="government hopital">Government</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="hospital_region" class="col-sm-2 col-form-label">Region</label>
+                <div class="col-sm-10">
+                    <input type="text" required class="form-control" id="hospital_region" placeholder="">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="hospital_district" class="col-sm-2 col-form-label">Disctict</label>
+                <div class="col-sm-10">
+                    <input type="text" required class="form-control" id="hospital_district" placeholder="">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="hospital_ward" class="col-sm-2 col-form-label">Ward</label>
+                <div class="col-sm-10">
+                    <input type="text" required class="form-control" id="hospital_ward" placeholder="">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="password" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" required class="form-control" id="hospital_password"
+                        placeholder="************">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="password" class="col-sm-2 col-form-label">Confirm </label>
+                <div class="col-sm-10">
+                    <input type="password" required class="form-control" id="chospital_password"
+                        placeholder="confirm password">
+                </div>
+            </div>
+            <div class="mb-3 row  p-2 ">
+                <div class="col-sm-12 position-relative  " style="left:38.5vw; text-decoration: none; color: #0d6efd;">
+                    <a href="{% url 'accounts:login_researcher' %}" style="text-decoration: none; color: #0d6efd;">Have
+                        an Account ? Login </a>
+                </div>
+            </div>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3 w-100" style=" border-radius: 5px ;">Register</button>
+            </div>
+
+        </div>
+
+    </form>
+
+    ( ends)
+
+    <form action="" method="get" class="row needs-validation">
+        {% csrf_token %}
+        <div class="d-grid g-2">
+            {{ form.non_field_errors }}
+            {% for field in form %}
+            <div class="mb-3 row">
+                <label for="{{ form.label }}" class="col-sm-2 col-form-label">{{field.label}}</label>
+                <div class="col-sm-10">
+                    <!-- {{ form.hospital_id }} -->
+                    {{ field}}
+                </div>
+            </div>
+            {% endfor%}
+            <!-- <div class="mb-3 row">
+                <label for="{{ form.phone_number.id_for_label }}" class="col-sm-2 col-form-label">Phone Number</label>
+                <div class="col-sm-10">
+                    {{ form.phone_number }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="{{ form.hospital_email.id_for_label }}" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    {{ form.hospital_email }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="{{ form.hospital_type.id_for_label }}" class="col-sm-2 col-form-label">Hospital Type</label>
+                <div class="col-sm-10">
+                    {{ form.hospital_type }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="{{ form.hospital_affiliation.id_for_label }}" class="col-sm-2 col-form-label">Affiliation</label>
+                <div class="col-sm-10">
+                    {{ form.hospital_affiliation }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="{{ form.hospital_region.id_for_label }}" class="col-sm-2 col-form-label">Region</label>
+                <div class="col-sm-10">
+                    {{ form.hospital_region }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="{{ form.hospital_district.id_for_label }}" class="col-sm-2 col-form-label">District</label>
+                <div class="col-sm-10">
+                    {{ form.hospital_district }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="{{ form.hospital_ward.id_for_label }}" class="col-sm-2 col-form-label">Ward</label>
+                <div class="col-sm-10">
+                    {{ form.hospital_ward }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="{{ form.hospital_password.id_for_label }}" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    {{ form.hospital_password }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="{{ form.confirm_password.id_for_label }}" class="col-sm-2 col-form-label">Confirm</label>
+                <div class="col-sm-10">
+                    {{ form.confirm_password }}
+                </div>
+            </div> -->
+            <div class="mb-3 row p-2">
+                <div class="col-sm-12 position-relative" style="left:38.5vw; text-decoration: none; color: #0d6efd;">
+                    <a href="{% url 'accounts:login_researcher' %}" style="text-decoration: none; color: #0d6efd;">Have an Account? Login</a>
+                </div>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3 w-100" style="border-radius: 5px;">Register</button>
+            </div>
+        </div>
+    </form>
+ --
+    -- ends
+
+patient registration form
+
+class PatientRegistrationForm(UserCreationForm):
+    # adding additional fields specific to researchers
+    national_id = forms.CharField(label="{{key}}", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    first_name = forms.CharField(label="{{key}}", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    middle_name = forms.CharField(label="{{key}}", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    last_name = forms.CharField(label="{{key}}", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    institution_name = forms.CharField(label="Institution Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True, 'placeholder': 'University Of Dar es Salaam'}))
+    institution_id = forms.IntegerField(label="Institution ID", widget=forms.NumberInput(attrs={'class': 'form-control', 'required': True}))
+    confirm_password = forms.CharField(label="Confirm Password", widget=forms.TextInput(attrs={'class': 'form-control', 'required': True, 'placeholder': 'confirm password'}))
+    agree_terms = forms.BooleanField(label="Agree to terms and conditions", widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'required': True}))
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = [ 'national_id','email']
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'national_id': forms.TextInput(attrs={'class': 'form-control'}),
+        
+        }
+
+table api rendering
+
+<!-- <table class="table table-striped table-responsive caption-top table-bordered" aria-label="National Identification Information">
+                        <caption>Citizen Information</caption>
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, value in user_detail.items %}
+                            {% if forloop.counter <= 8 %}
+                            <tr>
+                                <td>{{ key }}</td>
+                                <td>{{ value }}</td>
+                                <form>
+                                    <input type="text" name="{{key}}" value="{{value}}" >
+                                </form>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table> -->
+
+def retrieve_user(request):
+    if request.method == 'POST':
+        national_id = request.POST.get('nida_no')
+        user_detail = load_user(national_id=national_id, json=True)
+        form = PatientRegistrationForm(request.POST)
+        zipped_data = zip(form, user_detail.items())
+        print(user_detail)
+        if form.is_valid():
+            
+
+            context = {
+                'form_data': zipped_data
+            }
+            return render(request, 'regs/hospitaldash_registerpatient.html', context)
+
+        form = PatientRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Additional logic specific to researchers
+            login(request, user)
+            return redirect('researchdashboard')
+
+    else:
+        form = PatientRegistrationForm()
+
+    return render(request, 'regs/hospitaldash_registerpatient.html', {'form': form})
+
+
+
+    <form action="" method="post" class="row needs-validation">
+                    {% csrf_token %}
+                    <div class="d-grid g-2">
+                        {{ form.non_field_errors }}
+
+                        {% for field in form %}
+                        {% if field.name in user_detail %}
+                        <div class="mb-3 row">
+                            <label for="{{ field.id_for_label }}"
+                                class="col-sm-2 col-form-label">{{ field.label }}</label>
+                            <div class="col-sm-10">
+                                {% if field.name == '{{key}}' %}
+                                {{ field }}
+                                {% else %}
+                                <input type="text" id="{{ field.id_for_label }}" class="form-control"
+                                    value="{{ user_detail[field.name] }}" required>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="mb-3 row">
+                            <label for="{{ field.id_for_label }}"
+                                class="col-sm-2 col-form-label">{{ field.label }}</label>
+                            <div class="col-sm-10">
+                                {{ field }}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-3 w-100"
+                                style="border-radius: 5px;">Register</button>
+                        </div>
+                    </div>
+                </form>
+
+
+# patient registration form
+class PatientRegistrationForm(UserCreationForm):
+    # adding additional fields specific to researchers
+    national_id = forms.CharField(label="national id", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    first_name = forms.CharField(label="first name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    middle_name = forms.CharField(label="middle name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    last_name = forms.CharField(label="last name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    gender = forms.CharField(label="gender", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    date_of_birth = forms.CharField(label="date of birth", widget=forms.NumberInput(attrs={'class': 'form-control', 'required': True}))
+    nationality = forms.CharField(label="nationality", widget=forms.TextInput(attrs={'class': 'form-control', 'required': True, 'placeholder': 'confirm password'}))
+    NA = forms.CharField(label="nationality type", widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'required': True}))
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = [ 'national_id','email']
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'national_id': forms.TextInput(attrs={'class': 'form-control'}),
+        
+        }

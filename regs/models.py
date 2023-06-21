@@ -2,31 +2,9 @@ from django.db import models
 from django.utils import timezone
 from django.core.validators import RegexValidator
 
+from accounts.models import Researcher , Hospital, Regulator
+
 #  models here.
-
-class Hospital(models.Model):
-    hospital_id = models.CharField(max_length=20, primary_key=True)
-    phone_number = models.CharField(max_length=20)
-    email = models.EmailField()
-    hospital_type = models.CharField(max_length=50)
-    affiliation = models.CharField(max_length=100)
-    region = models.CharField(max_length=50)
-    district = models.CharField(max_length=50)
-    ward = models.CharField(max_length=50)
-    password = models.CharField(max_length=128)
-    confirm_password = models.CharField(max_length=128)
-
-
-class Researcher(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    institution_name = models.CharField(max_length=100)
-    institution_id = models.CharField(max_length=10)
-    phone_number = models.CharField(max_length=20)
-    res_national_id = models.CharField(max_length=50, primary_key=True)
-    email = models.EmailField()
-    password = models.CharField(max_length=128)
-    agree_terms = models.BooleanField(default=False)
 
 
 class Pregnancy(models.Model):
@@ -351,21 +329,3 @@ class ResearchDataRequest(models.Model):
     def __str__(self):
         return str(self.request_no)
     
-
-# regulator inherits from abstract user
-
-class Regulator(models.Model):
-    regulator_id = models.CharField(max_length=20, unique=True)
-    fname = models.CharField(max_length=50)
-    lname = models.CharField(max_length=50)
-    regulator_position = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=20)
-    national_id = models.CharField(max_length=20, unique=True)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=128)
-    username = models.CharField(max_length=150, unique=True)
-
-    # Additional fields or methods can be added as needed
-
-    def __str__(self):
-        return self.username
