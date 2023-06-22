@@ -159,7 +159,8 @@ MEDIA_URL = "/media/"
 
 # authentication configurattion
 
-#AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'accounts.User'
+
 
 # session configuration
 SESSION_COOKIE_AGE = 3600 # 1 hour
@@ -167,5 +168,12 @@ SESSION_COOKIE_AGE = 3600 # 1 hour
 # config back end for authentication
 
 AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+# configuring back end sessions
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# points to  the password reset form
+PASSWORD_RESET_FORM = 'accounts.forms.CustomPasswordResetForm'

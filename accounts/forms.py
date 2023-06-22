@@ -66,7 +66,7 @@ class HospitalRegistrationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['email', 'phone_number']
+        fields = ['email']
         widgets = {
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             
@@ -79,13 +79,13 @@ class ResearcherRegistrationForm(UserCreationForm):
     last_name = forms.CharField(label="Second Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
     institution_name = forms.CharField(label="Institution Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True, 'placeholder': 'University Of Dar es Salaam'}))
     institution_id = forms.IntegerField(label="Institution ID", widget=forms.NumberInput(attrs={'class': 'form-control', 'required': True}))
-    agree_terms = forms.BooleanField(label="Agree to terms and conditions", widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'required': True}))
+    #agree_terms = forms.BooleanField(label="Agree to terms and conditions", widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'id' : 'flexCheckChecked','value': True}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['email', 'national_id', 'phone_number']
+        fields = ['email', 'national_id', 'phone_number' ]
         widgets = {
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'national_id': forms.TextInput(attrs={'class': 'form-control'}),
@@ -132,9 +132,15 @@ class RegulatorRegistrationForm(UserCreationForm):
         }
 
 # loginform
-class LoginForm(forms.Form):
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(label="Email", widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password'].widget.attrs.update({'class': 'form-control'})
+
 
 class ResetPasswordForm(PasswordResetForm):
     national_id = forms.CharField(max_length=40)

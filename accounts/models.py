@@ -1,21 +1,56 @@
+
 from django.db import models
 from django.conf import settings
 
 
 # Create your models here.
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
-class User(User):
+
+class User(AbstractUser):
     national_id = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=15)
-    
-    # Additional fields for other user groups (researchers, hospitals, etc.) are be added here
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField(unique=True)
 
+    USER_TYPE_CHOICES = [
+        ('P', 'Patient'),
+        ('H', 'Hospital'),
+        ('R', 'Regulator'),
+        ('S', 'Researcher'),
+    ]
+    user_type = models.CharField(max_length=1, choices=USER_TYPE_CHOICES, default='P')
+
+    @property
+    def is_patient(self):
+        return self.user_type == 'P'
+
+    @property
+    def is_hospital(self):
+        return self.user_type == 'H'
+
+    @property
+    def is_regulator(self):
+        return self.user_type == 'R'
+
+    @property
+    def is_researcher(self):
+        return self.user_type == 'S'
+    class Meta:
+        # prevents confusion with auth.User's reverse accessors
+        swappable = 'AUTH_USER_MODEL'
+
+    def save(self, *args, **kwargs):
+        self.username = self.email  # Setting the username as the email
+        super().save(*args, **kwargs)
+
+    
 # hospital model
 class Hospital(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     #additional fields specific to hospitals
     hospital_id = models.CharField(max_length=20, primary_key=True)
     phone_number = models.CharField(max_length=20)
@@ -33,14 +68,12 @@ class Hospital(models.Model):
 
 # researcher model
 class Researcher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     #additional fields specific to researchers
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
     institution_name = models.CharField(max_length=100)
     institution_id = models.CharField(max_length=10)
     phone_number = models.CharField(max_length=20)
-    res_national_id = models.CharField(max_length=50, primary_key=True)
+    national_id = models.CharField(max_length=50, primary_key=True)
     email = models.EmailField()
     password = models.CharField(max_length=128)
     agree_terms = models.BooleanField(default=False)
@@ -51,7 +84,7 @@ class Researcher(models.Model):
 
 # patient model
 class Patient(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # additional fields specific to patients
     regulator_id = models.CharField(max_length=20, unique=True)
     fname = models.CharField(max_length=50)
@@ -71,7 +104,7 @@ class Patient(models.Model):
         return self.user.email
 # regulator model
 class Regulator(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     #additional fields specific to regulators
     regulator_id = models.CharField(max_length=20, unique=True)
     fname = models.CharField(max_length=50)

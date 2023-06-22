@@ -578,3 +578,53 @@ class PatientRegistrationForm(UserCreationForm):
             'national_id': forms.TextInput(attrs={'class': 'form-control'}),
         
         }
+
+# loader tag
+
+    {% include './loader.html' %}
+
+# shitty
+
+def register_researcher(request):
+
+    if request.method == 'POST':
+        form = ResearcherRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Creating a new Hospital instance and associating it with the user
+            #hospital = Hospital.objects.create(user=user)
+            # Additional logic specific to hospitals
+            
+            #login(request, user)
+            #return redirect('accounts/researchdashboard')
+    else:
+        form = ResearcherRegistrationForm()
+    return render(request, 'accounts/register_researcher.html', {'form': form})
+
+
+def register_researcher(request):
+    if request.method == 'POST':
+        form = ResearcherRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=True)  # Save the form data without committing to the database
+            user.username = user.email  # Set the username as the email
+            user.save()  # Save the user object to the database
+
+            researcher = Researcher.objects.create(
+                user=user,
+                institution_name=form.cleaned_data['institution_name'],
+                institution_id=form.cleaned_data['institution_id'],
+                phone_number=form.cleaned_data['phone_number'],
+                national_id=form.cleaned_data['national_id'],
+                email=form.cleaned_data['email'],
+                password=user.password,  
+                agree_terms=form.cleaned_data['agree_terms']
+            )
+
+            # Additional logic specific to researchers
+
+            return redirect('accounts/research_dashboard')
+    else:
+        form = ResearcherRegistrationForm()
+
+    return render(request, 'accounts/register_researcher.html', {'form': form})

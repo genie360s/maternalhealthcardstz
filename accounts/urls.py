@@ -17,5 +17,9 @@ urlpatterns = [
     path("register_regulator", views.register_regulator, name="register_regulator"),
     path("login_regulator", views.login_regulator, name="login_regulator"),
     path("forgot_password", views.forgot_password, name="forgot_password"),
+    # general login
+    path("login", views.login_view, name="login"),
+    # general logout
+    path('logout', views.logout_view, name="logout"),
 
  ]
