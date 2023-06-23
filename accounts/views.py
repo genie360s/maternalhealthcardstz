@@ -39,7 +39,6 @@ def login_researcher(request):
     return render(request, 'accounts/login_researcher.html')
 
 def register_researcher(request):
-
     if request.method == 'POST':
         form = ResearcherRegistrationForm(request.POST)
         if form.is_valid():
@@ -53,10 +52,12 @@ def register_researcher(request):
                 phone_number=form.cleaned_data['phone_number'],
                 national_id=form.cleaned_data['national_id'],
                 email=form.cleaned_data['email'],
+                #first_name=form.cleaned_data['first_name'],
+                #last_name=form.cleaned_data['last_name'],
                 password=user.password,  
-                #agree_terms=form.cleaned_data['agree_terms']
+                agree_terms=form.cleaned_data['agree_terms']
             )
-            return redirect('regs:research_dashboard')
+        return redirect('regs:research_dashboard')
     else:
         form = ResearcherRegistrationForm()
     return render(request, 'accounts/register_researcher.html', {'form': form})
@@ -114,7 +115,8 @@ def login_view(request):
                   
             if user is not None:
                 login(request, user)
-                request.session['user_type'] = user.user_type
+                #request.session['user_type'] = user.user_type
+                request.session['username'] = user.username
                 if user.is_patient:
                     return redirect('regs:research_dashboard')
                 elif user.is_hospital:
@@ -133,5 +135,22 @@ def login_view(request):
 # logout view
 
 def logout_view(request):
-    logout(request)
-    return redirect('accounts:login')  # Replace 'home' with the URL or name of the desired redirect page after logout
+    if request.session.get('logout_on_browser_back'):
+        logout(request)
+        request.session.flush()
+    return redirect('accounts:login')
+
+# def logout_view(request):
+#     if request.session.get('logout_on_browser_back'):
+#         if request.user.is_authenticated:
+#             logout(request)
+#         request.session.flush()
+#     return redirect('accounts:login')
+
+# login required decorator
+def login_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return view_func(request, *args, **kwargs)
+    return wrapper

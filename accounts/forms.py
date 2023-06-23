@@ -75,18 +75,18 @@ class HospitalRegistrationForm(UserCreationForm):
 # researcher registration form
 class ResearcherRegistrationForm(UserCreationForm):
     # adding additional fields specific to researchers
-    first_name = forms.CharField(label="First Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
-    last_name = forms.CharField(label="Second Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
     institution_name = forms.CharField(label="Institution Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True, 'placeholder': 'University Of Dar es Salaam'}))
     institution_id = forms.IntegerField(label="Institution ID", widget=forms.NumberInput(attrs={'class': 'form-control', 'required': True}))
-    #agree_terms = forms.BooleanField(label="Agree to terms and conditions", widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'id' : 'flexCheckChecked','value': True}))
+    agree_terms = forms.BooleanField(label="Agree to terms and conditions", widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'id' : 'flexCheckChecked','value': 'True'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['email', 'national_id', 'phone_number' ]
+        fields = ['first_name','last_name','email', 'national_id', 'phone_number' ]
         widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'national_id': forms.TextInput(attrs={'class': 'form-control'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control'}),

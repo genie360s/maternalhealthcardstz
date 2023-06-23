@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from nida import load_user
 
 from accounts.forms import PatientRegistrationForm
+from accounts.views import login_required
 from .models import Researcher, Patient, Hospital, Regulator
 
 #rendering just pages
@@ -50,6 +51,7 @@ def dashboard(request):
     return render(request, 'regs/dashboard.html')
 
 # research views
+@login_required
 def researchdashboard(request):
     return render(request, 'regs/researchdash.html')
 

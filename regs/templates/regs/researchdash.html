@@ -182,6 +182,10 @@
     <!-- nav bar starts here -->
     <ul class="nav justify-content-end " style="background-color:#304969 ;">
 
+        <div>
+            <p class="text-light">{{request.session.username}}</p>
+        </div>
+
         <li class="nav-item">
             <div class="dropdown">
                 <a class="btn btn-secondary bg-light text-dark dropdown-toggle" href="#" role="button"
@@ -196,9 +200,10 @@
                             Out </a></li>
                 </ul>
             </div>
+            
         </li>
 
-
+        
 
     </ul>
     <!-- nav bar ends here -->

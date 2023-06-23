@@ -3,7 +3,8 @@
 body {
   font-family: 'Inter', sans-serif;
   color: #121212;
-  overflow-x:auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 
 }
 /* For WebKit browsers (Chrome, Safari) */
