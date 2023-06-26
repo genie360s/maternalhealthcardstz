@@ -683,3 +683,11 @@ class LogoutOnBrowserBackMiddleware:
 
         response = self.get_response(request)
         return response
+
+
+logout shitty view
+# def logout_view(request):
+#     if request.session.get('logout_on_browser_back'):
+#         logout(request)
+#         request.session.flush()
+#     return redirect('accounts:login')

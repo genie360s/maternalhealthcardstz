@@ -24,3 +24,4 @@ window.addEventListener("beforeunload", function() {
   xhr.open('GET', "{% url 'accounts:logout' %}", false);  
   xhr.send();
 });
+

@@ -1,0 +1,158 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMHCS | Sucess</title>
+
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- main css -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+
+<body>
+    <!-- sucess loader starts here -->
+
+        <div class="card w-25 mx-auto shadow-lg d-flex  " style="height: 40vh; margin-top: 25vh; border-radius: 10px;">
+            
+            <p class="card-title text-center fw-bold  py-3 text-success">
+                {% block success%}
+                Success
+                {% endblock %}
+            </p>
+            <div class="card-body stacking">
+                <div class="ring "></div>
+                <div class="tick "></div> 
+            </div>
+            <div class="login-button">
+                <a href="{% url 'accounts:login'%}" style="text-decoration: none; " > <button type="button" class="btn btn-outline-success btn-lg w-50 " style="border-radius: 50px;">Log in now !</button> </a>
+            </div>
+        </div>
+
+    <style>
+        .login-button{
+            position: relative;
+            top: -10px;
+            left: 100px;
+        }
+        .text-success {
+            font-size: 36px;
+            animation: pop 0.5s ease-in-out 0.3s forwards;
+        }
+        .stacking {
+            position: relative;
+            top:-10px;
+            left: 85px;
+            z-index: 1;
+        }
+
+ 
+        .ring {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto;
+            background: transparent;
+            box-shadow:  5px #198754 inset;
+            border: 10px solid #fff;
+            animation: round 0.5s ease-in-out 0.3s forwards;
+            overflow: hidden;
+
+        }
+
+
+        .tick {
+            position: absolute;
+            top: 110px;
+            left: 120px;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            width: 80px;
+            height: 40px;
+            border: 5px solid #fff;
+            border-top: none;
+            border-right: none;
+            opacity: 0.5;
+            animation: draw 0.5s ease-in-out 0.3s forwards;
+        }
+
+
+        @keyframes draw {
+            0% {
+                width: 0;
+                height: 0;
+            }
+
+            100% {
+                width: 80px;
+                height: 40px;
+                border: 5px solid #198754;
+                border-top: none;
+                border-right: none;
+                opacity: 1;
+            }
+        }
+
+        @keyframes round {
+            0% {
+                transform: rotate(0deg); 
+                border-top: 5px solid #198754;
+            
+                
+            }
+            25% {
+                transform: rotate(90deg); 
+                border-right: 10px solid #198754;
+            }
+            50% {
+                transform: rotate(180deg); 
+                border-bottom: 10px solid #198754;
+            }
+            75% {
+                transform: rotate(270deg); 
+                border-left: 10px solid #198754;
+            }
+
+            100% {
+                transform: rotate(360deg); 
+                border: 10px solid #198754;
+                opacity: 1; 
+  
+             
+            }
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+
+
+    <!-- sucess loader ends here -->
+
+
+    <!-- bootsrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <!-- main js -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

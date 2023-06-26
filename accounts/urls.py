@@ -4,6 +4,7 @@ from django.urls import path
 from . import views
 
 
+
 # namespacing urls for easier url referencing
 app_name = "accounts"
 
@@ -21,5 +22,12 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     # general logout
     path('logout', views.logout_view, name="logout"),
-
+    # generic sucess loader
+    path('success', views.success_loader, name="success"),
+    path('successful_registered', views.successful_registered, name="successful_registered"),
+    path('successful_reset', views.successful_reset, name="successful_reset"),
+    path('password_changed', views.successful_reset, name="password_changed"),
+    path('password_reset', views.password_reset, name='password_reset'),
+    path('password_update', views.password_update, name='password_update'),
+   
  ]
