@@ -1,17 +1,22 @@
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from accounts.models import User
 from django.contrib import messages
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
-from django.utils.encoding import force_str
+from django.utils.encoding import force_bytes
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import PasswordResetConfirmView
 from accounts.forms import (
     HospitalRegistrationForm,
     ResearcherRegistrationForm,
     RegulatorRegistrationForm,
 )
+from django.urls import reverse
 from .models import Hospital, Regulator, Researcher, Patient
 from .forms import LoginForm, CustomPasswordResetForm, CustomSetPasswordForm
 
@@ -188,73 +193,65 @@ def successful_reset(request):
 
 
 # password reset views
+
 def password_reset(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = CustomPasswordResetForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data["email"]
-            user = User.objects.filter(email=email).first()
-            print(user)
+            email = form.cleaned_data['email']
+            user = User.objects.get(email=email)
 
             # Generate a password reset token
             token_generator = default_token_generator
-            uid = urlsafe_base64_encode(user.pk.to_bytes(4, "big"))
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = token_generator.make_token(user)
-            print(token)
 
-            # Store the reset token in the session
-            request.session["reset_token"] = token
-            request.session["reset_uid"] = uid
-            print(uid)
+            # Build the password reset URL
+            current_site = 'localhost:8000' 
+            reset_url = f"http://{current_site}/accounts/password_update/{uid}/{token}/"
 
-            messages.success(
-                request,
-                "A password reset link has been generated. Please proceed to reset your password.",
-            )
-        #return redirect("accounts:password_update")
-         # Render the password update form
-            return render(request, "accounts/password_set.html", {"form": CustomSetPasswordForm(user)})
+            # Send password reset email
+            mail_subject = 'Reset your password'
+            message = render_to_string('accounts/password_reset_email.html', {
+                'user': user,
+                'reset_url': reset_url,
+            })
+            send_mail(mail_subject, message, 'alexgmkwizu@gmail.com', [email], html_message=message)
+            messages.success(request, 'An email has been sent with instructions to reset your password.')
+            return redirect('accounts:password_reset')
+        print('success')
     else:
         form = CustomPasswordResetForm()
-    return render(request, "accounts/password_reset.html", {"form": form})
+    return render(request, 'accounts/password_reset.html', {'form': form})
 
+# def password_update(request):
+#     if request.method == 'POST':
+#         form = CustomSetPasswordForm(request.user, request.POST)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'Your password has been updated.')
+#             return redirect('password_update')
+#     else:
+#         form = CustomSetPasswordForm(request.user)
+#     return render(request, 'password_set.html', {'form': form})
 
-def password_update(request):
-    token = request.session.get("reset_token")
-    uid = request.session.get("reset_uid")
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    form_class = CustomSetPasswordForm
+    template_name = 'password_set.html'
+    success_url = 'accounts:password_changed'
 
-    try:
-        uid = urlsafe_base64_decode(uid).decode()
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
+    def get(self, request, *args, **kwargs):
+        self.uidb64 = kwargs['uidb64']
+        self.token = kwargs['token']
+        return super().get(request, *args, **kwargs)
 
-    if user is None:
-        messages.error(request, "Invalid password reset link.")
-        return redirect("accounts:password_reset")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['uidb64'] = self.uidb64
+        context['token'] = self.token
+        return context
 
-    # Verify the reset token
-    if (
-        token is None
-        or uid is None
-        or not default_token_generator.check_token(user, token)
-    ):
-        messages.error(request, "Invalid password reset link.")
-        print("invalid")
-        return redirect("accounts:password_reset")
-
-    if request.method == "POST":
-        form = CustomSetPasswordForm(request.user, request.POST)
-        if form.is_valid():
-            form.save()
-
-            # Clear the reset token and UID from the session
-            del request.session["reset_token"]
-            del request.session["reset_uid"]
-
-            messages.success(request, "Your password has been updated.")
-            return redirect("accounts:succesful_reset")
-        print("success")
-    else:
-        form = CustomSetPasswordForm(request.user)
-    return render(request, "accounts/password_set.html", {"form": form})
+    def form_valid(self, form):
+        uid = urlsafe_base64_decode(self.kwargs['uidb64']).decode()
+        messages.success(self.request, 'Your password has been updated.')
+        return super().form_valid(form)

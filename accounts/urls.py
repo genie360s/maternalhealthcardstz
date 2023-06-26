@@ -1,12 +1,12 @@
 
 from django.urls import path
-
 from . import views
-
+from .views import CustomPasswordResetConfirmView
 
 
 # namespacing urls for easier url referencing
 app_name = "accounts"
+
 
 urlpatterns = [
     path("stakeholders", views.stakeholders, name="stakeholders"),
@@ -28,6 +28,6 @@ urlpatterns = [
     path('successful_reset', views.successful_reset, name="successful_reset"),
     path('password_changed', views.successful_reset, name="password_changed"),
     path('password_reset', views.password_reset, name='password_reset'),
-    path('password_update', views.password_update, name='password_update'),
+    path('password_update/<str:uid>/<str:token>/', CustomPasswordResetConfirmView.as_view(), name='password_update'),
    
  ]

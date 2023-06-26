@@ -178,3 +178,16 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 # points to  the password reset form
 PASSWORD_RESET_FORM = 'accounts.forms.CustomPasswordResetForm'
+
+# email configuration
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# email configuration for gmail , the value are configured in the .env file for security reasons
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER') # Replace with your actual email address
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD') # Replace with your actual password
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')  # Replace with your actual email address

@@ -691,3 +691,66 @@ logout shitty view
 #         logout(request)
 #         request.session.flush()
 #     return redirect('accounts:login')
+
+# reset views
+
+def password_reset(request):
+    if request.method == "POST":
+        form = CustomPasswordResetForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            user = User.objects.filter(email=email).first()
+            print(user)
+
+            # Generate a password reset token
+            token_generator = default_token_generator
+            uid = urlsafe_base64_encode(force_str(user.pk))
+            token = token_generator.make_token(user)
+            print(token)
+
+            # Build the password reset link
+            reset_url = reverse('accounts:password_update', kwargs={'uidb64': uid, 'token': token})
+
+            messages.success(
+                request,
+                "A password reset link has been generated. Please proceed to reset your password.",
+            )
+        #return redirect("accounts:password_update")
+         # Render the password update form
+            return render(request, "accounts/password_set.html", {"form": CustomSetPasswordForm(user)})
+    else:
+        form = CustomPasswordResetForm()
+    return render(request, "accounts/password_reset.html", {"form": form})
+
+
+def password_update(request):
+    token = request.session.get("reset_token")
+    uid = request.session.get("reset_uid")
+
+    try:
+        uid = urlsafe_base64_decode(uid).decode()
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is None:
+        messages.error(request, "Invalid password reset link.")
+        return redirect("accounts:password_reset")
+
+   
+
+    if request.method == "POST":
+        form = CustomSetPasswordForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+
+            # Clear the reset token and UID from the session
+            del request.session["reset_token"]
+            del request.session["reset_uid"]
+
+            messages.success(request, "Your password has been updated.")
+            return redirect("accounts:succesful_reset")
+        print("success")
+    else:
+        form = CustomSetPasswordForm(request.user)
+    return render(request, "accounts/password_set.html", {"form": form})

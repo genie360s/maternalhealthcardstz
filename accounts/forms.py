@@ -145,6 +145,12 @@ class LoginForm(AuthenticationForm):
 class CustomPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label='Email', max_length=254, widget=forms.EmailInput(attrs={'class': 'form-control'}))
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email address does not exist.")
+        return email
+
 #password set form
 class CustomSetPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(label='New Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
