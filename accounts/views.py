@@ -237,7 +237,7 @@ def password_reset(request):
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     form_class = CustomSetPasswordForm
-    template_name = 'password_set.html'
+    template_name = 'accounts/password_set.html'
     success_url = 'accounts:password_changed'
 
     def get(self, request, *args, **kwargs):

@@ -28,6 +28,6 @@ urlpatterns = [
     path('successful_reset', views.successful_reset, name="successful_reset"),
     path('password_changed', views.successful_reset, name="password_changed"),
     path('password_reset', views.password_reset, name='password_reset'),
-    path('password_update/<str:uid>/<str:token>/', CustomPasswordResetConfirmView.as_view(), name='password_update'),
+    path('password_update/<str:uidb64>/<str:token>/', CustomPasswordResetConfirmView.as_view(), name='password_update'),
    
  ]
