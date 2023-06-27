@@ -224,16 +224,6 @@ def password_reset(request):
         form = CustomPasswordResetForm()
     return render(request, 'accounts/password_reset.html', {'form': form})
 
-# def password_update(request):
-#     if request.method == 'POST':
-#         form = CustomSetPasswordForm(request.user, request.POST)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Your password has been updated.')
-#             return redirect('password_update')
-#     else:
-#         form = CustomSetPasswordForm(request.user)
-#     return render(request, 'password_set.html', {'form': form})
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     form_class = CustomSetPasswordForm
