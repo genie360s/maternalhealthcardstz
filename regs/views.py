@@ -1,12 +1,14 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 # nida module
 from nida import load_user
 from django.contrib.auth.decorators import login_required
 from accounts.forms import PatientRegistrationForm
 from accounts.views import login_required
 from .models import Researcher, Patient, Hospital, Regulator
+import json
+from api.views import get_user_data
 
 #rendering just pages
 
@@ -76,22 +78,57 @@ def hospitaldash_medicaldata(request):
 
 #function to load user details from nida
 
-def retrieve_user(request):
-    if request.method == 'POST':
-        form = PatientRegistrationForm(request.POST)
-        national_id = request.POST.get('nida_no')
-        user_detail = load_user(national_id=national_id, json = True )
-        print(user_detail)
+# def retrieve_user(request):
+#     if request.method == 'POST':
+#         form = PatientRegistrationForm(request.POST)
+#         national_id = request.POST.get('nida_no')
+#         user_detail = load_user(national_id=national_id, json = True )
+#         print(user_detail)
         
 
-        context = {
-            'user_detail': user_detail
-        }
-        return render(request, 'regs/hospitaldash_registerpatient.html', context)
+#         context = {
+#             'user_detail': user_detail
+#         }
+#         return render(request, 'regs/hospitaldash_registerpatient.html', context)
+#     else:
+#         return render(request, 'regs/hospitaldash_registerpatient.html')
+
+
+# def retrieve_user(request):
+#     if request.method == 'POST':
+#         nida_number = request.POST.get('nida_no')
+
+#         with open('staticfiles/citizens/citizen.json') as file:
+#             users = json.load(file)
+#             for user in users:
+#                 if user['nida_number'] == nida_number:
+#                     user_detail = user
+#                     print(user_detail)
+
+#                     context = {
+#                         'user_detail': user_detail
+#                     }
+#                     return render(request, 'regs/hospitaldash_registerpatient.html', context)
+
+#         return JsonResponse({'error': 'User not found.'}, status=404)
+#     else:
+#         return render(request, 'regs/hospitaldash_registerpatient.html')
+
+def retrieve_user(request):
+    if request.method == 'POST':
+        file_path = 'staticfiles/citizens/citizen.json'  # Provide the correct file path
+        nida_number = request.POST.get('nida_no')
+        user_detail = get_user_data(file_path, nida_number)
+
+        if user_detail is not None:
+            context = {
+                'user_detail': user_detail
+            }
+            return render(request, 'regs/hospitaldash_registerpatient.html', context)
+
+        return JsonResponse({'error': 'User not found.'}, status=404)
     else:
         return render(request, 'regs/hospitaldash_registerpatient.html')
-
-
 
        
 def register_patient(request):
