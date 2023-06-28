@@ -80,16 +80,18 @@ class ResearcherRegistrationForm(UserCreationForm):
     agree_terms = forms.BooleanField(label="Agree to terms and conditions", widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'id' : 'flexCheckChecked','value': 'True'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    user_type = forms.ChoiceField(label='Register As', choices=User.USER_TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['first_name','last_name','email', 'national_id', 'phone_number' ]
+        fields = ['first_name','last_name','email', 'national_id', 'phone_number', 'user_type' ]
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'national_id': forms.TextInput(attrs={'class': 'form-control'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'user_type': forms.Select(attrs={'class': 'form-control'}),
             
         }
 

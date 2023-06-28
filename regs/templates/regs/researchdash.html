@@ -79,14 +79,17 @@
                         data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                             <ul class="dash-drop w-100 container-fluid">
-                                <li class=" py-1"><a class="link-dash " style="text-decoration: none; " href="{% url 'regs:researchdashpublications' %}"><button
-                                            type="button" class="w-100 btn btn-secondary"
-                                            style="opacity: 0.7;">Published </button></a></li>
-                                <li class=" py-1"><a class="link-dash " style="text-decoration: none; " href="#pending"><button
-                                            type="button" class="w-100 btn btn-secondary" style="opacity: 0.7;">Pending
+                                <li class=" py-1"><a class="link-dash " style="text-decoration: none; "
+                                        href="{% url 'regs:researchdashpublications' %}"><button type="button"
+                                            class="w-100 btn btn-secondary" style="opacity: 0.7;">Published
                                         </button></a></li>
-                                <li class=" py-1"><a class="link-dash " style="text-decoration: none; " href="#data_requests"><button
-                                            type="button" class="w-100 btn btn-secondary" style="opacity: 0.7;">Data
+                                <li class=" py-1"><a class="link-dash " style="text-decoration: none; "
+                                        href="#pending"><button type="button" class="w-100 btn btn-secondary"
+                                            style="opacity: 0.7;">Pending
+                                        </button></a></li>
+                                <li class=" py-1"><a class="link-dash " style="text-decoration: none; "
+                                        href="#data_requests"><button type="button" class="w-100 btn btn-secondary"
+                                            style="opacity: 0.7;">Data
                                             Requests</button></a></li>
                             </ul>
                         </div>
@@ -139,8 +142,9 @@
                         data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                             <ul class="dash-drop w-100 container-fluid">
-                                <li class=" py-1"><a class="link-dash " style="text-decoration: none; " href="{% url 'regs:researchdashprofile' %}"><button
-                                            type="button" class="w-100 btn btn-secondary" style="opacity: 0.7;">View
+                                <li class=" py-1"><a class="link-dash " style="text-decoration: none; "
+                                        href="{% url 'regs:researchdashprofile' %}"><button type="button"
+                                            class="w-100 btn btn-secondary" style="opacity: 0.7;">View
                                             Profile</button></a></li>
                                 <li class=" py-1"><a class="link-dash " style="text-decoration: none; " href="#"><button
                                             type="button" class="w-100 btn btn-secondary" style="opacity: 0.7;">Edit
@@ -180,32 +184,26 @@
     <!-- sidebar ends here -->
     <!-- contentbar starts here -->
     <!-- nav bar starts here -->
-    <ul class="nav justify-content-end " style="background-color:#304969 ;">
-
-        <div>
-            <p class="text-light">{{request.session.username}}</p>
+    <div class="position-relative " style="background-color:#304969 ; height:5vh;">
+        <div class=" position-absolute py-2 " style="left:21.5vw;">
+            <p class="text-light"> <i class="bi bi-person px-1"></i> {{request.session.username}} {{request.session.user_id}}</p>
         </div>
-
-        <li class="nav-item">
-            <div class="dropdown">
+        <div class="position-absolute" style="right:4.5vw">
+            <div class="dropdown py-1">
                 <a class="btn btn-secondary bg-light text-dark dropdown-toggle" href="#" role="button"
                     id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                     Log Out
                 </a>
-
-                <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-                    <li><a class="nav-link fs- text-bold" href="{% url 'accounts:logout' %}"
+                <div class="dropdown-menu position-absolute" aria-labelledby="logout dropdown">
+                    <div>
+                        <a class="nav-link fs- text-bold" href="{% url 'accounts:logout' %}"
                             style="text-decoration: none; color:rgb(219, 45, 45)"><i class="bi bi-box-arrow-right"></i>
-                            &nbsp; Log
-                            Out </a></li>
-                </ul>
+                            &nbsp; Log Out </a>
+                    </div>
+                </div>
             </div>
-            
-        </li>
-
-        
-
-    </ul>
+        </div>
+    </div>
     <!-- nav bar ends here -->
     <!-- main content here -->
     <div class="py-5" style="margin-left:17vw" style="overflow-x: auto;">

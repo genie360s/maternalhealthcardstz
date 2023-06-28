@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 # nida module
 from nida import load_user
-
+from django.contrib.auth.decorators import login_required
 from accounts.forms import PatientRegistrationForm
 from accounts.views import login_required
 from .models import Researcher, Patient, Hospital, Regulator
@@ -13,34 +13,7 @@ from .models import Researcher, Patient, Hospital, Regulator
 def index(request):
     return render(request, 'regs/index.html')
 
-def register_research(request):
-    if request.method == 'POST':
-            print(request.POST)
-            first_name = request.POST.get('first_name')
-            last_name = request.POST.get('last_name')
-            institution_name = request.POST.get('institution_name')
-            institution_id = request.POST.get('institution_id')
-            phone_number = request.POST.get('phone_number')
-            res_national_id = request.POST.get('res_national_id')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            agree_terms = request.POST.get('agree_terms')
-            
-            Researcher.objects.create(
-                first_name=first_name,
-                last_name=last_name,
-                institution_name=institution_name,
-                institution_id=institution_id,
-                phone_number=phone_number,
-                res_national_id=res_national_id,
-                email=email,
-                password=password,
-                agree_terms=agree_terms
-            )
-            
-            return redirect('regs/register_researcher.html')  # Assuming you have a URL pattern called 'success_page'
-        
-    return render(request, 'regs/register_researcher.html')
+
 
 # patient views
 def registeringpatient(request):
@@ -54,6 +27,7 @@ def dashboard(request):
 @login_required
 def researchdashboard(request):
     return render(request, 'regs/researchdash.html')
+
 
 def researchdashpublications(request):
     return render(request, 'regs/researchdash_publications.html')

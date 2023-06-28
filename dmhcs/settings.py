@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "api.apps.ApiConfig",
     "accounts.apps.AccountsConfig",
     "regs.apps.RegsConfig",
     "django.contrib.admin",
@@ -143,6 +144,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     BASE_DIR / "static",
     "regs/templates/assets/",
+    "api/data/",
 ]
 
 # Default primary key field type

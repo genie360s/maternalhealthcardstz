@@ -30,8 +30,7 @@ def stakeholders(request):
 
 
 # patient views
-def login_patient(request):
-    return render(request, "accounts/login_patient.html")
+
 
 
 # regulator views
@@ -51,16 +50,9 @@ def register_regulator(request):
     return render(request, "accounts/register_regulator.html", {"form": form})
 
 
-def login_regulator(request):
-    return render(request, "accounts/login_regulator.html")
 
 
 # researcher views
-def login_researcher(request):
-    if request.method == "POST":
-        print(request.POST)
-    return render(request, "accounts/login_researcher.html")
-
 
 def register_researcher(request):
     if request.method == "POST":
@@ -81,30 +73,13 @@ def register_researcher(request):
                 password=user.password,
                 agree_terms=form.cleaned_data["agree_terms"],
             )
-        return redirect("regs:research_dashboard")
+            return redirect("accounts:successful_registered")
     else:
         form = ResearcherRegistrationForm()
     return render(request, "accounts/register_researcher.html", {"form": form})
 
 
 # hospital views
-def login_hospital(request):
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data["email"]
-            password = form.cleaned_data["password"]
-            user = authenticate(request, email=email, password=password)
-            if user is not None and user.is_hospital:
-                login(request, user)
-                return redirect("hospital_dashboard")
-            else:
-                form.add_error(None, "Invalid email or password")
-    else:
-        form = LoginForm()
-
-    return render(request, "hospital_login.html", {"form": form})
-
 
 def register_hospital(request):
     if request.method == "POST":
@@ -144,6 +119,7 @@ def login_view(request):
                 login(request, user)
                 # request.session['user_type'] = user.user_type
                 request.session["username"] = user.username
+                request.session["user_id"] = user.id
                 if user.is_patient:
                     return redirect("regs:research_dashboard")
                 elif user.is_hospital:

@@ -15,16 +15,16 @@
                         <a class="nav-link " href="{% url 'regs:home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{%    url 'accounts:login_hospital'  %}">Hospital</a>
+                        <a class="nav-link active" href="{%    url 'accounts:register_hospital'  %}">Hospital</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:login_patient' %}">Patients</a>
+                        <a class="nav-link" href="{% url 'accounts:login' %}">Patients</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{%    url 'accounts:login_regulator'  %}">Regulators</a>
+                        <a class="nav-link" href="{%    url 'accounts:register_regulator'  %}">Regulators</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:login_researcher' %}">Researchers</a>
+                        <a class="nav-link" href="{% url 'accounts:register_researcher' %}">Researchers</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">FAQ's</a>
@@ -54,7 +54,7 @@
            
             <div class="mb-3 row p-2">
                 <div class="col-sm-12 position-relative" style="left:38.5vw; text-decoration: none; color: #0d6efd;">
-                    <a href="{% url 'accounts:login_researcher' %}" style="text-decoration: none; color: #0d6efd;">Have an Account? Login</a>
+                    <a href="{% url 'accounts:login' %}" style="text-decoration: none; color: #0d6efd;">Have an Account? Login</a>
                 </div>
             </div>
             <div class="col-auto">

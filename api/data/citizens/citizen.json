@@ -1,0 +1,105 @@
+[
+    {
+        "firstname": "John",
+        "secondname": "Doe",
+        "date_of_birth": "18/05/2001",
+        "nationality": "Tanzanian",
+        "nationality_type": "NA-170",
+        "phone_number": "255753648150",
+        "nida_number": "20010518121040000229",
+        "gender": "male"
+    },
+    {
+        "firstname": "Jane",
+        "secondname": "Smith",
+        "date_of_birth": "25/09/1995",
+        "nationality": "Tanzanian",
+        "nationality_type": "NA-170",
+        "phone_number": "255789123456",
+        "nida_number": "20010518121040000230",
+        "gender": "female"
+    },
+
+    {
+        "firstname": "David",
+        "secondname": "Johnson",
+        "date_of_birth": "12/07/1988",
+        "nationality": "Tanzanian",
+        "nationality_type": "NA-170",
+        "phone_number": "255712345678",
+        "nida_number": "20010518121040000231",
+        "gender": "male"
+    },
+    {
+        "firstname": "Emily",
+        "secondname": "Williams",
+        "date_of_birth": "05/03/1992",
+        "nationality": "Tanzanian",
+        "nationality_type": "NA-170",
+        "phone_number": "255765432109",
+        "nida_number": "20010518121040000232",
+        "gender": "female"
+    },
+    {
+        "firstname": "Michael",
+        "secondname": "Brown",
+        "date_of_birth": "20/11/1997",
+        "nationality": "Tanzanian",
+        "nationality_type": "NA-170",
+        "phone_number": "255701234567",
+        "nida_number": "20010518121040000233",
+        "gender": "male"
+    },
+    {
+        "firstname": "Olivia",
+        "secondname": "Taylor",
+        "date_of_birth": "15/02/2000",
+        "nationality": "Tanzanian",
+        "nationality_type": "NA-170",
+        "phone_number": "255798765432",
+        "nida_number": "20010518121040000234",
+        "gender": "female"
+    },
+    {
+        "firstname": "William",
+        "secondname": "Miller",
+        "date_of_birth": "10/09/1994",
+        "nationality": "Tanzanian",
+        "nationality_type": "NA-170",
+        "phone_number": "255777777777",
+        "nida_number": "20010518121040000235",
+        "gender": "male"
+    },
+    {
+        "firstname": "Sophia",
+        "secondname": "Anderson",
+        "date_of_birth": "03/06/1998",
+        "nationality": "Tanzanian",
+        "nationality_type": "NA-170",
+        "phone_number": "255786543210",
+        "nida_number": "20010518121040000236",
+        "gender": "female"
+    },
+    {
+        "firstname": "James",
+        "secondname": "Wilson",
+        "date_of_birth": "28/04/1990",
+        "nationality": "Tanzanian",
+        "nationality_type": "NA-170",
+        "phone_number": "255754321098",
+        "nida_number": "20010518121040000237",
+        "gender": "male"
+    },
+    {
+        "firstname": "Ava",
+        "secondname": "Thomas",
+        "date_of_birth": "17/12/1996",
+        "nationality": "Tanzanian",
+        "nationality_type": "NA-170",
+        "phone_number": "255745678901",
+        "nida_number": "20010518121040000238",
+        "gender": "female"
+    }
+]
+
+
