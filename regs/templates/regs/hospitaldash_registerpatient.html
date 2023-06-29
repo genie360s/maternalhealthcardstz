@@ -6,7 +6,7 @@
     <div class="container-fluid mx-auto position-relative">
         <div class="container">
             <!-- retrieve function starts -->
-            <form action="{% url 'regs:retrieve_user' %}" method="POST">
+            <form action="{% url 'accounts:retrieve_user' %}" method="POST">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-sm-6">
@@ -29,7 +29,7 @@
                 <div class="py-2 col-sm-11">
                     <hr>
                 </div>
-                <form action="" method="post">
+                <form action="{% url 'accounts:hospital_registers_patient' %}" method="POST">
                         {% csrf_token %}
                         <div class="row">
                             {{ form.non_field_errors }}

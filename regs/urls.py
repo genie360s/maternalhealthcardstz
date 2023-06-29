@@ -30,7 +30,6 @@ urlpatterns = [
     path("hospitaldashprofile", views.hospitaldash_profile, name="hospitaldashprofile"),
     path("hospitaldash_delivery", views.hospitaldash_delivery, name="hospitaldash_delivery"),
     path("hospitaldash_medicaldata", views.hospitaldash_medicaldata, name="hospitaldash_medicaldata"),
-    path("retrieve_user", views.retrieve_user, name="retrieve_user"),
     path("register_patient", views.register_patient, name="register_patient")
 
 ]

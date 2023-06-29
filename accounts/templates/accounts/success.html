@@ -30,7 +30,9 @@
                 <div class="tick "></div> 
             </div>
             <div class="login-button">
+                {% block redirect%}
                 <a href="{% url 'accounts:login'%}" style="text-decoration: none; " > <button type="button" class="btn btn-outline-success btn-lg w-50 " style="border-radius: 50px;">Log in now !</button> </a>
+                {% endblock %}
             </div>
         </div>
 

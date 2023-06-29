@@ -1,3 +1,4 @@
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -15,8 +16,11 @@ from accounts.forms import (
     HospitalRegistrationForm,
     ResearcherRegistrationForm,
     RegulatorRegistrationForm,
+    PatientRegistrationForm,
 )
 from django.urls import reverse
+
+from  api.views import get_user_data
 from .models import Hospital, Regulator, Researcher, Patient
 from .forms import LoginForm, CustomPasswordResetForm, CustomSetPasswordForm
 
@@ -30,7 +34,6 @@ def stakeholders(request):
 
 
 # patient views
-
 
 
 # regulator views
@@ -50,9 +53,8 @@ def register_regulator(request):
     return render(request, "accounts/register_regulator.html", {"form": form})
 
 
-
-
 # researcher views
+
 
 def register_researcher(request):
     if request.method == "POST":
@@ -81,6 +83,7 @@ def register_researcher(request):
 
 # hospital views
 
+
 def register_hospital(request):
     if request.method == "POST":
         form = HospitalRegistrationForm(request.POST)
@@ -95,6 +98,53 @@ def register_hospital(request):
     else:
         form = HospitalRegistrationForm()
     return render(request, "accounts/hospital_register.html", {"form": form})
+
+
+def retrieve_user(request):
+    if request.method == 'POST':
+        file_path = 'staticfiles/citizens/citizen.json'  # Provide the correct file path
+        national_id = request.POST.get('nida_no')
+        user_detail = get_user_data(file_path, national_id)
+
+        if user_detail is not None:
+            request.session['user_detail'] = user_detail
+            return redirect('accounts:hospital_registers_patient')
+
+        return JsonResponse({'error': 'User not found.'}, status=404)
+    else:
+        return render(request, 'regs/hospitaldash_registerpatient.html')
+
+
+def hospital_registers_patient(request):
+    user_detail = request.session.get('user_detail')  # Retrieve user_detail from session
+    form = PatientRegistrationForm(request.POST or None, initial=user_detail)
+
+    if request.method == "POST":
+        if form.is_valid():
+            print('Form is valid')
+            user = form.save(commit=False)
+            user.save()
+            # Creating a new patient instance and associating it with the user
+            Patient.objects.create(
+                user=user,
+                first_name=form.cleaned_data["first_name"],
+                last_name=form.cleaned_data["last_name"],
+                national_id=form.cleaned_data["national_id"],
+                phone_number=form.cleaned_data["phone_number"],
+                email=form.cleaned_data["email"],
+                date_of_birth=form.cleaned_data["date_of_birth"],
+            )
+            return redirect("accounts:successful_patient_registered")
+        else:
+            print('Form is not valid')
+
+    context = {
+        'user_detail': user_detail,
+        'form': form,
+    }
+
+    return render(request, 'regs/hospitaldash_registerpatient.html', context)
+
 
 
 # forgot password
@@ -168,13 +218,18 @@ def successful_reset(request):
     return render(request, "accounts/reset_success.html")
 
 
+def successful_patient_registered(request):
+    return render(request, "accounts/patient_register_success.html")
+
+
 # password reset views
 
+
 def password_reset(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = CustomPasswordResetForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
+            email = form.cleaned_data["email"]
             user = User.objects.get(email=email)
 
             # Generate a password reset token
@@ -183,41 +238,53 @@ def password_reset(request):
             token = token_generator.make_token(user)
 
             # Build the password reset URL
-            current_site = 'localhost:8000' 
+            current_site = "localhost:8000"
             reset_url = f"http://{current_site}/accounts/password_update/{uid}/{token}/"
 
             # Send password reset email
-            mail_subject = 'Reset your password'
-            message = render_to_string('accounts/password_reset_email.html', {
-                'user': user,
-                'reset_url': reset_url,
-            })
-            send_mail(mail_subject, message, 'alexgmkwizu@gmail.com', [email], html_message=message)
-            messages.success(request, 'An email has been sent with instructions to reset your password.')
-            return redirect('accounts:password_reset')
-        print('success')
+            mail_subject = "Reset your password"
+            message = render_to_string(
+                "accounts/password_reset_email.html",
+                {
+                    "user": user,
+                    "reset_url": reset_url,
+                },
+            )
+            send_mail(
+                mail_subject,
+                message,
+                "alexgmkwizu@gmail.com",
+                [email],
+                html_message=message,
+            )
+            messages.success(
+                request,
+                "An email has been sent with instructions to reset your password.",
+            )
+            return redirect("accounts:password_reset")
+        print("success")
     else:
         form = CustomPasswordResetForm()
-    return render(request, 'accounts/password_reset.html', {'form': form})
+    return render(request, "accounts/password_reset.html", {"form": form})
 
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     form_class = CustomSetPasswordForm
-    template_name = 'accounts/password_set.html'
-    success_url = 'accounts:password_changed'
+    template_name = "accounts/password_set.html"
+    success_url = "accounts:password_changed"
 
     def get(self, request, *args, **kwargs):
-        self.uidb64 = kwargs['uidb64']
-        self.token = kwargs['token']
+        self.uidb64 = kwargs["uidb64"]
+        self.token = kwargs["token"]
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['uidb64'] = self.uidb64
-        context['token'] = self.token
+        context["uidb64"] = self.uidb64
+        context["token"] = self.token
         return context
 
     def form_valid(self, form):
-        uid = urlsafe_base64_decode(self.kwargs['uidb64']).decode()
-        messages.success(self.request, 'Your password has been updated.')
+        uid = urlsafe_base64_decode(self.kwargs["uidb64"]).decode()
+        messages.success(self.request, "Your password has been updated.")
         return super().form_valid(form)

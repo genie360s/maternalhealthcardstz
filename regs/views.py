@@ -76,7 +76,7 @@ def hospitaldash_medicaldata(request):
     return render(request, 'regs/hospitaldash_medicaldata.html')
 
 
-#function to load user details from nida
+#function to load user details from nida database
 
 # def retrieve_user(request):
 #     if request.method == 'POST':
@@ -94,43 +94,24 @@ def hospitaldash_medicaldata(request):
 #         return render(request, 'regs/hospitaldash_registerpatient.html')
 
 
+# retrieve user from api
 # def retrieve_user(request):
 #     if request.method == 'POST':
-#         nida_number = request.POST.get('nida_no')
+#         file_path = 'staticfiles/citizens/citizen.json'  # Provide the correct file path
+#         national_id = request.POST.get('nida_no')
+#         user_detail = get_user_data(file_path, national_id)
 
-#         with open('staticfiles/citizens/citizen.json') as file:
-#             users = json.load(file)
-#             for user in users:
-#                 if user['nida_number'] == nida_number:
-#                     user_detail = user
-#                     print(user_detail)
-
-#                     context = {
-#                         'user_detail': user_detail
-#                     }
-#                     return render(request, 'regs/hospitaldash_registerpatient.html', context)
+#         if user_detail is not None:
+#             form = PatientRegistrationForm(initial=user_detail)
+#             context = {
+#                 'user_detail': user_detail,
+#                 'form': form,
+#             }
+#             return render(request, 'regs/hospitaldash_registerpatient.html', context)
 
 #         return JsonResponse({'error': 'User not found.'}, status=404)
 #     else:
 #         return render(request, 'regs/hospitaldash_registerpatient.html')
-
-def retrieve_user(request):
-    if request.method == 'POST':
-        file_path = 'staticfiles/citizens/citizen.json'  # Provide the correct file path
-        national_id = request.POST.get('nida_no')
-        user_detail = get_user_data(file_path, national_id)
-
-        if user_detail is not None:
-            form = PatientRegistrationForm(initial=user_detail)
-            context = {
-                'user_detail': user_detail,
-                'form': form,
-            }
-            return render(request, 'regs/hospitaldash_registerpatient.html', context)
-
-        return JsonResponse({'error': 'User not found.'}, status=404)
-    else:
-        return render(request, 'regs/hospitaldash_registerpatient.html')
 
        
 def register_patient(request):

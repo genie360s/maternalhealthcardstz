@@ -103,7 +103,7 @@ class PatientRegistrationForm(UserCreationForm):
     national_id = forms.CharField(label="National Id", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
     phone_number = forms.CharField(label="Phone Number", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
     email = forms.EmailField(label="Email", max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control', 'required': True}))
-    date_of_birth = forms.DateField(label="date of birth", widget=forms.DateInput(attrs={'class': 'form-control', 'required': True}))
+    date_of_birth = forms.DateField(label="date of birth", widget=forms.DateInput(attrs={'class': 'form-control', 'required': True,'type': 'date'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 

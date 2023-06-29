@@ -1,105 +1,112 @@
 [
     {
-        "firstname": "John",
-        "secondname": "Doe",
+        "first_name": "John",
+        "last_name": "Doe",
         "date_of_birth": "18/05/2001",
         "nationality": "Tanzanian",
         "nationality_type": "NA-170",
         "phone_number": "255753648150",
-        "nida_number": "20010518121040000229",
-        "gender": "male"
+        "national_id": "20010518121040000229",
+        "gender": "male",
+        "email": "john.doe@example.com"
     },
     {
-        "firstname": "Jane",
-        "secondname": "Smith",
-        "date_of_birth": "25/09/1995",
+        "first_name": "Jane",
+        "last_name": "Smith",
+        "date_of_birth": "09/09/1995",
         "nationality": "Tanzanian",
         "nationality_type": "NA-170",
         "phone_number": "255789123456",
-        "nida_number": "20010518121040000230",
-        "gender": "female"
+        "national_id": "20010518121040000230",
+        "gender": "female",
+        "email": "jane.smith@example.com"
     },
-
     {
-        "firstname": "David",
-        "secondname": "Johnson",
+        "first_name": "David",
+        "last_name": "Johnson",
         "date_of_birth": "12/07/1988",
         "nationality": "Tanzanian",
         "nationality_type": "NA-170",
         "phone_number": "255712345678",
-        "nida_number": "20010518121040000231",
-        "gender": "male"
+        "national_id": "20010518121040000231",
+        "gender": "male",
+        "email": "david.johnson@example.com"
     },
     {
-        "firstname": "Emily",
-        "secondname": "Williams",
+        "first_name": "Emily",
+        "last_name": "Williams",
         "date_of_birth": "05/03/1992",
         "nationality": "Tanzanian",
         "nationality_type": "NA-170",
         "phone_number": "255765432109",
-        "nida_number": "20010518121040000232",
-        "gender": "female"
+        "national_id": "20010518121040000232",
+        "gender": "female",
+        "email": "emily.williams@example.com"
     },
     {
-        "firstname": "Michael",
-        "secondname": "Brown",
+        "first_name": "Michael",
+        "last_name": "Brown",
         "date_of_birth": "20/11/1997",
         "nationality": "Tanzanian",
         "nationality_type": "NA-170",
         "phone_number": "255701234567",
-        "nida_number": "20010518121040000233",
-        "gender": "male"
+        "national_id": "20010518121040000233",
+        "gender": "male",
+        "email": "michael.brown@example.com"
     },
     {
-        "firstname": "Olivia",
-        "secondname": "Taylor",
+        "first_name": "Olivia",
+        "last_name": "Taylor",
         "date_of_birth": "15/02/2000",
         "nationality": "Tanzanian",
         "nationality_type": "NA-170",
         "phone_number": "255798765432",
-        "nida_number": "20010518121040000234",
-        "gender": "female"
+        "national_id": "20010518121040000234",
+        "gender": "female",
+        "email": "olivia.taylor@example.com"
     },
     {
-        "firstname": "William",
-        "secondname": "Miller",
+        "first_name": "William",
+        "last_name": "Miller",
         "date_of_birth": "10/09/1994",
         "nationality": "Tanzanian",
         "nationality_type": "NA-170",
         "phone_number": "255777777777",
-        "nida_number": "20010518121040000235",
-        "gender": "male"
+        "national_id": "20010518121040000235",
+        "gender": "male",
+        "email": "william.miller@example.com"
     },
     {
-        "firstname": "Sophia",
-        "secondname": "Anderson",
+        "first_name": "Sophia",
+        "last_name": "Anderson",
         "date_of_birth": "03/06/1998",
         "nationality": "Tanzanian",
         "nationality_type": "NA-170",
         "phone_number": "255786543210",
-        "nida_number": "20010518121040000236",
-        "gender": "female"
+        "national_id": "20010518121040000236",
+        "gender": "female",
+        "email": "sophia.anderson@example.com"
     },
     {
-        "firstname": "James",
-        "secondname": "Wilson",
+        "first_name": "James",
+        "last_name": "Wilson",
         "date_of_birth": "28/04/1990",
         "nationality": "Tanzanian",
         "nationality_type": "NA-170",
         "phone_number": "255754321098",
-        "nida_number": "20010518121040000237",
-        "gender": "male"
+        "national_id": "20010518121040000237",
+        "gender": "male",
+        "email": "james.wilson@example.com"
     },
     {
-        "firstname": "Ava",
-        "secondname": "Thomas",
+        "first_name": "Ava",
+        "last_name": "Thomas",
         "date_of_birth": "17/12/1996",
         "nationality": "Tanzanian",
         "nationality_type": "NA-170",
         "phone_number": "255745678901",
-        "nida_number": "20010518121040000238",
-        "gender": "female"
+        "national_id": "20010518121040000238",
+        "gender": "female",
+        "email": "ava.thomas@example.com"
     }
 ]
-
-

@@ -1,4 +1,5 @@
 
+from datetime import date
 from django.db import models
 from django.conf import settings
 
@@ -86,20 +87,15 @@ class Researcher(models.Model):
 class Patient(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # additional fields specific to patients
-    regulator_id = models.CharField(max_length=20, unique=True)
-    fname = models.CharField(max_length=50)
-    lname = models.CharField(max_length=50)
-    regulator_position = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    date_of_birth = models.DateField(default=date(1930, 5, 18))
     phone_number = models.CharField(max_length=20)
     national_id = models.CharField(max_length=20, unique=True)
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=128)
-    username = models.CharField(max_length=150, unique=True)
+
 
     # Additional fields or methods can be added as needed
-
-    def __str__(self):
-        return self.username
     def __str__(self):
         return self.user.email
 # regulator model

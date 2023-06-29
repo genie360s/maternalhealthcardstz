@@ -779,3 +779,68 @@ def password_update(request):
                         </div>
                         
                     </form>
+
+
+patient confused
+
+def hospital_registers_patient(request):
+    if request.method == "POST":
+        form = PatientRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            print(user)
+            user.save()
+            # Creating a new patient instance and associating it with the user
+            Patient.objects.create(
+                user=user,
+                first_name=form.cleaned_data["first_name"],
+                last_name=form.cleaned_data["last_name"],
+                national_id=form.cleaned_data["national_id"],
+                phone_number=form.cleaned_data["phone_number"],
+                email=form.cleaned_data["email"],
+            )
+            print(form.cleaned_data)
+            return redirect("accounts:successful_patient_registered")
+
+    else:
+        form = PatientRegistrationForm()
+    return render(request, "regs/hospitaldash_registerpatient.html", {"form": form})
+
+
+
+    if user_detail is not None:
+            form = PatientRegistrationForm(initial=user_detail)
+            context = {
+                'user_detail': user_detail,
+                'form': form,
+            }
+            return render(request, 'regs/hospitaldash_registerpatient.html', context)
+
+
+def hospital_registers_patient(request):
+    user_detail = request.session.get('user_detail') 
+    if request.method == "POST":
+        form = PatientRegistrationForm(request.POST, initial=user_detail)
+        if form.is_valid():
+            user = form.save(commit=False)
+            print(user)
+            user.save()
+            # Creating a new patient instance and associating it with the user
+            Patient.objects.create(
+                user=user,
+                first_name=form.cleaned_data["first_name"],
+                last_name=form.cleaned_data["last_name"],
+                national_id=form.cleaned_data["national_id"],
+                phone_number=form.cleaned_data["phone_number"],
+                email=form.cleaned_data["email"],
+            )
+            print(form.cleaned_data)
+            return redirect("accounts:successful_patient_registered")
+            
+        context = {
+            'user_detail': user_detail,
+            'form': form,
+        }
+        return render(request, 'regs/hospitaldash_registerpatient.html', context)
+    else:
+        return render(request, 'regs/hospitaldash_registerpatient.html')   
