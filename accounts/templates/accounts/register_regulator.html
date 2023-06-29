@@ -39,22 +39,34 @@
     <div>
         <p class="display-6 text-center"> Register as a Regulator </p>
     </div>
-    <form action="{% url 'accounts:register_regulator' %}" method="POST" >
+    <form action="{% url 'accounts:register_regulator' %}" method="POST">
         {% csrf_token %}
+
         <div class="d-grid g-2">
             {{ form.non_field_errors }}
             {% for field in form %}
+            <!-- error-handling starts -->
+            {% if field.errors %}
+            <div class="col-sm-12 alert alert-danger" role="alert">
+                <strong class="px-3">{{ field.label }}</strong>
+                {% for error in field.errors %}
+                <span class="error">{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <!-- error handling ends -->
             <div class="mb-3 row">
-                <label for="{{ form.label }}" class="col-sm-2 col-form-label">{{field.label}}</label>
-                <div class="col-sm-10">
+                <label for="{{ form.label }}" class="col-sm-3 col-form-label">{{field.label}}</label>
+                <div class="col-sm-9">
                     {{ field}}
                 </div>
             </div>
             {% endfor%}
-           
+
             <div class="mb-3 row p-2">
                 <div class="col-sm-12 position-relative" style="left:38.5vw; text-decoration: none; color: #0d6efd;">
-                    <a href="{% url 'accounts:login' %}" style="text-decoration: none; color: #0d6efd;">Have an Account? Login</a>
+                    <a href="{% url 'accounts:login' %}" style="text-decoration: none; color: #0d6efd;">Have an Account?
+                        Login</a>
                 </div>
             </div>
             <div class="col-auto">
@@ -62,7 +74,7 @@
             </div>
         </div>
     </form>
-    
+
 
 </div>
 <!-- form ends here -->

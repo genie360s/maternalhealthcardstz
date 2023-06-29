@@ -44,9 +44,19 @@
         <div class="d-grid g-2">
             {{ form.non_field_errors }}
             {% for field in form %}
+            <!-- error-handling starts -->
+            {% if field.errors %}
+            <div class="col-sm-12 alert alert-danger" role="alert">
+                <strong class="px-3">{{ field.label }}</strong>
+                {% for error in field.errors %}
+                <span class="error">{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <!-- error handling ends -->
             <div class="mb-3 row">
-                <label for="{{ form.label }}" class="col-sm-2 col-form-label">{{field.label}}</label>
-                <div class="col-sm-10">
+                <label for="{{ form.label }}" class="col-sm-3 col-form-label">{{field.label}}</label>
+                <div class="col-sm-9">
                     {{ field}}
                 </div>
             </div>

@@ -41,13 +41,18 @@ def register_regulator(request):
     if request.method == "POST":
         form = RegulatorRegistrationForm(request.POST)
         if form.is_valid():
+            print("form is valid")
             user = form.save()
-            # Creating a new Hospital instance and associating it with the user
-            regulator = Regulator.objects.create(user=user)
+            # Creating a new regulator instance and associating it with the user
+            Regulator.objects.create(user=user)
             # Additional logic specific to hospitals
 
-            login(request, user)
-            return redirect("accounts/researchdashboard")
+
+
+            return redirect("accounts:successful_registered")
+        else:
+            print("form is not valid")
+            print(form.errors)
     else:
         form = RegulatorRegistrationForm()
     return render(request, "accounts/register_regulator.html", {"form": form})
@@ -88,15 +93,32 @@ def register_hospital(request):
     if request.method == "POST":
         form = HospitalRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            print("form is valid")
+            user = form.save(commit=False)
+            user.save()
+            print("user saved")
             # Creating a new Hospital instance and associating it with the user
-            hospital = Hospital.objects.create(user=user)
-            # Additional logic specific to hospitals
+            Hospital.objects.create(
+                user=user,
+                hospital_name=form.cleaned_data["hospital_name"],
+                hospital_id=form.cleaned_data["hospital_id"],
+                phone_number=form.cleaned_data["phone_number"],
+                hospital_type=form.cleaned_data["hospital_type"],
+                affiliation=form.cleaned_data["affiliation"],
+                region=form.cleaned_data["region"],
+                district=form.cleaned_data["district"],
+                ward=form.cleaned_data["ward"],
+                email=form.cleaned_data["email"],
 
-            login(request, user)
-            return redirect("hospital_dashboard")
+            )
+
+            return redirect("accounts:successful_registered")
+        else:
+            print("form is not valid")
+            print(form.errors)
     else:
         form = HospitalRegistrationForm()
+        print("form is not valid")
     return render(request, "accounts/hospital_register.html", {"form": form})
 
 

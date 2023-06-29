@@ -30,27 +30,38 @@
                     <hr>
                 </div>
                 <form action="{% url 'accounts:hospital_registers_patient' %}" method="POST">
-                        {% csrf_token %}
-                        <div class="row">
-                            {{ form.non_field_errors }}
-                            {% for field in form %} 
-                            <div class="col-sm-6">
-                                <label for="{{form.label}}" class="col-sm-10 col-form-label">{{field.label}}</label>
-                                <div class="mb-3 row">
-                                    <div class="col-sm-10">
-                                        {{ field}}
-                                    </div>
+                    {% csrf_token %}
+                    <div class="row">
+                        {{ form.non_field_errors }}
+                        {% for field in form %}
+                        <!-- error-handling starts -->
+                        {% if field.errors %}
+                        <div class="col-sm-12 alert alert-danger" role="alert">
+                            <strong class="px-3">{{ field.label }}</strong>
+                            {% for error in field.errors %}
+                            <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <!-- error handling ends -->
+                        <div class="col-sm-6">
+                            <label for="{{form.label}}" class="col-sm-10 col-form-label">{{field.label}}</label>
+                            <div class="mb-3 row">
+                                <div class="col-sm-10">
+                                    {{ field}}
                                 </div>
                             </div>
-                            {% endfor %}
-                            <div class="py-2 col-sm-11">
-                                <hr>
-                            </div>
-                            <div class="col-sm-11">
-                                <button type="submit" class="btn btn-primary mb-3 w-100" style="border-radius: 5px;">Register patient.</button>
-                            </div>
-                        </div>   
-                    </form>
+                        </div>
+                        {% endfor %}
+                        <div class="py-2 col-sm-11">
+                            <hr>
+                        </div>
+                        <div class="col-sm-11">
+                            <button type="submit" class="btn btn-primary mb-3 w-100"
+                                style="border-radius: 5px;">Register patient.</button>
+                        </div>
+                    </div>
+                </form>
 
             </div>
         </div>

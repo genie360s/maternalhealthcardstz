@@ -53,6 +53,7 @@ class User(AbstractUser):
 class Hospital(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     #additional fields specific to hospitals
+    hospital_name = models.CharField(max_length=100, default="")
     hospital_id = models.CharField(max_length=20, primary_key=True)
     phone_number = models.CharField(max_length=20)
     email = models.EmailField()
@@ -102,7 +103,6 @@ class Patient(models.Model):
 class Regulator(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     #additional fields specific to regulators
-    regulator_id = models.CharField(max_length=20, unique=True)
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
     regulator_position = models.CharField(max_length=100)

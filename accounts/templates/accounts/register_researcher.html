@@ -45,6 +45,16 @@
         <div class=" d-grid g-2">
             {{ form.non_field_errors }}
             {% for field in form %}
+            <!-- error-handling starts -->
+            {% if field.errors %}
+            <div class="col-sm-12 alert alert-danger" role="alert">
+                <strong class="px-3">{{ field.label }}</strong>
+                {% for error in field.errors %}
+                <span class="error">{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <!-- error handling ends -->
             {% if field.name != 'agree_terms' %}
             <div class="mb-3 row">
                 <label for="{{ form.label }}" class="col-sm-2 col-form-label">{{field.label}}</label>
