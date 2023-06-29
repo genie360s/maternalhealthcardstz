@@ -117,12 +117,14 @@ def hospitaldash_medicaldata(request):
 def retrieve_user(request):
     if request.method == 'POST':
         file_path = 'staticfiles/citizens/citizen.json'  # Provide the correct file path
-        nida_number = request.POST.get('nida_no')
-        user_detail = get_user_data(file_path, nida_number)
+        national_id = request.POST.get('nida_no')
+        user_detail = get_user_data(file_path, national_id)
 
         if user_detail is not None:
+            form = PatientRegistrationForm(initial=user_detail)
             context = {
-                'user_detail': user_detail
+                'user_detail': user_detail,
+                'form': form,
             }
             return render(request, 'regs/hospitaldash_registerpatient.html', context)
 

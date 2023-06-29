@@ -98,17 +98,24 @@ class ResearcherRegistrationForm(UserCreationForm):
 # patient registration form
 class PatientRegistrationForm(UserCreationForm):
     # adding additional fields specific to patients
-    national_id = forms.CharField(label="national id", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    first_name = forms.CharField(label="First Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    last_name = forms.CharField(label="Last Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    national_id = forms.CharField(label="National Id", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    phone_number = forms.CharField(label="Phone Number", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    email = forms.EmailField(label="Email", max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control', 'required': True}))
+    date_of_birth = forms.DateField(label="date of birth", widget=forms.DateInput(attrs={'class': 'form-control', 'required': True}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = [ 'national_id','phone_number']
+        fields = [ 'first_name','last_name','national_id','phone_number','email']
         widgets = {
-
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'national_id': forms.TextInput(attrs={'class': 'form-control'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
         
         }
 
