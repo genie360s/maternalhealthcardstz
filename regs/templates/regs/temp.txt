@@ -1,0 +1,586 @@
+{% extends './hospitaldash.html' %}
+{% block hospital_layout %}
+<div class="container px-3">
+    <form action="{% url 'regs:hospitaldash_medicaldata' %}" method="POST">
+        <!-- previous pregnancy information start -->
+        <div class="container mx-auto position-relative" style="top:10vh;">
+            <div class="container">
+                <div class="col-sm-11 py-2">
+                    <hr>
+                </div>
+                <div>
+                    <p class="display-6 text-center fw-bold ">Previous pregnancy information</p>
+                </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        {{  form4.non_field.errors }}
+                        {%  for field in form4   %}
+
+                        <div class="col-sm-4">
+                            <label for="{{form.label}}" class="col-sm-10 col-form-label">{{field.label}}</label>
+                            <!-- error-handling starts -->
+                            {% if field.errors %}
+                            <div class="col-sm-10 alert alert-danger" role="alert">
+                                {% for error in field.errors %}
+                                <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <!-- error handling ends -->
+                            <div class="mb-3 row">
+                                <div class="col-sm-10">
+                                    {{ field}}
+                                </div>
+                            </div>
+                        </div>
+                        {%  endfor   %}
+                    </div>
+                    <div class="col-sm-11 py-3" style="width:69vw;">
+                        <button type="submit" class="btn btn-primary mb-3 w-100 position-relative "
+                            style=" border-radius: 5px ;">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end -->
+        <!-- observation aspects of first mother visit -->
+        <div class="container mx-auto position-relative" style="top:10vh;">
+            <div class="col-sm-11 py-2">
+                <hr>
+            </div>
+            <div class="container">
+                <div>
+                    <p class="display-6 text-center fw-bold ">Observation aspects of a mother on first visit</p>
+                </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        {{  form3.non_field.errors }}
+                        {%  for field in form3   %}
+
+                        <div class="col-sm-4">
+                            <div class="col-sm-10">
+                                <label for="{{form.label}}" class="col-sm-11 col-form-label">{{field.label}}</label>
+                                <!-- error-handling starts -->
+                                {% if field.errors %}
+                                <div class="col-sm-12 alert alert-danger" role="alert">
+                                    {% for error in field.errors %}
+                                    <span class="error">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                <!-- error handling ends -->
+                                {{ field}}
+                            </div>
+
+                        </div>
+                        {%  endfor   %}
+                    </div>
+                    <div class="col-sm-11 py-3" style="width:69vw;">
+                        <button type="submit" class="btn btn-primary mb-3 w-100 position-relative "
+                            style=" border-radius: 5px ;">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end -->
+        <!-- special laboratory tests -->
+        <div class="container mx-auto position-relative" style="top:10vh;">
+            <div class="col-sm-11 py-2">
+                <hr>
+            </div>
+            <div class="container">
+                <div>
+                    <p class="display-6 text-center fw-bold ">Special Laboratory Tests</p>
+                </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        {{  form2.non_field.errors }}
+                        {%  for field in form2   %}
+
+                        <div class="col-sm-4">
+                            <label for="{{form.label}}" class="col-sm-10 col-form-label">{{field.label}}</label>
+                            <!-- error-handling starts -->
+                            {% if field.errors %}
+                            <div class="col-sm-10 alert alert-danger" role="alert">
+                                {% for error in field.errors %}
+                                <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <!-- error handling ends -->
+                            <div class="mb-3 row">
+                                <div class="col-sm-10">
+                                    {{ field}}
+                                </div>
+                            </div>
+                        </div>
+                        {%  endfor   %}
+                    </div>
+                    <div class="col-sm-11 py-3" style="width:69vw;">
+                        <button type="submit" class="btn btn-primary mb-3 w-100 position-relative "
+                            style=" border-radius: 5px ;">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end -->
+        <!-- clinical attendance records -->
+        <div class="container mx-auto position-relative" style="top:10vh;">
+            <div class="container">
+                <div class="col-sm-11 py-2">
+                    <hr>
+                </div>
+                <div>
+                    <p class="display-6 text-center fw-bold ">Clinical attendance records</p>
+                </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        {{  form1.non_field.errors }}
+                        {%  for field in form1   %}
+
+                        <div class="col-sm-4">
+                            <label for="{{form.label}}" class="col-sm-10 col-form-label">{{field.label}}</label>
+                            <!-- error-handling starts -->
+                            {% if field.errors %}
+                            <div class="col-sm-10 alert alert-danger" role="alert">
+                                {% for error in field.errors %}
+                                <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <!-- error handling ends -->
+                            <div class="mb-3 row">
+                                <div class="col-sm-10">
+                                    {{ field}}
+                                </div>
+                            </div>
+                        </div>
+                        {%  endfor   %}
+                    </div>
+                    <div class="col-sm-11 py-3" style="width:69vw;">
+                        <button type="submit" class="btn btn-primary mb-3 w-100 position-relative "
+                            style=" border-radius: 5px ;">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end -->
+        <div class="col-sm-11 py-5" style="width:69vw;">
+            <button type="submit" class="btn btn-primary mb-3 w-100 position-relative "
+                style=" border-radius: 5px ;">Save</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+
+from django import forms
+
+from regs.models import SpecialLaboratoryTests, ClinicalAttendance, MotherFirstVisit, MotherChildTransmission, PreviousPregnancyInformation
+
+class ClinicalAttendanceForm(forms.ModelForm):   
+    weight_kg = forms.CharField(
+        label="Weight (Kg)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    blood_pressure = forms.CharField(
+        label="Blood Pressure", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    albumin_in_urine = forms.CharField(
+        label="Albumin In Urine (+)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    blood_hb = forms.CharField(
+        label="Blood/ Hb (8.5gm/d)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    age_pregnancy_per_week = forms.CharField(
+        label="Age Pregnancy Per Week", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    height_per_week = forms.CharField(
+        label="Height Per Week", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    child_womb_position = forms.ChoiceField(
+        label="Child's Womb Position",
+        choices=[
+            ("vertex", "Vertex or Head Down Position"),
+            ("breech", "Breech Position"),
+            ("transverse", "Transverse Position"),
+            ("posterior", "Posterior Position"),
+            ("anterior", "Anterior Position"),
+            ("oa", "Occiput Anterior (OA) Position"),
+            ("op", "Occiput Posterior (OP) Position")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    frontal_part = forms.CharField(
+        label="Frontal Part (36th Week)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    child_moves_after_20_weeks = forms.ChoiceField(
+        label="Child Moves After 20th Week",
+        choices=[
+            ("1", "Yes"),
+            ("0", "No")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    child_heart_beat_after_20_weeks = forms.ChoiceField(
+        label="Child Heart Beat After 20th Week",
+        choices=[
+            ("1", "Yes"),
+            ("0", "No")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    swollen_legs = forms.CharField(
+        label="Swollen Legs (Oedema)(++)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    ferrous_sulphate = forms.CharField(
+        label="Ferrous Sulphate (2@day)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    folic_acid = forms.ChoiceField(
+        label="Folic Acid each day",
+        choices=[
+            ("1", "Yes"),
+            ("0", "No")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    malaria_dose = forms.ChoiceField(
+        label="MalariaDose(SP)(3pillsfro week-14)",
+        choices=[
+            ("1", "Yes"),
+            ("0", "No")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    mebandozole = forms.CharField(
+        label="Mebandozole(500 gm start)", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    tetanus_vaccine = forms.ChoiceField(
+        label="Tettanus Vaccine",
+        choices=[
+            ("0", "Not Yet"),
+            ("1", "TT1"),
+            ("2", "TT2"),
+            ("3", "TT3"),
+            ("4", "TT4"),
+            ("5", "TT5")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    dangerous_signs_symptoms = forms.ChoiceField(
+        label="Dangerous Signs / Symptoms",
+        choices=[
+            ("1", "Yes"),
+            ("0", "No")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    family_planning = forms.ChoiceField(
+        label="Family Planning",
+        choices=[
+            ("1", "Yes"),
+            ("0", "No")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    delivery_preparations = forms.ChoiceField(
+        label="Delivery Preparations",
+        choices=[
+            ("1", "Yes"),
+            ("0", "No")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    safe_sex_condom_usage = forms.ChoiceField(
+        label="Safe Sex and Condom Usage",
+        choices=[
+            ("1", "Yes"),
+            ("0", "No")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    pmtct_art = forms.ChoiceField(
+        label="PMTCT / ART (0,-1,2)",
+        choices=[
+            ("0", "0"),
+            ("-1", "-1"),
+            ("2", "2")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    medicine_art = forms.ChoiceField(
+        label="Medicine (ART)",
+        choices=[
+            ("1", "Yes"),
+            ("0", "No")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    ctx_before_diagnosing = forms.ChoiceField(
+        label="CTX Before Sickness Diagnosis",
+        choices=[
+            ("1", "Yes"),
+            ("0", "No")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    relation_with_ctc_service = forms.ChoiceField(
+        label="Relation with CTC Service",
+        choices=[
+            ("1", "Yes"),
+            ("0", "No")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    child_food_diet = forms.ChoiceField(
+        label="Child's Food Diet",
+        choices=[
+            ("0", "Mothers' Milk (EBF)"),
+            ("1", "Alternative Milk (RF)"),
+            ("2", "2")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    adherence = forms.ChoiceField(
+        label="Adherence",
+        choices=[
+            ("1", "Good"),
+            ("0", "Bad")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    date_of_attendance = forms.DateField(
+        label="Date of Attendance",
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type':'date'})
+    )
+    date_of_returning = forms.DateField(
+        label="Returning Date",
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type':'date'})
+    )
+    name_of_mc_personnel = forms.CharField(
+        label="Name of the MC Personnel",
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    position_of_mc_personnel = forms.ChoiceField(
+        label="Position Of the MC Personnel",
+        choices=[
+            ("1", "Doctor"),
+            ("2", "Nurse")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    comment_on_situation = forms.ChoiceField(
+        label="Comment on the Situation",
+        choices=[
+            ("1", "Good"),
+            ("2", "Bad (Critical)")
+        ],
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    signature_of_mc_personnel = forms.CharField(
+        label="Sign Of the MC Personnel",
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    hospital_suggestion = forms.CharField(
+        label="Mother advised to Deliver at which Hospital",
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    class Meta:
+        model = ClinicalAttendance
+        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
+     
+
+class SpecialLaboratoryTestsForm(forms.ModelForm):
+    blood_group = forms.ChoiceField(label="Blood Group Type", choices=[
+        ("A+", "A+"),
+        ("A-", "A-"),
+        ("B+", "B+"),
+        ("B-", "B-"),
+        ("AB+", "AB+"),
+        ("AB-", "AB-"),
+        ("O+", "O+"),
+        ("O-", "O-")
+    ], widget=forms.Select(attrs={'class': 'form-select'}))
+    
+    rhesus_factor = forms.ChoiceField(label="Blood Rhesus Factor", choices=[
+        ("+", "Positive(+)"),
+        ("-", "Negative(-)")
+    ], widget=forms.Select(attrs={'class': 'form-select'}))
+    
+    syphilis_sero_status = forms.ChoiceField(label="Syphilis Sero Status", choices=[
+        ("Positive", "Positive(+)"),
+        ("Negative", "Negative(-)")
+    ], widget=forms.Select(attrs={'class': 'form-select'}))
+    
+    blood_count = forms.CharField(label="Blood Count", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    
+    protenuria = forms.ChoiceField(label="Protenuria", choices=[
+        ("Positive", "Positive(+)"),
+        ("Negative", "Negative(-)")
+    ], widget=forms.Select(attrs={'class': 'form-select'}))
+    
+    other_tests = forms.CharField(label="Other Tests", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = SpecialLaboratoryTests
+        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
+
+class ObservationMotherFirstVisitForm(forms.ModelForm):
+
+    class Meta:
+        model = MotherFirstVisit
+        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
+
+    widgets = {
+            'age_below_20': forms.TextInput(attrs={'class': 'form-check-input '}),
+            'ten_years_or_molre_older': forms.TextInput(attrs={'class': 'form-control'}),
+            
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
+
+
+class PreviousPregnanciesInformationForm(forms.ModelForm):
+
+    class Meta:
+        model = PreviousPregnancyInformation
+        #fields = '__all__'
+        exclude = ['created_at', 'updated_at']
+        widgets = {
+            'pregnancy_count': forms.TextInput(attrs={'class': 'form-control'}),
+            'birth_count': forms.TextInput(attrs={'class': 'form-control'}),
+            'children_alive': forms.TextInput(attrs={'class': 'form-control'}),
+            'bad_pregnancies': forms.TextInput(attrs={'class': 'form-control'}),
+            'destructed_pregnancies_count': forms.TextInput(attrs={'class': 'form-control'}),
+            'year_of_occurance': forms.TextInput(attrs={'class': 'form-control'}),
+            'age_of_pregnancy': forms.TextInput(attrs={'class': 'form-control'}),
+            'destruction_cause': forms.TextInput(attrs={'class': 'form-control'}),
+            # Add more fields here if needed
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        
+        # Clean each field individually
+        pregnancy_count = cleaned_data.get('pregnancy_count')
+        birth_count = cleaned_data.get('birth_count')
+        children_alive = cleaned_data.get('children_alive')
+        bad_pregnancies = cleaned_data.get('bad_pregnancies')
+        destructed_pregnancy_count = cleaned_data.get('destructed_pregnancy_count')
+        year_of_occurance = cleaned_data.get('year_of_occurance')
+        pregnancy_age = cleaned_data.get('pregnancy_age')
+        destruction_cause = cleaned_data.get('destruction_cause')
+
+        # Perform specific validations or cleaning for each field
+        
+        # Return the cleaned data
+        return cleaned_data
+
+#function to load user details from nida database
+
+# def retrieve_user(request):
+#     if request.method == 'POST':
+#         form = PatientRegistrationForm(request.POST)
+#         national_id = request.POST.get('nida_no')
+#         user_detail = load_user(national_id=national_id, json = True )
+#         print(user_detail)
+        
+
+#         context = {
+#             'user_detail': user_detail
+#         }
+#         return render(request, 'regs/hospitaldash_registerpatient.html', context)
+#     else:
+#         return render(request, 'regs/hospitaldash_registerpatient.html')
+
+
+# retrieve user from api
+# def retrieve_user(request):
+#     if request.method == 'POST':
+#         file_path = 'staticfiles/citizens/citizen.json'  # Provide the correct file path
+#         national_id = request.POST.get('nida_no')
+#         user_detail = get_user_data(file_path, national_id)
+
+#         if user_detail is not None:
+#             form = PatientRegistrationForm(initial=user_detail)
+#             context = {
+#                 'user_detail': user_detail,
+#                 'form': form,
+#             }
+#             return render(request, 'regs/hospitaldash_registerpatient.html', context)
+
+#         return JsonResponse({'error': 'User not found.'}, status=404)
+#     else:
+#         return render(request, 'regs/hospitaldash_registerpatient.html')
+
+
+
+form like table
+
+<table>
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient_information in patient_informations %}
+            <tr>
+                <td>User</td>
+                <td>{{ patient_information.user }}</td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td>{{ patient_information.first_name }}</td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td>{{ patient_information.last_name }}</td>
+            </tr>
+            <tr>
+                <td>Date of Birth</td>
+                <td>{{ patient_information.date_of_birth }}</td>
+            </tr>
+            <tr>
+                <td>Phone Number</td>
+                <td>{{ patient_information.phone_number }}</td>
+            </tr>
+            <tr>
+                <td>National ID</td>
+                <td>{{ patient_information.national_id }}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{ patient_information.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>

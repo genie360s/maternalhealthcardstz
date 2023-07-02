@@ -7,7 +7,7 @@ from accounts.models import Researcher , Hospital, Regulator
 #  models here.
 
 
-class Pregnancy(models.Model):
+class PreviousPregnancyInformation(models.Model):
 
     card_no = models.AutoField(primary_key=True)
     pregnancy_count = models.PositiveIntegerField()
@@ -22,10 +22,11 @@ class Pregnancy(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.card_no)
+        return f"Patient Card {self.card_no}"
+
 
     
-class PreviousPregnancyInfo(models.Model):
+class MotherFirstVisit(models.Model):
     age_below_20 = models.BooleanField()
     ten_years_or_more_since_last_birth = models.BooleanField()
     c_section_operation = models.BooleanField()
@@ -46,12 +47,19 @@ class PreviousPregnancyInfo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class Patient(models.Model):
+    def __str__(self):
+        return f"Mother First Visit {self.id}"
+
+class SpecialLaboratoryTests(models.Model):
     BLOOD_GROUP_CHOICES = (
-        ('a', 'a'),
-        ('b', 'b'),
-        ('ab', 'ab'),
-        ('o', 'o'),
+        ("A+", "A+"),
+        ("A-", "A-"),
+        ("B+", "B+"),
+        ("B-", "B-"),
+        ("AB+", "AB+"),
+        ("AB-", "AB-"),
+        ("O+", "O+"),
+        ("O-", "O-"),
     )
 
     BLOOD_RHESUS_CHOICES = (
@@ -64,22 +72,23 @@ class Patient(models.Model):
         ('negative', 'negative'),
     )
 
-    blood_group = models.CharField(max_length=2, choices=BLOOD_GROUP_CHOICES)
+    labtest_id = models.BigAutoField(primary_key=True)
+    blood_group = models.CharField(max_length=3, choices=BLOOD_GROUP_CHOICES)
     blood_rhesus_factor = models.CharField(max_length=1, choices=BLOOD_RHESUS_CHOICES)
     syphilis_sero_status = models.CharField(max_length=10, choices=SYPHILIS_SERO_CHOICES)
-    blood_count = models.TextField()
-    proteinuria = models.TextField()
-    other_tests = models.TextField()
+    blood_count = models.CharField()
+    proteinuria = models.CharField()
+    other_tests = models.CharField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.blood_group} {self.blood_rhesus_factor}"
+        return f" lab test {self.labtest_id}"
     
     
 
 class ClinicalAttendance(models.Model):
-    WEIGHT_CHOICES = [(i, f"{i} Kg") for i in range(1, 500)]  # Choices for weight (1 to 100 Kg)
+    
     BLOOD_PRESSURE_PATTERN = r'^\d+/\d+$'  # Regular expression pattern for blood pressure validation
     ALBUMIN_CHOICES = [
         ('+', '+'),  # Albumin In Urine positive
@@ -90,13 +99,15 @@ class ClinicalAttendance(models.Model):
         ('No', 'No'),
     ]
     TT_CHOICES = [
+        ('0', 'Not Yet'),
         ('tt1', 'TT1'),
         ('tt2', 'TT2'),
         ('tt3', 'TT3'),
         ('tt4', 'TT4'),
+        ('tt5', 'TT5'),
     ]
 
-    weight = models.PositiveIntegerField(choices=WEIGHT_CHOICES, verbose_name="Weight (Kg)")
+    weight = models.PositiveIntegerField(verbose_name="Weight (Kg)")
     blood_pressure = models.CharField(max_length=10, verbose_name="Blood Pressure",
                                       help_text="Format: Systolic/Diastolic (e.g., 120/80)",
                                       validators=[RegexValidator(regex=BLOOD_PRESSURE_PATTERN)])
@@ -118,6 +129,9 @@ class ClinicalAttendance(models.Model):
     tetanus_vaccine = models.CharField(max_length=4, choices=TT_CHOICES, verbose_name="Tetanus Vaccine")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.created_at} {self.updated_at} attendance record"
 
 class MotherChildTransmission(models.Model):
     PMTCT_ART_CHOICES = [
@@ -160,9 +174,12 @@ class MotherChildTransmission(models.Model):
     mc_personnel_position = models.CharField(max_length=100, verbose_name="Position of the MC Personnel")
     comment_on_situation = models.CharField(max_length=15, choices=COMMENT_CHOICES,
                                             verbose_name="Comment on the Situation")
-    mc_personnel_sign = models.ImageField(upload_to='mc_personnel_sign/', verbose_name="Sign of the MC Personnel")
+    mc_personnel_sign = models.CharField(max_length=100, verbose_name="Sign of the MC Personnel")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.created_at} mother child transmission record"
 
 # delivery pain tables
 

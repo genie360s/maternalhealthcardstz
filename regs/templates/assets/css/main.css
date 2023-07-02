@@ -118,18 +118,3 @@ body {
 
  
 
-/* form error styling */
-.error-message {
-  color: red;
-  font-weight: normal;
-  margin-top: 10px;
-}
-.error-message ul {
-  list-style-type: none;
-  padding-left: 10px;
-
-}
-.error-message li {
-  margin-bottom: 5px;
-
-}
