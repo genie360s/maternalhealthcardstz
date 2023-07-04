@@ -37,7 +37,7 @@
 <!-- form starts here -->
 <div class="container w-50 mt-5 mx-auto ">
     <div>
-        <p class="display-6 text-center"> Register as a Regulator </p>
+        <p class="display-6 text-center fw-bold "> Register as a Regulator </p>
     </div>
     <form action="{% url 'accounts:register_regulator' %}" method="POST">
         {% csrf_token %}

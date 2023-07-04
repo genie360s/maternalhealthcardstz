@@ -38,7 +38,7 @@
 <!-- form starts here -->
 <div class="container w-50 mt-5 mx-auto ">
     <div>
-        <p class="display-6 text-center">Register as a Researcher</p>
+        <p class="display-6 text-center fw-bold">Register as a Researcher</p>
     </div>
     <form action="{% url 'accounts:register_researcher' %}" method="POST" class=" row" autocomplete="off">
         {% csrf_token %}

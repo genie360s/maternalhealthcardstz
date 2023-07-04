@@ -25,6 +25,41 @@ class HospitalRegistrationForm(UserCreationForm):
         ('religious hospital', 'Religious'),
         ('government hospital', 'Government'),
     ]
+
+    regions = [
+    'Arusha',
+    'Dar es Salaam Region',
+    'Dodoma',
+    'Geita',
+    'Iringa',
+    'Kagera',
+    'Kaskazini Pemba',
+    'Kaskazini Unguja',
+    'Katavi',
+    'Kigoma',
+    'Kilimanjaro',
+    'Kusini Pemba',
+    'Kusini Unguja',
+    'Lindi',
+    'Manyara',
+    'Mara',
+    'Mbeya',
+    'Mjini Magharibi',
+    'Morogoro',
+    'Mtwara Region',
+    'Mwanza',
+    'Njombe',
+    'Pwani Region',
+    'Rukwa',
+    'Ruvuma',
+    'Shinyanga',
+    'Simiyu',
+    'Singida',
+    'Tabora',
+    'Tanga'
+    ]
+
+    REGION_CHOICES = [(region.lower().replace(' ', '_'), region) for region in regions]
     
     hospital_name = forms.CharField(
         label='Hospital Name',
@@ -48,9 +83,10 @@ class HospitalRegistrationForm(UserCreationForm):
         choices=AFFILIATION_CHOICES,
         widget=forms.Select(attrs={'class': 'form-select'})
     )
-    region = forms.CharField(
+    region = forms.ChoiceField(
         label='Region',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'required': True})
+        choices=REGION_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-select', 'required': True})
     )
     district = forms.CharField(
         label='District',
@@ -60,7 +96,7 @@ class HospitalRegistrationForm(UserCreationForm):
         label='Ward',
         widget=forms.TextInput(attrs={'class': 'form-control', 'required': True})
     )
-    user_type = forms.ChoiceField(label='Register As', choices=User.USER_TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    user_type = forms.ChoiceField(label='Register As', choices=User.USER_TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-control form-select'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     
@@ -84,7 +120,7 @@ class ResearcherRegistrationForm(UserCreationForm):
     agree_terms = forms.BooleanField(label="Agree to terms and conditions", widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'id' : 'flexCheckChecked','value': 'True'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    user_type = forms.ChoiceField(label='Register As', choices=User.USER_TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    user_type = forms.ChoiceField(label='Register As', choices=User.USER_TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-select'}))
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -95,7 +131,7 @@ class ResearcherRegistrationForm(UserCreationForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'national_id': forms.TextInput(attrs={'class': 'form-control'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'user_type': forms.Select(attrs={'class': 'form-control'}),
+            'user_type': forms.Select(attrs={'class': 'form-select'}),
             
         }
 
@@ -130,7 +166,7 @@ class RegulatorRegistrationForm(UserCreationForm):
     last_name = forms.CharField(label="Last Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
     phone_number = forms.CharField(label="Phone Number", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
     regulator_position = forms.CharField(label="Regulator Position", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
-    user_type = forms.ChoiceField(label='Register As', choices=User.USER_TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    user_type = forms.ChoiceField(label='Register As', choices=User.USER_TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-select'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm ', widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'confirm password'}))
 

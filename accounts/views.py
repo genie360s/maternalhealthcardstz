@@ -290,23 +290,23 @@ def password_reset(request):
     return render(request, "accounts/password_reset.html", {"form": form})
 
 
+
+
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     form_class = CustomSetPasswordForm
     template_name = "accounts/password_set.html"
     success_url = "accounts:password_changed"
 
-    def get(self, request, *args, **kwargs):
-        self.uidb64 = kwargs["uidb64"]
-        self.token = kwargs["token"]
-        return super().get(request, *args, **kwargs)
+    def form_valid(self, form):
+        uidb64 = self.kwargs["uidb64"]
+        token = self.kwargs["token"]
+        uid = urlsafe_base64_decode(uidb64).decode()
+        messages.success(self.request, "Your password has been updated.")
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["uidb64"] = self.uidb64
-        context["token"] = self.token
+        context["uidb64"] = self.kwargs["uidb64"]
+        context["token"] = self.kwargs["token"]
+        context["form"] = self.get_form()
         return context
-
-    def form_valid(self, form):
-        uid = urlsafe_base64_decode(self.kwargs["uidb64"]).decode()
-        messages.success(self.request, "Your password has been updated.")
-        return super().form_valid(form)

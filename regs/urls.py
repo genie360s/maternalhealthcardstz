@@ -31,7 +31,7 @@ urlpatterns = [
     path("hospitaldash_delivery", views.hospitaldash_delivery, name="hospitaldash_delivery"),
     path("hospitaldash_medicaldata", views.hospitaldash_medicaldata, name="hospitaldash_medicaldata"),
     # retrieve views
-    path("mothercard", views.retrieve_previous_pregancy_information, name="mothercard"),
+    path("mothercard", views.retrieve_mothers_card_information, name="mothercard"),
     path("view_patients", views.retrieve_patients_in_the_hospital, name="view_patients"),
 
 ]

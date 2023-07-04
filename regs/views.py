@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, JsonResponse
 # nida module
+import pickle
 from nida import load_user
 from django.contrib.auth.decorators import login_required
 from accounts.forms import PatientRegistrationForm
@@ -113,12 +114,12 @@ def hospitaldash_medicaldata(request):
 
 # retrieval of data
 
-def retrieve_previous_pregancy_information(request):
-    pregancy_information = PreviousPregnancyInformation.objects.all()
-    
-
+def retrieve_mothers_card_information(request):
+    mother = Patient.objects.select_related('pregnancy_info','mother_visit','lab_tests','clinical_attendance','mc_transmission').get(id=1)
+    #mother = Patient.objects.get(id=1)
+    print(mother.pregnancy_info)
     context = {
-        'pregancy_information': pregancy_information
+        'mother': mother
 
     }
 
@@ -133,3 +134,27 @@ def retrieve_patients_in_the_hospital(request):
     }
 
     return render(request, 'regs/patients_database_view.html', context)
+
+# preclampsia prediction 
+def preclampsia_prediction(request):
+    if request.method == 'POST':
+        # Get the input data from the form submission
+        feature1 = request.POST.get('feature1')
+        feature2 = request.POST.get('feature2')
+        # ... retrieve other input features
+
+        # Load the trained model
+        with open('random_forest_model.pkl', 'rb') as f:
+            model = pickle.load(f)
+
+        # Prepare the input data for prediction
+        input_data = [[feature1, feature2, ...]]  # Create a 2D array with the input features
+
+        # Make predictions using the loaded model
+        predictions = model.predict(input_data)
+
+        # Pass the predictions to the template for display
+        context = {'predictions': predictions}
+        return render(request, 'prediction/result.html', context)
+
+    return render(request, 'prediction/predict.html')    

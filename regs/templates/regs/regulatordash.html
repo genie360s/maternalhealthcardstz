@@ -53,7 +53,7 @@
                         <div class="accordion-body">
                             <ul class="dash-drop w-100 container-fluid">
                                 <li class=" py-1"><a class="link-dash " style="text-decoration: none; "
-                                        href="{% url 'regs:regulatordash' %}"><button type="button"
+                                        href="{% url 'regs:regulator_dashboard' %}"><button type="button"
                                             class="w-100 btn btn-secondary" style="opacity: 0.7;">Home
                                             Page</button></a></li>
                             </ul>
@@ -209,27 +209,26 @@
     <!-- sidebar ends here -->
     <!-- contentbar starts here -->
     <!-- nav bar starts here -->
-    <ul class="nav justify-content-end " style="background-color:#304969 ;">
-
-        <li class="nav-item">
-            <div class="dropdown">
+    <div class="position-relative " style="background-color:#304969 ; height:5vh;">
+        <div class=" position-absolute py-2 " style="left:21.5vw;">
+            <p class="text-light"> <i class="bi bi-person px-1"></i> {{request.session.username}} </p>
+        </div>
+        <div class="position-absolute" style="right:4.5vw">
+            <div class="dropdown py-1">
                 <a class="btn btn-secondary bg-light text-dark dropdown-toggle" href="#" role="button"
                     id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                     Log Out
                 </a>
-
-                <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-                    <li><a class="nav-link fs- text-bold" href="{% url 'regs:home' %}"
+                <div class="dropdown-menu position-absolute" aria-labelledby="logout dropdown">
+                    <div>
+                        <a class="nav-link fs- text-bold" href="{% url 'accounts:logout' %}"
                             style="text-decoration: none; color:rgb(219, 45, 45)"><i class="bi bi-box-arrow-right"></i>
-                            &nbsp; Log
-                            Out </a></li>
-                </ul>
+                            &nbsp; Log Out </a>
+                    </div>
+                </div>
             </div>
-        </li>
-
-
-
-    </ul>
+        </div>
+    </div>
     <!-- nav bar ends here -->
 
     <!-- main content starts here -->
@@ -309,9 +308,9 @@
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>Mothers with protenuria</td>
+                            <td>Effects of protenuria in preclampsisa.</td>
+                            <td>21//05/2023</td>
                             <td>
                                 <form action="" method="get">
                                     <select name="" id="approval-select" class="form-select text-center"
@@ -336,20 +335,7 @@
                                 </script>
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
+                       
                     </tbody>
                 </table>
             </div>
@@ -386,21 +372,21 @@
                 <tbody>
                     <tr>
                         <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>Effects of protenuria in preclampsisa.</td>
+                        <td>Jacob Malimali</td>
+                        <td>21/05/2023</td>
                     </tr>
                     <tr>
                         <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
+                        <td>Birth defects in malnutritioned mothers</td>
+                        <td>Jacob Malimali</td>
+                        <td>21/05/2023</td>
                     </tr>
                     <tr>
                         <th scope="row">3</th>
-                        <td>Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
+                        <td>Impact of late Oedema Diagnosis</td>
+                        <td>Thornton Asikuji</td>
+                        <td>21/05/2023</td>
                     </tr>
                 </tbody>
             </table>

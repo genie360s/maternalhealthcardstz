@@ -1665,3 +1665,28 @@ forms to record medical data
             </div>
         </div>
         <!-- form five ends here --> 
+
+
+
+from django.contrib.auth.views import PasswordResetConfirmView
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.http import urlsafe_base64_decode
+from django.contrib import messages
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    form_class = CustomSetPasswordForm
+    template_name = "accounts/password_set.html"
+    success_url = "accounts:password_changed"
+
+    def form_valid(self, form):
+        uidb64 = self.kwargs["uidb64"]
+        token = self.kwargs["token"]
+        uid = urlsafe_base64_decode(uidb64).decode()
+        messages.success(self.request, "Your password has been updated.")
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["uidb64"] = self.kwargs["uidb64"]
+        context["token"] = self.kwargs["token"]
+        return context

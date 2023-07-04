@@ -1,35 +1,817 @@
 {% extends 'regs/hospitaldash.html' %}
 {% block hospital_layout %}
 <div class="container px-4 py-5">
-    <table class="table table-striped" aria-label="mother-card-view">
-        <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">pregnancy</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-      </table>
 
+    <!-- form two starts here -->
+    <div class="container mx-auto position-relative" style="top:10vh;">
+        <div class="container">
+            <div>
+                <p class="display-6 text-center fw-bold ">Previous pregnancies information</p>
+            </div>
+            <form action="" method="get" class="py-5">
+                <div class="row">
+                   
+                    <div class="col">
+                        
+                        <label for="clinic_name" class="col-sm-10 col-form-label">Pregnancy Count</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="pregnancy_count" value="{{ mother.pregnancy_info.pregnancy_count }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <label for="Street /Village" class="col-sm-10 col-form-label">Birth Count</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="street_name" value="{{ mother.pregnancy_info.birth_count }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Street Chairperson" class="col-sm-10 col-form-label">Children Alive </label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="street_chairperson" value="{{ mother.pregnancy_info.children_alive }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Number of Bad Pregnancy" class="col-sm-10 col-form-label">Bad
+                            Pregnancies</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="mother_reg_no"  value="{{ mother.pregnancy_info.bad_pregnancies }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="Destructed Pregnancy Number" class="col-sm-12 col-form-label">Destructed
+                            Pregnancies
+                            Count</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="destructed_pregnancy_count"
+                                    value="{{ mother.pregnancy_info.destructed_pregnancies_count  }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Year Of Occurance" class="col-sm-10 col-form-label">Year of
+                            Occurance</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="year_of_occurance" value="{{ mother.pregnancy_info.year_of_occurance }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Age Of Pregnancy" class="col-sm-10 col-form-label">Age of Pregnancy</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="pregnancy_age"  value="{{ mother.pregnancy_info.age_of_pregnancy }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Destruction Cause" class="col-sm-10 col-form-label">Destruction
+                            Cause</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="destruction_cause" value=" {{ mother.pregnancy_info.destruction_cause }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+               
+            </form>
+        </div>
+    </div>
+    <!-- form two ends here -->
+
+    <!-- form three starts here -->
+    <div class="container mx-auto position-relative" style="top:10vh;">
+        <div class="container">
+            <div>
+                <p class="display-6 text-center fw-bold ">Observation aspects first mother visit</p>
+            </div>
+            <form action="" method="get" class="py-5">
+                <div class="row">
+                    <div class="col">
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="age below 20" class="col-sm-10 col-form-label">Age below 20
+                                    years</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="agebelow20"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="10 years or more since last birth" class="col-sm-10 col-form-label">
+                                    10
+                                    years or more since last birth</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="True" id="ten_years_or_more"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="Operation by C-section" class="col-sm-10 col-form-label">Operation
+                                    by
+                                    C-section</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="operation_by_csection"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="Delivering a dead child(WK1)" class="col-sm-10 col-form-label">
+                                    Still birth
+                                </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="still_birth"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="5th pregnancy or more " class="col-sm-10 col-form-label"> 5
+                                    <sup>th</sup>
+                                    pregnancy or more </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="5thpregnancy_o_more"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="Height below 150 cm  " class="col-sm-10 col-form-label"> Height
+                                    below 150 cm
+                                </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="height_below_150_cm"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="Delivering by C-Section / Vacuum " class="col-sm-10 col-form-label">
+                                    Delivering by C-Section / Vacuum </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="delivering_by_c_section"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="Back rectum blockage" class="col-sm-10 col-form-label"> Back rectum
+                                    blockage
+                                </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="back_rectum_blockage"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="Pregnancy Age Above 40" class="col-sm-10 col-form-label"> Pregnancy
+                                    Age Above 40
+                                </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="pregnancy_age_above_40"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="2 or more destructed pregnancies" class="col-sm-10 col-form-label">2
+                                    or more
+                                    destructed pregnancies</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="2_o_more_d_pregnancies"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="10 years or more since last birth" class="col-sm-10 col-form-label">
+                                    Heart
+                                    Disease</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="ten_years_or_more"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="Diabetes" class="col-sm-10 col-form-label">Diabetes</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="operation_by_csection"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="Tuberculosis" class="col-sm-10 col-form-label"> Tuberculosis
+                                </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="still_birth"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="First Pregnancy Above 35 " class="col-sm-10 col-form-label"> First
+                                    pregnancy
+                                    above 35 </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="first_pregnancy_aove_35"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for="Waist Disability " class="col-sm-10 col-form-label"> Waist
+                                    disability
+                                </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="wait_disability"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for=" Excess bleeding after delivery" class="col-sm-10 col-form-label">
+                                    Excess
+                                    bleeding after delivery </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value=""
+                                    id="excess_bleeding_after_delivery" style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for=" Has Twins" class="col-sm-10 col-form-label"> Mother Has Twins
+                                </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value="" id="has_twins"
+                                    style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-10 " style="padding-left: 50px;">
+                                <label for=" Height Ratio to Pregnancy Size" class="col-sm-10 col-form-label"> Pregancy
+                                    Size not proportionate to Height
+                                </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input  " type="checkbox" value=""
+                                    id="pregnancy_height_proportion" style="height:25px;width: 25px; ">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- form three ends here -->
+
+    <!-- form four starts here -->
+    <div class="container mx-auto position-relative" style="top:10vh;">
+        <div class="container">
+            <div>
+                <p class="display-6 fw-bold text-center">Special laboratory tests.</p>
+            </div>
+            <form action="" method="get" class="py-5">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label for="Blood Group Type" class="col-sm-10 col-form-label">Blood Group Type</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select" name="blood_group">
+                                    <option value="A+" id="blood-group-a-positive">A+</option>
+                                    <option value="A-" id="blood-group-a-negative">A-</option>
+                                    <option value="B+" id="blood-group-b-positive">B+</option>
+                                    <option value="B-" id="blood-group-b-negative">B-</option>
+                                    <option value="AB+" id="blood-group-ab-positive">AB+</option>
+                                    <option value="AB-" id="blood-group-ab-negative">AB-</option>
+                                    <option value="O+" id="blood-group-o-positive">O+</option>
+                                    <option value="O-" id="blood-group-o-negative">O-</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="Blood Rhesus Factor" class="col-sm-10 col-form-label">Blood Rhesus
+                            Factor</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select" name="rhesus_factor">
+                                    <option value="+" id="rhesus-factor-positive">Positive(+)</option>
+                                    <option value="-" id="rhesus-factor-negative">Negative(-)</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="Street Chairperson" class="col-sm-10 col-form-label">Syphilis Sero Status
+                        </label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select name="syphilis_sero_status" class="form-select">
+                                    <option value="Positive" id="syphilis-positive">Positive(+)</option>
+                                    <option value="Negative" id="syphilis-negative">Negative(-)</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="Blood Count" class="col-sm-10 col-form-label">Blood Count</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="blood_count" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 ">
+                        <label for="protenuria" class="col-sm-10 col-form-label">Protenuria</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10 w-100">
+                                <input type="text" required class="form-control" id="protenuria" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 ">
+                        <label for="Other Tests" class="col-sm-10 col-form-label">Other Tests</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10 w-100">
+                                <input type="text" required class="form-control" id="other_tests" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    <!-- form four ends here -->
+
+    <!-- form five starts here -->
+    <div class="container mx-auto position-relative" style="top:10vh;">
+        <div class="container">
+            <div>
+                <p class="display-6 text-center fw-bold ">Clinical attendance records</p>
+            </div>
+            <form action="" method="get" class="py-5">
+                <!-- row-2 -->
+                <div class="row">
+                    <div class="col">
+                        <label for="Weight" class="col-sm-10 col-form-label">Weight (Kg)</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="weight_kg" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Blood Pressure" class="col-sm-10 col-form-label">Blood Pressure</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="blood_pressure" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Albumin In Urine" class="col-sm-10 col-form-label">Albumin In Urine
+                            (+)</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="albumin_in_urine" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Blood" class="col-sm-10 col-form-label">Blood/ Hb (8.5gm/d)</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="blood_hb" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row-2 -->
+                <div class="row">
+                    <div class="col">
+                        <label for="Age Pregnancy Per Week" class="col-sm-10 col-form-label">Age Pregnancy Per
+                            Week</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="age_pregnancy_per_week"
+                                    placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Height Per Week" class="col-sm-10 col-form-label">Height Per Week</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="height_per_week" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Child's Womb Position" class="col-sm-10 col-form-label">Child's Womb
+                            Position</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select">
+                                    <option id="vertex" value="Vertex">Vertex or Head Down Position</option>
+                                    <option id="breech" value="Breech">Breech Position</option>
+                                    <option id="transverse" value="Transverse">Transverse Position</option>
+                                    <option id="posterior" value="Posterior">Posterior Position</option>
+                                    <option id="anterior" value="Anterior">Anterior Position</option>
+                                    <option id="oa" value="Occiput Anterior">Occiput Anterior (OA) Position</option>
+                                    <option id="op" value="Occiput Posterior">Occiput Posterior (OP) Position</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Frontal Part" class="col-sm-10 col-form-label">Frontal Part (36
+                            <sup>th</sup> Week
+                            )</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="frontal_part" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row-3 -->
+                <div class="row">
+                    <div class="col">
+                        <label for="Age Pregnancy Per Week" class="col-sm-12 col-form-label">Child Moves After
+                            20
+                            <sup>th</sup> Week </label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm example">
+                                    <option selected>Choose</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Height Per Week" class="col-sm-12 col-form-label">Child Heart Beat After 20
+                            <sup>th</sup> Wk </label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm example">
+                                    <option selected>Choose</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Child's Womb Position" class="col-sm-12 col-form-label">Swollen Legs
+                            (Oedema)(++)</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="child_wombs_position"
+                                    placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Ferrous Sulphate (2@day)" class="col-sm-12 col-form-label">Ferrous Sulphate
+                            (2@day)</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="frontal part" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row-4 -->
+                <div class="row">
+                    <div class="col">
+                        <label for="Folic Acid each day" class="col-sm-12 col-form-label">Folic Acid
+                            (1@day)</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm example">
+                                    <option selected>Choose</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="MalariaDose(SP)(3pillsfro week-14)"
+                            class="col-sm-12 col-form-label">MalariaDose(SP)(from.wk-14)</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label="MalariaDose">
+                                    <option selected>Choose</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Mebandozole(500 gm start)" class="col-sm-12 col-form-label">Mebandozole(500
+                            gm
+                            start)</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="child_wombs_position"
+                                    placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Frontal Part" class="col-sm-10 col-form-label">Tettanus Vaccine</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm ">
+                                    <option selected>Choose</option>
+                                    <option value="0">Not Yet</option>
+                                    <option value="1">TT1</option>
+                                    <option value="2">TT2</option>
+                                    <option value="3">TT3</option>
+                                    <option value="4">TT4</option>
+                                    <option value="5">TT5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row-5 -->
+                <div class="row">
+                    <p class="fs-2 lean text-center fw-light py-2">Mother Has Been Advised On</p>
+                    <div class="col">
+                        <label for="Age Pregnancy Per Week" class="col-sm-12 col-form-label">Dangerous Signs /
+                            Symptoms</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm">
+                                    <option selected>Choose</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Family Planning" class="col-sm-10 col-form-label">Family Planning</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm example">
+                                    <option selected>Choose</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Delivery Preparation" class="col-sm-12 col-form-label">Delivery
+                            Preparations</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm example">
+                                    <option selected>Choose</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Safe Sex and Condom Usage" class="col-sm-12 col-form-label">Safe Sex and
+                            Condom Usage</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm example">
+                                    <option selected>Choose</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row-6 -->
+                <div class="row">
+                    <p class="fs-2 lean text-center fw-light py-2 fw-bold ">Prevention Of Mother Child Transmission</p>
+                    <div class="col">
+                        <label for="PMTCT / ART (0,-1,2)" class="col-sm-10 col-form-label">PMTCT / ART
+                            (0,-1,2)</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm example">
+                                    <option selected>Choose</option>
+                                    <option value="0">0</option>
+                                    <option value="1">-1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Family Planning" class="col-sm-10 col-form-label">Medicine (ART)</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm ">
+                                    <option selected>Choose</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="CTX Before Diagnosing Level Of Sickness" class="col-sm-12 col-form-label ">CTX
+                            Before Sickness Diagnosis</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm example">
+                                    <option selected>Choose</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Relation with CTC Service" class="col-sm-12 col-form-label">Relation with
+                            CTC Service</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-12">
+                                <select class="form-select form-select" aria-label=".form-select-sm example">
+                                    <option selected>If registered with CTC Card and Date, Then Choose</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row-7 -->
+                <div class="row">
+                    <div class="col">
+                        <label for="Child's Food Diet" class="col-sm-10 col-form-label">Child's Food
+                            Diet</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm example">
+                                    <option selected>Choose</option>
+                                    <option value="0">Mothers' Milk (EBF)</option>
+                                    <option value="1">Alternative Milk (RF)</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Adherence" class="col-sm-10 col-form-label">Adherence</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm ">
+                                    <option selected>Choose</option>
+                                    <option value="1">Good</option>
+                                    <option value="0">Bad</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Date of Attendance" class="col-sm-12 col-form-label ">Date Of
+                            Attendance</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="date" required class="form-control" id="date_of_attendance" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Relation with CTC Service" class="col-sm-10 col-form-label">Returning
+                            Date</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="date" required class="form-control" id="date_of_returning" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row-8 -->
+                <div class="row">
+                    <div class="col">
+                        <label for="Name of the Medical Personnel" class="col-sm-10 col-form-label">Name of the
+                            MC Personnel</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="name_of_mc_personnel"
+                                    placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Adherence" class="col-sm-12 col-form-label">Position Of the MC
+                            Personnel</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm ">
+                                    <option selected>Choose</option>
+                                    <option value="1">Doctor</option>
+                                    <option value="2">Nurse</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Date of Attendance" class="col-sm-12 col-form-label ">Comment on the
+                            Situation</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <select class="form-select form-select" aria-label=".form-select-sm ">
+                                    <option selected>Choose</option>
+                                    <option value="1">Good</option>
+                                    <option value="2">Bad(Critical)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="signature_of_mc_personnel" class="col-sm-12 col-form-label">Sign Of the
+                            MC Personnel</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10">
+                                <input type="text" required class="form-control" id="signature_mcpersonnel"
+                                    placeholder="A.G.Mkwizu">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="hospital_suggestion" class="col-sm-12 col-form-label">Mother is advised to Deliver
+                            at which Hospital</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-12">
+                                <input type="text" required class="form-control" id="signature_mcpersonnel"
+                                    placeholder="Muhimbili Hospital">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary mb-3 w-100 position-relative "
+                        style=" border-radius: 5px ;">Edit Card.</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- form five ends here -->
 </div>
 {% endblock %}

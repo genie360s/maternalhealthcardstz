@@ -2,7 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.core.validators import RegexValidator
 
-from accounts.models import Researcher , Hospital, Regulator
+
+
 
 #  models here.
 
@@ -316,7 +317,7 @@ class ResearchPublication(models.Model):
     description = models.TextField(verbose_name="Short Description")
     medical_field = models.CharField(max_length=100, verbose_name="Medical Field")
     article_file = models.FileField(upload_to="articles/", verbose_name="Upload Article")
-    res_national_id = models.ForeignKey(Researcher, on_delete=models.CASCADE) # foreign key from researcher model
+    res_national_id = models.ForeignKey('accounts.Researcher', on_delete=models.CASCADE) # foreign key from researcher model
 
     def __str__(self):
         return self.titled
@@ -338,7 +339,7 @@ class ResearchDataRequest(models.Model):
     request_date = models.DateField(verbose_name="Date Of Request")
     data_format = models.CharField(max_length=10, choices=DATA_FORMAT_CHOICES, verbose_name="Choose Data Format")
     research_permit = models.FileField(upload_to="research_permits/", verbose_name="Upload Research Permit", help_text="Permit should be in PDF format")
-    res_national_id = models.ForeignKey(Researcher, on_delete=models.CASCADE) # foreign key from researcher model
+    res_national_id = models.ForeignKey('accounts.Researcher', on_delete=models.CASCADE) # foreign key from researcher model
 
     def __str__(self):
         return self.title
