@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm
-from .models import User
+from .models import Hospital, User
 
 # user creation form
 
@@ -144,6 +144,7 @@ class PatientRegistrationForm(UserCreationForm):
     phone_number = forms.CharField(label="Phone Number", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
     email = forms.EmailField(label="Email", max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control', 'required': True}))
     date_of_birth = forms.DateField(label="date of birth", widget=forms.DateInput(attrs={'class': 'form-control', 'required': True,'type': 'date'}))
+    hospital = forms.ModelChoiceField(queryset=Hospital.objects.all(), label="Hospital", widget=forms.Select(attrs={'class': 'form-control form-select'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 

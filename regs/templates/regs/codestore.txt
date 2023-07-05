@@ -1699,3 +1699,180 @@ if request.method == 'POST':
     if form.is_valid():
         form.save()  # Save the form to update the user's information
         # Additional actions or redirect
+
+
+publication form
+
+<div class="col-sm-6">
+                                <label for="Name of Publisher" class="col-sm-10 col-form-label">Name of Authors</label>
+                                <div class="mb-3 row">
+                                    <div class="col-sm-12">
+                                        <input type="text" required class="form-control" id="name_of_authors"
+                                            placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="Date of Publication" class="col-sm-10 col-form-label">Date Of
+                                    Publication</label>
+                                <div class="mb-3 row">
+                                    <div class="col-sm-12">
+                                        <input type="date" required class="form-control" id="publication_date"
+                                            placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- test -->
+                        <div class="row">
+                            <div class="col">
+                                <label for="Research Title" class="col-sm-10 col-form-label">Research Title</label>
+                                <div class="mb-3">
+                                    <div class="col-sm-12">
+                                        <input type="text" required class="form-control" id="research_title"
+                                            placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="Short Description" class="col-sm-10 col-form-label">Short Description</label>
+                                <div class="mb-3">
+                                    <div class="col-sm-12">
+                                        <input type="text" required class="form-control" id="publication_description"
+                                            placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="Medical Field" class="col-sm-10 col-form-label">Medical Field</label>
+                                <div class="mb-3">
+                                    <div class="col-sm-12">
+                                        <input type="text" required class="form-control" id="medical_field"
+                                            placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="Upload " class="col-sm-10 col-form-label">Upload Article</label>
+                                <div class="mb-3">
+                                    <div class="col-sm-12">
+                                        <input type="file" required class="form-control" id="publication_file"
+                                            placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container py-5 col px-4">
+    <div class="row px-3">
+        <table class="table table-responsive table-lg table-bordered bg-light caption-top " aria-label="some"
+            style="border-radius: 15px;" style="width:85vw;">
+            <caption>Published Research Papers</caption>
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col"># (S/NO)</th>
+                    <th scope="col">Research Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Medical Field</th>
+                    <th scope="col">Authors</th>
+                    <th scope="col">Date Published</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry the Bird</td>
+                    <td>@twitter</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row px-5 py-2 position-relative" style="right:1vw;">
+        <button type="button" class="btn btn-primary position-absolute  w-25 end-0 " data-bs-toggle="modal"
+            data-bs-target="#publish_modal">Publish a New Research</button>
+    </div>
+
+    <!-- modal to publish starts -->
+    <!-- Modal -->
+    <div class="modal fade " id="publish_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Publish A New Research</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'regs:researchdashpublications' %}" method="POST"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class=" row ">
+                            <!-- publication form starts -->
+
+                            {% for field in form %}
+                            <!-- error-handling starts -->
+                            {% if field.errors %}
+                            <div class="col-sm-12 alert alert-danger" role="alert">
+                                <strong class="px-3">{{ field.label }}</strong>
+                                {% for error in field.errors %}
+                                <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <!-- error handling ends -->
+                            <div class="col-sm-6">
+                                <label for="{{form.label}}" class="col-sm-10 col-form-label">{{field.label}}</label>
+                                <div class="mb-3 row">
+                                    <div class="col-sm-12">
+                                        {{field}}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                            <!-- ends -->
+                            <!-- submit button -->
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary mb-3 w-100 position-relative "
+                                        style=" border-radius: 5px ;">Publish New Research</button>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+        <!-- end -->
+    </div>
+</div>

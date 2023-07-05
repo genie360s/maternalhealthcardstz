@@ -2,297 +2,203 @@
 
 
 {% block researchlayout %}
-<div class="container py-5 col px-4">
-    <div class="row px-3">
-        <table class="table table-responsive table-lg table-bordered bg-light caption-top " aria-label="some"
-            style="border-radius: 15px;" style="width:85vw;">
-            <caption>Published Research Papers</caption>
-            <thead class="table-primary">
-                <tr>
-                    <th scope="col"># (S/NO)</th>
-                    <th scope="col">Research Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Medical Field</th>
-                    <th scope="col">Authors</th>
-                    <th scope="col">Date Published</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row px-5 py-2 position-relative" style="right:1vw;">
-        <button type="button" class="btn btn-primary position-absolute  w-25 end-0 " data-bs-toggle="modal"
-            data-bs-target="#publish_modal">Publish a New Research</button>
-    </div>
 
-    <!-- modal to add a request starts -->
-    <!-- Modal -->
-    <div class="modal fade " id="publish_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Publish A New Research</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post">
-                        <div class=" row ">
-                            <div class="col">
-                                <label for="Name of Publisher" class="col-sm-10 col-form-label">Name of Authors</label>
-                                <div class="mb-3 row">
-                                    <div class="col-sm-12">
-                                        <input type="text" required class="form-control" id="name_of_authors"
-                                            placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <label for="Date of Publication" class="col-sm-10 col-form-label">Date Of
-                                    Publication</label>
-                                <div class="mb-3 row">
-                                    <div class="col-sm-12">
-                                        <input type="date" required class="form-control" id="publication_date"
-                                            placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="Research Title" class="col-sm-10 col-form-label">Research Title</label>
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <input type="text" required class="form-control" id="research_title"
-                                            placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="Short Description" class="col-sm-10 col-form-label">Short Description</label>
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <input type="text" required class="form-control" id="publication_description"
-                                            placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="Medical Field" class="col-sm-10 col-form-label">Medical Field</label>
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <input type="text" required class="form-control" id="medical_field"
-                                            placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="Upload " class="col-sm-10 col-form-label">Upload Article</label>
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <input type="file" required class="form-control" id="publication_file"
-                                            placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- submit button -->
-                        <div class="row">
-                            <div class="col">
-                                <button type="submit" class="btn btn-primary mb-3 w-100 position-relative "
-                                style=" border-radius: 5px ;">Publish New Research</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-        <!-- modal to add a request ends here -->
-    </div>
-</div>
 <!-- data request full table -->
+
 <div class="container py-5 col px-4">
-    <div class="row px-3">
+    <!-- test -->
+    <div class="row">
+
+        <!-- publication data files -->
         <table class="table table-responsive table-lg table-bordered bg-light caption-top " aria-label="some"
             style="border-radius: 15px;" style="width:85vw;">
-            <caption>Data Requests</caption>
+            <caption>Publications</caption>
             <thead class="table-primary">
                 <tr>
                     <th scope="col"># (S/NO)</th>
-                    <th scope="col">Data Request Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Date Request</th>
-                    <th scope="col">Request Status</th>
-                    <th scope="col">Download Data</th>
+                    <th scope="col">Publication Author</th>
+                    <th scope="col">Publication Title</th>
+                    <th scope="col">Publication Date</th>
+                    <th scope="col">Publication Description</th>
+                    <th scope="col">Field Of Research</th>
+                    <th scope="col">Publication Article</th>
 
                 </tr>
             </thead>
             <tbody>
+                {% for publication in publications %}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{publication.authors}}</td>
+                    <td>{{publication.title}}</td>
+                    <td>{{publication.publication_date}}</td>
+                    <td>{{publication.description}}</td>
+                    <td>{{publication.medical_field}}</td>
+                    <td> <a href="{{publication.article_file}}"><button type="button" class="btn btn-success"> Download
+                            </button></a> </td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
-    </div>
-    <div class="row px-5 py-2 position-relative" style="right:1vw;">
-        <button type="button" class="btn btn-primary position-absolute  w-25 end-0 " data-bs-toggle="modal"
-            data-bs-target="#datarequest">Add Data Request</button>
-    </div>
+        <!-- end -->
+        <!-- submit button -->
+        <div class="row px-5 py-2 position-relative" style="right:0vw;">
+            <button type="button" class="btn btn-primary position-absolute  w-25 end-0 " data-bs-toggle="modal"
+                data-bs-target="#publish_modal">Publish a New Research</button>
+        </div>
+        <!-- end -->
+        <!-- publish new research modal -->
+        <div class="modal fade " id="publish_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Publish A New Research</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'regs:researchdashpublications' %}" method="POST"
+                            enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class=" row ">
+                                <!-- publication form starts -->
 
-    <!-- modal to add a request starts -->
-    <!-- Modal -->
-    <div class="modal fade " id="datarequest" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Add Data Request</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post">
-                        
-                        <div class="row">
-                            <div class="col">
-                                <label for="Data Request Title" class="col-sm-10 col-form-label">Research Title</label>
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <input type="text" required class="form-control" id="research_title"
-                                            placeholder="">
+                                {% for field in research_form %}
+                                <!-- error-handling starts -->
+                                {% if field.errors %}
+                                <div class="col-sm-12 alert alert-danger" role="alert">
+                                    <strong class="px-3">{{ field.label }}</strong>
+                                    {% for error in field.errors %}
+                                    <span class="error">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                <!-- error handling ends -->
+                                <div class="col-sm-6">
+                                    <label for="{{form.label}}" class="col-sm-10 col-form-label">{{field.label}}</label>
+                                    <div class="mb-3 row">
+                                        <div class="col-sm-12">
+                                            {{field}}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="Request Short Description" class="col-sm-10 col-form-label">Short Title Description</label>
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <input type="text" required class="form-control" id="request_description"
-                                            placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="Describe Data Requested" class="col-sm-10 col-form-label">Describe Data Requested <br>
-                                <span class="text-secondary" style="font-size: 12px ;"> Fields / attributes , time of the data , magnitude of the data</span></label>
+                                {% endfor %}
 
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <input type="text" required class="form-control" id="request_description"
-                                            placeholder="">
+                                <!-- ends -->
+                                <!-- submit button -->
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-primary mb-3 w-100 position-relative "
+                                            style=" border-radius: 5px ;" name="research_form_submit">Publish New Research</button>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="Date of Request" class="col-sm-10 col-form-label">Date Of Request</label>
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <input type="date" required class="form-control" id="request_date"
-                                            placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="Choose Data Format" class="col-sm-10 col-form-label">Choose Data Format</label>
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <select  required class="form-select" id="data_format">
-                                            <option selected>Choose Data Format</option>
-                                            <option value="csv">CSV</option>
-                                            <option value="excel">EXCEL</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="Upload Research Permit" class="col-sm-10 col-form-label">Upload Research Permit</label>
-                                <div class="mb-3">
-                                    <div class="col-sm-12">
-                                        <input type="file" required class="form-control" id="research_permit"
-                                            placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- submit button -->
-                        <div class="row">
-                            <div class="col">
-                                <button type="submit" class="btn btn-primary mb-3 w-100 position-relative "
-                                style=" border-radius: 5px ;">Submit New Request</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- modal to add a request ends here -->
+        <!-- end -->
+    </div>
+    <!-- end -->
+</div>
+<div class="container py-5 col px-4">
+    <div class="row">
+   
+            <table class="table table-responsive table-lg table-bordered bg-light caption-top " aria-label="some"
+                style="border-radius: 15px;" style="width:85vw;">
+                <caption>Data Requests</caption>
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col"># (S/NO)</th>
+                        <th scope="col">Data Request Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Data Description</th>
+                        <th scope="col">Request Date</th>
+                        <th scope="col">Download Permit</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- rendering data requests -->
+                    {% for data_request in data_requests %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{data_request.title}}</td>
+                        <td>{{data_request.short_description}}</td>
+                        <td>{{data_request.data_description}}</td>
+                        <td>{{data_request.request_date}}</td>
+                        <td><a href="{{data_request.research_permit}}"><button type="button" class="btn btn-success"> Download
+                        </button></a> </td>
+                    </tr>
+                    {% endfor %}
+                    <!-- end -->
+                    
+                </tbody>
+            </table>
+
+        <div class="row px-5 py-2 position-relative" style="right:0vw;">
+            <button type="button" class="btn btn-primary position-absolute  w-25 end-0 " data-bs-toggle="modal"
+                data-bs-target="#datarequest">Add Data Request</button>
+        </div>
+
+        <!-- modal to add a request starts -->
+        <!-- Modal -->
+        <div class="modal fade " id="datarequest" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Add Data Request</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'regs:researchdashpublications' %}" method="POST"
+                        enctype="multipart/form-data" >
+                            {% csrf_token %}
+                            <!-- data request form test -->
+                            <div class="row">
+                                {% for field in  data_request_form %}
+                                <!-- error-handling starts -->
+                                {% if field.errors %}
+                                <div class="col-sm-12 alert alert-danger" role="alert">
+                                    <strong class="px-3">{{ field.label }}</strong>
+                                    {% for error in field.errors %}
+                                    <span class="error">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                <!-- error handling ends -->
+                                <div class="col-sm-12">
+                                    <label for="{{form.label}}" class="col-sm-10 col-form-label">{{field.label}}</label>
+                                    <div class="mb-3">
+                                        <div class="col">
+                                            {{field}}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <!-- end -->
+                            <!-- submit button -->
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary mb-3 w-100 position-relative "
+                                        style=" border-radius: 5px ;" name="data_request_form_submit">Submit New Request</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+            <!-- modal to add a request ends here -->
+        </div>
     </div>
 </div>
+
 {% endblock %}

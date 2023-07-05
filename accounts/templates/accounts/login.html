@@ -63,12 +63,19 @@
                 
             </div>
             {% endfor%}
+            
             <div class="col-sm-7  py-4 position-relative" style="left: 10vw;">
                 <button type="submit" class="btn btn-primary mb-3 w-100" style=" border-radius: 5px ;">Login</button>
             </div>
 
         </div>
     </form>
+    <div class="row mx-auto py-2 position-relative " style="left:21.5vw;">
+        <div class="col-sm-6">
+            <span class="text-secondary fs-6 px-3">Don't have an account ?</span>
+            <a href="{% url 'accounts:stakeholders'%}" class="text-primary" style="text-decoration: none;"> Register !</a>
+        </div>
+    </div>
 </div>
 
 

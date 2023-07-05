@@ -8,7 +8,7 @@ from django.conf import settings
 
 from django.contrib.auth.models import AbstractUser, User, Group
 
-from regs.models import PreviousPregnancyInformation, MotherFirstVisit, SpecialLaboratoryTests, ClinicalAttendance, MotherChildTransmission
+# from regs.models import PreviousPregnancyInformation, MotherFirstVisit, SpecialLaboratoryTests, ClinicalAttendance, MotherChildTransmission
 
 
 
@@ -99,13 +99,14 @@ class Researcher(models.Model):
 # patient model
 class Patient(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     #foreign keys
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True)
-    pregnancy_info = models.ForeignKey(PreviousPregnancyInformation, on_delete=models.CASCADE, null=True)
-    mother_visit = models.ForeignKey(MotherFirstVisit, on_delete=models.CASCADE, null=True)
-    lab_tests = models.ForeignKey(SpecialLaboratoryTests, on_delete=models.CASCADE, null=True)
-    clinical_attendance = models.ForeignKey(ClinicalAttendance, on_delete=models.CASCADE, null=True)
-    mc_transmission = models.ForeignKey(MotherChildTransmission, on_delete=models.CASCADE, null=True)
+    # hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True)
+    # pregnancy_info = models.ForeignKey(PreviousPregnancyInformation, on_delete=models.CASCADE, null=True)
+    # mother_visit = models.ForeignKey(MotherFirstVisit, on_delete=models.CASCADE, null=True)
+    # lab_tests = models.ForeignKey(SpecialLaboratoryTests, on_delete=models.CASCADE, null=True)
+    # clinical_attendance = models.ForeignKey(ClinicalAttendance, on_delete=models.CASCADE, null=True)
+    # mc_transmission = models.ForeignKey(MotherChildTransmission, on_delete=models.CASCADE, null=True)
 
 
     # additional fields specific to patients

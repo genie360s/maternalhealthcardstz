@@ -1,6 +1,7 @@
 from django import forms
+from accounts.models import Researcher
 
-from regs.models import SpecialLaboratoryTests, ClinicalAttendance, MotherFirstVisit, MotherChildTransmission, PreviousPregnancyInformation
+from regs.models import SpecialLaboratoryTests, ClinicalAttendance, MotherFirstVisit, MotherChildTransmission, PreviousPregnancyInformation, ResearchPublication,ResearchDataRequest
 
 class ClinicalAttendanceForm(forms.ModelForm):   
     weight = forms.CharField(
@@ -271,3 +272,99 @@ class PatientPredictorForm(forms.Form):
     proteinuria = forms.ChoiceField(label='Proteinuria', choices=(('1', 'Yes'), ('0', 'No')), widget=forms.Select(attrs={'class': 'form-select'}))
     family_history = forms.ChoiceField(label='Family History', choices=(('1', 'Yes'), ('0', 'No')), widget=forms.Select(attrs={'class': 'form-select'}))
     history_of_hypertension = forms.ChoiceField(label='History of Hypertension', choices=(('1', 'Yes'), ('0', 'No')), widget=forms.Select(attrs={'class': 'form-select'}))
+
+
+
+
+class ResearchPublicationForm(forms.ModelForm):
+
+    class Meta:
+        model = ResearchPublication
+        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
+
+    publication_no = forms.CharField(
+        label='Publication No',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''})
+    )
+
+    authors = forms.CharField(
+        label='Name of Authors',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''})
+    )
+    publication_date = forms.DateField(
+        label='Date Of Publication',
+        widget=forms.DateInput(attrs={'class': 'form-control', 'placeholder': '', 'type': 'date'})
+    )
+    title = forms.CharField(
+        label='Research Title',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''})
+    )
+    description = forms.CharField(
+        label='Short Description',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''})
+    )
+    medical_field = forms.CharField(
+        label='Medical Field',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''})
+    )
+    article_file = forms.FileField(
+        label='Upload Article',
+        widget=forms.FileInput(attrs={'class': 'form-control'})
+    )
+    res_national_id = forms.ModelChoiceField(
+        queryset=Researcher.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
+    
+
+class DataRequestForm(forms.ModelForm):
+
+    class Meta:
+        model = ResearchDataRequest
+        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
+
+    title = forms.CharField(
+        label="Research Title",
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        required=True
+    )
+    short_description = forms.CharField(
+        label="Short Title Description",
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        required=True
+    )
+    data_description = forms.CharField(
+        label="Describe Data Requested",
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        required=True
+    )
+    request_date = forms.DateField(
+        label="Date Of Request",
+        widget=forms.DateInput(attrs={"class": "form-control", "placeholder": "", "type": "date"}),
+        required=True
+    )
+    data_format = forms.ChoiceField(
+        label="Choose Data Format",
+        widget=forms.Select(attrs={"class": "form-select"}),
+        choices=[("csv", "CSV"), ("excel", "EXCEL")],
+        required=True
+    )
+    research_permit = forms.FileField(
+        label="Upload Research Permit",
+        widget=forms.FileInput(attrs={"class": "form-control", "placeholder": ""}),
+        required=True
+    )
+    res_national_id = forms.ModelChoiceField(
+        queryset=Researcher.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control form-select'})
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data

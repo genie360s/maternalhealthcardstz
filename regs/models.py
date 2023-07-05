@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.core.validators import RegexValidator
 
+from accounts.models import Patient
+
 
 
 
@@ -9,7 +11,7 @@ from django.core.validators import RegexValidator
 
 
 class PreviousPregnancyInformation(models.Model):
-
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     card_no = models.AutoField(primary_key=True)
     pregnancy_count = models.PositiveIntegerField()
     birth_count = models.PositiveIntegerField()
@@ -28,6 +30,7 @@ class PreviousPregnancyInformation(models.Model):
 
     
 class MotherFirstVisit(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     age_below_20 = models.BooleanField()
     ten_years_or_more_since_last_birth = models.BooleanField()
     c_section_operation = models.BooleanField()
@@ -52,6 +55,7 @@ class MotherFirstVisit(models.Model):
         return f"Mother First Visit {self.id}"
 
 class SpecialLaboratoryTests(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     BLOOD_GROUP_CHOICES = (
         ("A+", "A+"),
         ("A-", "A-"),
@@ -108,6 +112,7 @@ class ClinicalAttendance(models.Model):
         ('tt5', 'TT5'),
     ]
 
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     weight = models.PositiveIntegerField(verbose_name="Weight (Kg)")
     blood_pressure = models.CharField(max_length=10, verbose_name="Blood Pressure",
                                       help_text="Format: Systolic/Diastolic (e.g., 120/80)",
@@ -161,6 +166,7 @@ class MotherChildTransmission(models.Model):
         ('Bad (Critical)', 'Bad (Critical)'),
     ]
 
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     pmtct_art = models.IntegerField(choices=PMTCT_ART_CHOICES, verbose_name="PMTCT / ART (0,-1,2)")
     medicine_art = models.CharField(max_length=3, choices=MEDICINE_CHOICES, verbose_name="Medicine (ART)")
     ctx_before_sickness_diagnosis = models.CharField(max_length=3, choices=YES_NO_CHOICES,

@@ -164,6 +164,7 @@ def hospital_registers_patient(request):
                 phone_number=form.cleaned_data["phone_number"],
                 email=form.cleaned_data["email"],
                 date_of_birth=form.cleaned_data["date_of_birth"],
+                hospital=form.cleaned_data["hospital"],
             )          
 
             return redirect("accounts:successful_patient_registered")
@@ -202,8 +203,9 @@ def login_view(request):
                 # request.session['user_type'] = user.user_type
                 request.session["username"] = user.username
                 request.session["user_id"] = user.id
+                national_id = request.user.national_id
                 if user.is_patient:
-                    return redirect("regs:research_dashboard")
+                    return redirect("regs:hospital_dashboard")
                 elif user.is_hospital:
                     return redirect("regs:hospital_dashboard")
                 elif user.is_regulator:

@@ -1,7 +1,8 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, JsonResponse
-from sklearn.ensemble import RandomForestClassifier
+
+# from accounts.models import User
 
 # nida module
 import pickle
@@ -11,8 +12,9 @@ from nida import load_user
 from django.contrib.auth.decorators import login_required
 from accounts.forms import PatientRegistrationForm
 from accounts.views import login_required
-from accounts.models import Patient, User
-from regs.models import PreviousPregnancyInformation
+from accounts.models import Patient, User, Researcher
+from regs.models import PreviousPregnancyInformation , ResearchPublication, ResearchDataRequest
+
 from regs.forms import (
     ClinicalAttendanceForm,
     SpecialLaboratoryTestsForm,
@@ -20,6 +22,8 @@ from regs.forms import (
     PreviousPregnanciesInformationForm,
     MotherChildTransmissionForm,
     PatientPredictorForm,
+    ResearchPublicationForm,
+    DataRequestForm,
 )
 from django.db.models import Q
 
@@ -45,16 +49,56 @@ def dashboard(request):
 def researchdashboard(request):
     return render(request, "regs/researchdash.html")
 
-
+@login_required
 def researchdashpublications(request):
-    return render(request, "regs/researchdash_publications.html")
+    national_id = request.user.national_id
+    researcher = get_object_or_404(Researcher, national_id=national_id)
+    publications = ResearchPublication.objects.filter(res_national_id=researcher)
+    data_requests = ResearchDataRequest.objects.filter(res_national_id=researcher)
+    print(publications)
+    print(data_requests)
+
+    # Rendering instance forms
+    research_form = ResearchPublicationForm()
+    data_request_form = DataRequestForm()
+
+    if request.method == "POST":
+        if "research_form_submit" in request.POST:
+            research_form = ResearchPublicationForm(request.POST, request.FILES)
+            if research_form.is_valid():
+                research_form.instance.res_national_id = researcher
+                print("Research form is valid")
+                research_form.save()
+                return redirect("accounts:successful_registered")
+            else:
+                print(research_form.errors.as_json())
+        
+        elif "data_request_form_submit" in request.POST:
+            data_request_form = DataRequestForm(request.POST, request.FILES)
+            if data_request_form.is_valid():
+                print("Data Request form is valid")
+                data_request_form.save()
+                return redirect("accounts:successful_registered")
+            else:
+                print(data_request_form.errors.as_json())
+
+    context = {
+        "research_form": research_form,
+        "data_request_form": data_request_form,
+        "publications": publications,
+        "data_requests": data_requests,
+    }
+
+    return render(request, "regs/researchdash_publications.html", context)
 
 
+@login_required
 def researchdashprofile(request):
     return render(request, "regs/researchdash_profile.html")
 
 
 # regulator views
+@login_required
 def regulatordash(request):
     return render(request, "regs/regulatordash.html")
 
@@ -161,7 +205,7 @@ def retrieve_mothers_card_information(request):
         "clinical_attendance",
         "mc_transmission",
         "user",
-    ).get(id=1)
+    ).get(id=2)
     # mother = Patient.objects.get(id=1)
     context = {"mother": mother}
 
