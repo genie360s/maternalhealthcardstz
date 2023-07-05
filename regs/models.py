@@ -176,6 +176,7 @@ class MotherChildTransmission(models.Model):
     comment_on_situation = models.CharField(max_length=15, choices=COMMENT_CHOICES,
                                             verbose_name="Comment on the Situation")
     mc_personnel_sign = models.CharField(max_length=100, verbose_name="Sign of the MC Personnel")
+    hospital_advised_to_deliver = models.CharField(max_length=100, verbose_name="Hospital Advised to Deliver", default="Muhimbili National Hospital")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

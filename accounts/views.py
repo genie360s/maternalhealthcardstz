@@ -22,7 +22,9 @@ from django.urls import reverse
 
 from  api.views import get_user_data
 from .models import Hospital, Regulator, Researcher, Patient
+from regs.models import ClinicalAttendance, SpecialLaboratoryTests, MotherFirstVisit, PreviousPregnancyInformation, MotherChildTransmission
 from .forms import LoginForm, CustomPasswordResetForm, CustomSetPasswordForm
+from django.contrib.auth.models import  Group
 
 
 # Create your views here.
@@ -112,6 +114,13 @@ def register_hospital(request):
 
             )
 
+            # Creating a group for the hospital
+            group_name = f"{Hospital.hospital_name}_Group"
+            group = Group.objects.create(name=group_name)
+
+            # Adding the user to the group
+            group.user_set.add(user)
+
             return redirect("accounts:successful_registered")
         else:
             print("form is not valid")
@@ -155,7 +164,8 @@ def hospital_registers_patient(request):
                 phone_number=form.cleaned_data["phone_number"],
                 email=form.cleaned_data["email"],
                 date_of_birth=form.cleaned_data["date_of_birth"],
-            )
+            )          
+
             return redirect("accounts:successful_patient_registered")
         else:
             print('Form is not valid')

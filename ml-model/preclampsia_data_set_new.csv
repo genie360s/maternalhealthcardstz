@@ -1,4 +1,4 @@
-age,bmi,systolic_blood_pressure,diastolic_blood_pressure,proteinuria,history_of_hypertension,family_history_of_preclampsia,preclampsia_diagnosis
+age,bmi,systolic_bp,diastolic_bp,proteinuria,history_of_hypertension,family_history_of_preclampsia,preclampsia_diagnosis
 41,10.43,127,95,1,0,1,1
 36,16.61,185,41,1,1,1,0
 21,26.93,186,68,0,1,0,0

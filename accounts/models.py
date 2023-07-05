@@ -6,7 +6,7 @@ from django.conf import settings
 
 # Create your models here.
 
-from django.contrib.auth.models import AbstractUser, User
+from django.contrib.auth.models import AbstractUser, User, Group
 
 from regs.models import PreviousPregnancyInformation, MotherFirstVisit, SpecialLaboratoryTests, ClinicalAttendance, MotherChildTransmission
 
@@ -54,6 +54,7 @@ class User(AbstractUser):
 # hospital model
 class Hospital(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    group = models.OneToOneField(Group, on_delete=models.CASCADE, default=None)
     #additional fields specific to hospitals
     hospital_name = models.CharField(max_length=100, default="")
     hospital_id = models.CharField(max_length=20, primary_key=True)
@@ -66,8 +67,17 @@ class Hospital(models.Model):
     ward = models.CharField(max_length=50)
     password = models.CharField(max_length=128)
 
+    def save(self, *args, **kwargs):
+        if not self.group_id:
+            # Create a default group for the hospital
+            default_group = Group.objects.create(name=f"{self.hospital_name}_Group")
+            self.group = default_group
+        super().save(*args, **kwargs)
+
+    
+    
     def __str__(self):
-        return self.user.email
+        return f"{self.hospital_name}"
     
 
 # researcher model

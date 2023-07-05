@@ -1690,3 +1690,12 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
         context["uidb64"] = self.kwargs["uidb64"]
         context["token"] = self.kwargs["token"]
         return context
+
+
+# updating form
+
+form = UserUpdateForm(request.POST or None, instance=user)
+if request.method == 'POST':
+    if form.is_valid():
+        form.save()  # Save the form to update the user's information
+        # Additional actions or redirect

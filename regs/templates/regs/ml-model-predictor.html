@@ -1,0 +1,36 @@
+{% extends './hospitaldash.html' %}
+{% block hospital_layout %}
+<div class="container px-3">
+    <!-- ml-interface -->
+    <div class="container mx-auto position-relative" style="top:10vh;">
+        <div class="container mx-auto position-relative" style="left:15vw;">
+            <form action="{% url 'regs:prediction' %}" method="POST">
+                {% csrf_token %}
+                <div class="row px-2 py-3">
+                    {% for field in form %}
+                    <div class="row">
+                        <label for="{{form.label}}" class="col-sm-10 col-form-label">{{field.label}}</label>
+                        <div class="mb-3 row">
+                            <div class="col-sm-6">
+                                {{ field}}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 py-5" style="width:69vw;">
+                        <button type="submit" class="btn btn-primary mb-3 w-50 position-relative "
+                            style=" border-radius: 5px ;">Predict</button>
+                    </div>
+                </div>
+            </form>
+            
+
+        </div>
+    </div>
+    <!-- end -->
+
+</div>
+
+{% endblock %}

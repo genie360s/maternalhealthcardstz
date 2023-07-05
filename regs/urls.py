@@ -33,6 +33,8 @@ urlpatterns = [
     # retrieve views
     path("mothercard", views.retrieve_mothers_card_information, name="mothercard"),
     path("view_patients", views.retrieve_patients_in_the_hospital, name="view_patients"),
+    path("patientsearch", views.search_patients, name="patientsearch"),
+    path("prediction", views.preclampsia_prediction, name="prediction"),
 
 ]
 

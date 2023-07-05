@@ -1,6 +1,45 @@
 {% extends './hospitaldash.html' %}
 {% block hospital_layout %}
 <div class="container px-3">
+    <!-- patient querry -->
+    <div class="container mx-auto position-relative" style="top:10vh;">
+        <div class="container">
+ 
+            <span class="text-secondary px-2 fs-4 fw-bold py-3"> Search Patient</span>
+            
+            <form action="{% url 'regs:patientsearch' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-6 px-3 ">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="search" name="search_patient"  class="form-control" id="search_patient" placeholder="Search patient here ! i.e John Doe !">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 px-2">
+                        <button type="submit" class="btn btn-primary mb-3 w-100 position-relative " style=" border-radius: 5px ;">search patient.</button>
+                    </div>
+                </div>
+            </form>
+            <!-- result -->
+            {% if results %}
+            <div class="row">
+                {% for result in results %}
+                {% for value in result.values %}
+                <div class="col-sm-2 mx-3 px-2 py-2 alert alert-secondary" role="alert">
+                    {{value}}
+                </div>
+                {% endfor %}
+                <!-- <div class="col-sm-6 px-2 py-2"></div> -->
+                {% endfor %}
+            {% else %}
+            <div class="col-sm-6 px-2 py-2 alert alert-danger " role="alert"> No results found</div>
+             {% endif%}   
+            </div>
+            <!-- end -->
+        </div>
+    </div>
+    <!-- ends -->
     <form action="{% url 'regs:hospitaldash_medicaldata' %}" method="POST">
         <!-- previous pregnancy information start -->
         <div class="container mx-auto position-relative" style="top:10vh;">

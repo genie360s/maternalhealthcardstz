@@ -1,0 +1,30 @@
+{% extends './hospitaldash.html' %}
+{% block hospital_layout %}
+<div class="container px-3">
+    <!-- ml-interface -->
+    <div class="container mx-auto position-relative" style="top:10vh;">
+        <div class="container mx-auto position-relative" style="left:15vw;">
+
+            <div class="alert alert-primary col-sm-5" role="alert" style="width:33.3vw;">
+                Patient : {{name}}
+            </div>
+
+            {% if 1 in predictions %}
+
+            <div class="alert alert-danger col-sm-5" role="alert" style="width:33.3vw;">
+                The patient is likely to have preclampsia. Provide necessary care and medication to the patient.
+            </div>
+
+            {% else %}
+            <div class="alert alert-success col-sm-5" role="alert" style="width:33.3vw;">
+                The patient is health not likely to have preclampsia. Provide necessary care and advise to the patient.
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+    <!-- end -->
+
+</div>
+
+{% endblock %}

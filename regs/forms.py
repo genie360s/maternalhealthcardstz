@@ -141,6 +141,7 @@ class ClinicalAttendanceForm(forms.ModelForm):
         widget=forms.Select(attrs={'class': 'form-control form-select'})
     )
     
+    
     class Meta:
         model = ClinicalAttendance
         fields = '__all__'
@@ -247,8 +248,26 @@ class MotherChildTransmissionForm(forms.ModelForm):
             'mc_personnel_position' : forms.TextInput(attrs={'class': 'form-control'}),
             'comment_on_situation' : forms.Select(attrs={'class': 'form-control form-select'}),
             'mc_personnel_sign' : forms.TextInput(attrs={'class': 'form-control'}),
+            'hospital_advised_to_deliver' : forms.TextInput(attrs={'class': 'form-control '}),
         }
     
     def clean(self):
         cleaned_data = super().clean()
         return cleaned_data
+
+class PatientSearchForm(forms.Form):
+    search_value = forms.CharField(required=False)
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
+    
+class PatientPredictorForm(forms.Form):
+    patient_name = forms.CharField(label='Patient Name', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    age = forms.IntegerField(label='Age', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    bmi = forms.FloatField(label='BMI', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    #weight = forms.FloatField(label='Weight (kg)', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    systolic_bp = forms.IntegerField(label='Systolic BP', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    diastolic_bp = forms.IntegerField(label='Diastolic BP', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    proteinuria = forms.ChoiceField(label='Proteinuria', choices=(('1', 'Yes'), ('0', 'No')), widget=forms.Select(attrs={'class': 'form-select'}))
+    family_history = forms.ChoiceField(label='Family History', choices=(('1', 'Yes'), ('0', 'No')), widget=forms.Select(attrs={'class': 'form-select'}))
+    history_of_hypertension = forms.ChoiceField(label='History of Hypertension', choices=(('1', 'Yes'), ('0', 'No')), widget=forms.Select(attrs={'class': 'form-select'}))

@@ -43,13 +43,24 @@
         {% csrf_token %}
         <div class=" d-grid g-2 mx-auto">
 
-            {{ form.errors }}
+            {{ form.non_field_errors }}
             {% for field in form %}
+            <!-- error-handling starts -->
+            {% if field.errors %}
+            <div class="col-sm-12 alert alert-danger" role="alert">
+                <strong class="px-3">{{ field.label }}</strong>
+                {% for error in field.errors %}
+                <span class="error">{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <!-- error handling ends -->
             <div class="row mx-auto py-2 position-relative " style="width:50vw; left: 10vw;">
                 <label for="{{ form.label }}" class="col-sm-2 col-form-label">{{field.label}}</label>
                 <div class="col-sm-5">
                     {{ field }}
                 </div>
+                
             </div>
             {% endfor%}
             <div class="col-sm-7  py-4 position-relative" style="left: 10vw;">
