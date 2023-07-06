@@ -97,9 +97,10 @@
                                         href="{% url 'regs:view_patients' %}"><button type="button"
                                             class="w-100 btn btn-secondary" style="opacity: 0.7;">View
                                             Patients</button></a></li>
-                                <li class=" py-1"><a class="link-dash " style="text-decoration: none; " href="#"><button
+                                            <!-- visualize data -->
+                                <li class=" py-1"><a class="link-dash " style="text-decoration: none; " href="{% url 'regs:prediction' %}"><button
                                             type="button" class="w-100 btn btn-secondary"
-                                            style="opacity: 0.7;">Visualize Data</button></a></li>
+                                            style="opacity: 0.7;">Predictor</button></a></li>
                             </ul>
                         </div>
                         <style>
