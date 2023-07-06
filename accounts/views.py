@@ -258,6 +258,11 @@ def successful_patient_registered(request):
 def card_success(request):
     return render(request, "accounts/card_success.html")
 
+def publish_success(request):
+    return render(request, "accounts/publish_success.html")
+
+def  data_request_success(request):
+    return render(request, "accounts/data_request_success.html")
 # password reset views
 
 

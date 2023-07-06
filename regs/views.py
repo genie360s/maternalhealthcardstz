@@ -13,7 +13,15 @@ from django.contrib.auth.decorators import login_required
 from accounts.forms import PatientRegistrationForm
 from accounts.views import login_required
 from accounts.models import Patient, User, Researcher
-from regs.models import PreviousPregnancyInformation , ResearchPublication, ResearchDataRequest, MotherFirstVisit, SpecialLaboratoryTests, ClinicalAttendance, MotherChildTransmission
+from regs.models import (
+    PreviousPregnancyInformation,
+    ResearchPublication,
+    ResearchDataRequest,
+    MotherFirstVisit,
+    SpecialLaboratoryTests,
+    ClinicalAttendance,
+    MotherChildTransmission,
+)
 
 from regs.forms import (
     ClinicalAttendanceForm,
@@ -47,7 +55,20 @@ def dashboard(request):
 # research views
 @login_required
 def researchdashboard(request):
-    return render(request, "regs/researchdash.html")
+    national_id = request.user.national_id
+    researcher = get_object_or_404(Researcher, national_id=national_id)
+    publications = ResearchPublication.objects.filter(res_national_id=researcher)
+    data_requests = ResearchDataRequest.objects.filter(res_national_id=researcher)
+    print(publications)
+    print(data_requests)
+
+    context = {
+        "publications": publications,
+        "data_requests": data_requests,
+    }
+
+    return render(request, "regs/researchdash.html", context)
+
 
 @login_required
 def researchdashpublications(request):
@@ -69,16 +90,16 @@ def researchdashpublications(request):
                 research_form.instance.res_national_id = researcher
                 print("Research form is valid")
                 research_form.save()
-                return redirect("accounts:successful_registered")
+                return redirect("accounts:publish_success")
             else:
                 print(research_form.errors.as_json())
-        
+
         elif "data_request_form_submit" in request.POST:
             data_request_form = DataRequestForm(request.POST, request.FILES)
             if data_request_form.is_valid():
                 print("Data Request form is valid")
                 data_request_form.save()
-                return redirect("accounts:successful_registered")
+                return redirect("accounts:data_request_success")
             else:
                 print(data_request_form.errors.as_json())
 
@@ -103,18 +124,22 @@ def regulatordash(request):
     return render(request, "regs/regulatordash.html")
 
 
+@login_required
 def regulatordash_hospitals(request):
     return render(request, "regs/regulatordash_hospitals.html")
 
 
+@login_required
 def regulatordashprofile(request):
     return render(request, "regs/regulatordashprofile.html")
 
 
+@login_required
 def regulatordash_visualdata(request):
     return render(request, "regs/regulatordash_visualdata.html")
 
 
+@login_required
 def regulatordash_published(request):
     return render(request, "regs/regulatordash_published.html")
 
@@ -197,6 +222,7 @@ def hospitaldash_medicaldata(request):
 # retrieval of data
 
 
+# has some issues to work on
 def retrieve_mothers_card_information(request):
     mother = Patient.objects.select_related(
         "pregnancy_info",
@@ -222,15 +248,17 @@ def retrieve_patients_in_the_hospital(request):
         lab_tests = SpecialLaboratoryTests.objects.filter(patient=patient)
         clinical_attendances = ClinicalAttendance.objects.filter(patient=patient)
         mc_transmissions = MotherChildTransmission.objects.filter(patient=patient)
-        
-        patient_data.append({
-            "patient": patient,
-            "pre_preg_infos": pre_preg_infos,
-            "mother_visits": mother_visits,
-            "lab_tests": lab_tests,
-            "clinical_attendances": clinical_attendances,
-            "mc_transmissions": mc_transmissions,
-        })
+
+        patient_data.append(
+            {
+                "patient": patient,
+                "pre_preg_infos": pre_preg_infos,
+                "mother_visits": mother_visits,
+                "lab_tests": lab_tests,
+                "clinical_attendances": clinical_attendances,
+                "mc_transmissions": mc_transmissions,
+            }
+        )
 
     context = {
         "patient_data": patient_data,
@@ -247,7 +275,7 @@ def preclampsia_prediction(request):
         name = request.POST.get("patient_name")
         age = float(request.POST.get("age"))
         bmi = float(request.POST.get("bmi"))
-        #weight = float(request.POST.get("weight"))
+        # weight = float(request.POST.get("weight"))
         diastolic_bp = float(request.POST.get("diastolic_bp"))
         systolic_bp = float(request.POST.get("systolic_bp"))
         history_of_hypertension = int(request.POST.get("history_of_hypertension"))
@@ -261,29 +289,26 @@ def preclampsia_prediction(request):
         with open("staticfiles/model/random_forest_dmhcs_model.pkl", "rb") as f:
             rf = pickle.load(f)
 
-
         # Prepare the input data for prediction
-        input_data = pd.DataFrame({
-            'age': [age],
-            'bmi': [bmi],
-            'systolic_bp': [systolic_bp],
-            'diastolic_bp': [diastolic_bp],
-            'proteinuria': [proteinuria],
-            'history_of_hypertension': [history_of_hypertension],
-            'family_history_of_preclampsia': [family_history_of_preclampsia],
-            
-        })
+        input_data = pd.DataFrame(
+            {
+                "age": [age],
+                "bmi": [bmi],
+                "systolic_bp": [systolic_bp],
+                "diastolic_bp": [diastolic_bp],
+                "proteinuria": [proteinuria],
+                "history_of_hypertension": [history_of_hypertension],
+                "family_history_of_preclampsia": [family_history_of_preclampsia],
+            }
+        )
         # Make predictions using the loaded model
         predictions = rf.predict(input_data)
         print(predictions)
 
         # Pass the predictions to the template for display
-        context = {
-            "predictions": predictions,
-            "name": name
-            }
+        context = {"predictions": predictions, "name": name}
         return render(request, "regs/ml-results.html", context)
-    
+
     return render(request, "regs/ml-model-predictor.html", {"form": form})
 
 

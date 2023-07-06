@@ -232,78 +232,85 @@
         {% block researchlayout %}
 
         <div class="container py-5 px-4">
+            <!-- some tests -->
             <table class="table table-responsive table-lg table-bordered bg-light caption-top " aria-label="some"
                 style="border-radius: 15px;" style="width:85vw;">
-                <caption>Recent Publications</caption>
+                <caption>Data Requests</caption>
                 <thead class="table-primary">
                     <tr>
                         <th scope="col"># (S/NO)</th>
-                        <th scope="col"> Publication Title</th>
-                        <th scope="col">Publishers</th>
-                        <th scope="col">Date Published</th>
+                        <th scope="col">Data Request Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Data Description</th>
+                        <th scope="col">Request Date</th>
+                        <th scope="col">Download Permit</th>
 
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- rendering data requests -->
+                    {% for data_request in data_requests %}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Effects of protenuria in preclampsisa.</td>
-                        <td>Jacob Malimali</td>
-                        <td>21/05/2023</td>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{data_request.title}}</td>
+                        <td>{{data_request.short_description}}</td>
+                        <td>{{data_request.data_description}}</td>
+                        <td>{{data_request.request_date}}</td>
+                        <td><a href="{{data_request.research_permit}}"><button type="button" class="btn btn-success"> Download
+                        </button></a> </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Birth defects in malnutritioned mothers</td>
-                        <td>Jacob Malimali</td>
-                        <td>21/05/2023</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Impact of late Oedema Diagnosis</td>
-                        <td>Thornton Asikuji</td>
-                        <td>21/05/2023</td>
-                    </tr>
+                    {% endfor %}
+                    <!-- end -->
+                    
                 </tbody>
             </table>
+            <!-- end tests -->
+            
         </div>
         <!-- table for data requests -->
         <div class="container py-5 col px-4">
             <div class="row px-3">
-                <table class="table table-responsive table-lg table-bordered bg-light caption-top " aria-label="some"
-                    style="border-radius: 15px;" style="width:85vw;">
-                    <caption>Data Requests</caption>
-                    <thead class="table-primary">
-                        <tr>
-                            <th scope="col"># (S/NO)</th>
-                            <th scope="col">Data Request Title</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Date Request</th>
-                            <th scope="col">Request Status</th>
-                            <th scope="col">Download Data</th>
+                <!-- publication data files -->
+        <table class="table table-responsive table-lg table-bordered bg-light caption-top " aria-label="some"
+        style="border-radius: 15px;" style="width:85vw;">
+        <caption>Publications</caption>
+        <thead class="table-primary">
+            <tr>
+                <th scope="col"># (S/NO)</th>
+                <th scope="col">Publication Author</th>
+                <th scope="col">Publication Title</th>
+                <th scope="col">Publication Date</th>
+                <th scope="col">Publication Description</th>
+                <th scope="col">Field Of Research</th>
+                <th scope="col">Publication Article</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mothers with yellow fever</td>
-                            <td>Explore yellow fever and impacts to the mother and unborn child</td>
-                            <td>21/06/2023</td>
-                            <td><button type="button" class="btn btn-secondary">Pending ...</button></td>
-                            <td><button type="button" class="btn btn-secondary">Pending ...</button></td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
+            </tr>
+        </thead>
+        <tbody>
+            {% for publication in publications %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{publication.authors}}</td>
+                <td>{{publication.title}}</td>
+                <td>{{publication.publication_date}}</td>
+                <td>{{publication.description}}</td>
+                <td>{{publication.medical_field}}</td>
+                <td> <a href="{{publication.article_file}}"><button type="button" class="btn btn-success"> Download
+                        </button></a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- end -->
             </div>
-            <div class="row px-5 py-2 position-relative" style="right:1vw;">
+            <!-- <div class="row px-5 py-2 position-relative" style="right:1vw;">
                 <button type="button" class="btn btn-primary position-absolute  w-25 end-0 " data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop">Add Data Request</button>
-            </div>
+            </div> -->
 
             <!-- modal to add a request starts -->
             <!-- Modal -->
-            <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+            <!-- <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                 tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
@@ -319,9 +326,9 @@
                             <button type="submit" class="btn btn-primary">Submit Request</button>
                         </div>
                     </div>
-                </div>
-                <!-- modal to add a request ends here -->
-            </div>
+                </div>  
+            </div> -->
+            <!-- modal to add a request ends here -->
         </div>
     </div>
     {% endblock %}
