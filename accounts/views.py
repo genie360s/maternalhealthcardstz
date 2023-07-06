@@ -44,10 +44,18 @@ def register_regulator(request):
         form = RegulatorRegistrationForm(request.POST)
         if form.is_valid():
             print("form is valid")
-            user = form.save()
+            user = form.save(commit=False)
+            user.save()
             # Creating a new regulator instance and associating it with the user
-            Regulator.objects.create(user=user)
-            # Additional logic specific to hospitals
+            Regulator.objects.create(
+                user=user,
+                fname=form.cleaned_data["fname"],
+                lname=form.cleaned_data["lname"],
+                regulator_position=form.cleaned_data["regulator_position"],
+                phone_number=form.cleaned_data["phone_number"],
+                national_id=form.cleaned_data["national_id"],
+                email=form.cleaned_data["email"],
+                )
 
 
 

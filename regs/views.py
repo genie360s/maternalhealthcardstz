@@ -59,12 +59,20 @@ def researchdashboard(request):
     researcher = get_object_or_404(Researcher, national_id=national_id)
     publications = ResearchPublication.objects.filter(res_national_id=researcher)
     data_requests = ResearchDataRequest.objects.filter(res_national_id=researcher)
+    # Get the number of publications
+    publication_count = ResearchPublication.objects.filter(res_national_id=researcher).count()
+    
+    # Get the number of data requests
+    data_request_count = ResearchDataRequest.objects.filter(res_national_id=researcher).count()
+
     print(publications)
     print(data_requests)
 
     context = {
         "publications": publications,
         "data_requests": data_requests,
+        "publication_count" : publication_count,
+        "data_request_count" : data_request_count,
     }
 
     return render(request, "regs/researchdash.html", context)
@@ -76,8 +84,17 @@ def researchdashpublications(request):
     researcher = get_object_or_404(Researcher, national_id=national_id)
     publications = ResearchPublication.objects.filter(res_national_id=researcher)
     data_requests = ResearchDataRequest.objects.filter(res_national_id=researcher)
+
+       # Get the number of publications
+    publication_count = ResearchPublication.objects.filter(res_national_id=researcher).count()
+    
+    # Get the number of data requests
+    data_request_count = ResearchDataRequest.objects.filter(res_national_id=researcher).count()
+
     print(publications)
     print(data_requests)
+    print(publication_count)
+    print(data_request_count)
 
     # Rendering instance forms
     research_form = ResearchPublicationForm()
@@ -108,6 +125,8 @@ def researchdashpublications(request):
         "data_request_form": data_request_form,
         "publications": publications,
         "data_requests": data_requests,
+        "publication_count": publication_count,
+        "data_request_count": data_request_count,
     }
 
     return render(request, "regs/researchdash_publications.html", context)
@@ -170,6 +189,7 @@ def hospitaldash_delivery(request):
 
 
 # records medical data
+@login_required
 def hospitaldash_medicaldata(request):
     form1 = ClinicalAttendanceForm()
     form2 = SpecialLaboratoryTestsForm()
@@ -223,6 +243,7 @@ def hospitaldash_medicaldata(request):
 
 
 # has some issues to work on
+
 def retrieve_mothers_card_information(request):
     mother = Patient.objects.select_related(
         "pregnancy_info",
@@ -237,7 +258,7 @@ def retrieve_mothers_card_information(request):
 
     return render(request, "regs/mothercard.html", context)
 
-
+@login_required
 def retrieve_patients_in_the_hospital(request):
     patients = Patient.objects.all()
     patient_data = []
@@ -268,6 +289,7 @@ def retrieve_patients_in_the_hospital(request):
 
 
 # preclampsia prediction
+@login_required
 def preclampsia_prediction(request):
     form = PatientPredictorForm()
     if request.method == "POST":

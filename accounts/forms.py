@@ -163,24 +163,24 @@ class PatientRegistrationForm(UserCreationForm):
 # regulator registration form
 class RegulatorRegistrationForm(UserCreationForm):
     # adding additional fields specific to  regulators
-    first_name = forms.CharField(label="First Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
-    last_name = forms.CharField(label="Last Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    fname = forms.CharField(label="First Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
+    lname = forms.CharField(label="Last Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
     phone_number = forms.CharField(label="Phone Number", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
     regulator_position = forms.CharField(label="Regulator Position", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}))
-    user_type = forms.ChoiceField(label='Register As', choices=User.USER_TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-select'}))
+    #user_type = forms.ChoiceField(label='Register As', choices=User.USER_TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-select'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm ', widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'confirm password'}))
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = [ 'first_name', 'last_name', 'national_id','phone_number', 'email' ]
+        fields = [  'national_id','phone_number', 'email', 'user_type' ]
         widgets = {
 
             'national_id': forms.TextInput(attrs={'class': 'form-control'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'user_type': forms.Select(attrs={'class': 'form-select'}),
+            
         }
 
 # loginform
