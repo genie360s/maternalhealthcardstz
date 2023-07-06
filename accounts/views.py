@@ -255,6 +255,8 @@ def successful_reset(request):
 def successful_patient_registered(request):
     return render(request, "accounts/patient_register_success.html")
 
+def card_success(request):
+    return render(request, "accounts/card_success.html")
 
 # password reset views
 

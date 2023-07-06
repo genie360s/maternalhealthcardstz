@@ -1876,3 +1876,46 @@ publication form
         <!-- end -->
     </div>
 </div>
+
+
+this view for patient view 
+
+
+def retrieve_patients_in_the_hospital(request):
+    patients = Patient.objects.all()
+
+    for patient in patients:
+        print(patient.user.username)
+
+        pre_preg_infos =  PreviousPregnancyInformation.objects.filter(patient=patient)
+        for pre_preg_info in pre_preg_infos:
+            print(pre_preg_info.card_no)
+
+        mother_visits = MotherFirstVisit.objects.filter(patient=patient)
+        for mother_visit in mother_visits:
+            print(mother_visit.age_below_20)
+
+        lab_tests = SpecialLaboratoryTests.objects.filter(patient=patient)
+        for lab_test in lab_tests:
+            print(lab_test.labtest_id)
+
+        clinical_attendances = ClinicalAttendance.objects.filter(patient=patient)
+        for clinical_attendance in clinical_attendances:
+            print(clinical_attendance.weight)
+        
+        mc_transmissions = MotherChildTransmission.objects.filter(patient=patient)
+        for mc_transmission in mc_transmissions:
+            print(mc_transmission.child_food_diet)
+        
+
+
+    context = {
+        "patients": patients,
+        "pre_preg_infos": pre_preg_infos,
+        "mother_visits": mother_visits,
+        "lab_tests": lab_tests,
+        "clinical_attendances": clinical_attendances,
+        "mc_transmissions": mc_transmissions,
+    }
+
+    return render(request, "regs/patients_database_view.html", context)

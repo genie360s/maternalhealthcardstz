@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.forms import PatientRegistrationForm
 from accounts.views import login_required
 from accounts.models import Patient, User, Researcher
-from regs.models import PreviousPregnancyInformation , ResearchPublication, ResearchDataRequest
+from regs.models import PreviousPregnancyInformation , ResearchPublication, ResearchDataRequest, MotherFirstVisit, SpecialLaboratoryTests, ClinicalAttendance, MotherChildTransmission
 
 from regs.forms import (
     ClinicalAttendanceForm,
@@ -175,7 +175,7 @@ def hospitaldash_medicaldata(request):
             form4.save()
             form5.save()
 
-            return redirect("accounts:successful_registered")
+            return redirect("accounts:card_success")
         else:
             print(form1.errors.as_json())
             print(form2.errors.as_json())
@@ -213,9 +213,28 @@ def retrieve_mothers_card_information(request):
 
 
 def retrieve_patients_in_the_hospital(request):
-    patient_informations = Patient.objects.all()
+    patients = Patient.objects.all()
+    patient_data = []
 
-    context = {"patient_informations": patient_informations}
+    for patient in patients:
+        pre_preg_infos = PreviousPregnancyInformation.objects.filter(patient=patient)
+        mother_visits = MotherFirstVisit.objects.filter(patient=patient)
+        lab_tests = SpecialLaboratoryTests.objects.filter(patient=patient)
+        clinical_attendances = ClinicalAttendance.objects.filter(patient=patient)
+        mc_transmissions = MotherChildTransmission.objects.filter(patient=patient)
+        
+        patient_data.append({
+            "patient": patient,
+            "pre_preg_infos": pre_preg_infos,
+            "mother_visits": mother_visits,
+            "lab_tests": lab_tests,
+            "clinical_attendances": clinical_attendances,
+            "mc_transmissions": mc_transmissions,
+        })
+
+    context = {
+        "patient_data": patient_data,
+    }
 
     return render(request, "regs/patients_database_view.html", context)
 

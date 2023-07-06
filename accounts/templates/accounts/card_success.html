@@ -1,0 +1,9 @@
+{% extends 'accounts/success.html' %}
+{% block success %}
+
+<span class="fs-5 text-success">successful registered patient details</span>
+{% endblock %}
+{% block redirect%}
+<a href="{% url 'regs:registerpatient'%}" style="text-decoration: none; "> <button type="button"
+        class="btn btn-outline-success btn-lg w-50 " style="border-radius: 50px;">Proceed !</button> </a>
+{% endblock %}

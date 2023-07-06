@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.core.validators import RegexValidator
 
-from accounts.models import Patient
+from accounts.models import Patient, Hospital
 
 
 
@@ -166,6 +166,14 @@ class MotherChildTransmission(models.Model):
         ('Bad (Critical)', 'Bad (Critical)'),
     ]
 
+    POSITION_CHOICES = [
+        ('Doctor', 'Doctor'),
+        ('Nurse', 'Nurse'),
+        ('Midwife', 'Midwife'),
+        ('Health Assistant', 'Health Assistant'),
+        ('Other', 'Other'),
+    ]
+
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     pmtct_art = models.IntegerField(choices=PMTCT_ART_CHOICES, verbose_name="PMTCT / ART (0,-1,2)")
     medicine_art = models.CharField(max_length=3, choices=MEDICINE_CHOICES, verbose_name="Medicine (ART)")
@@ -178,7 +186,7 @@ class MotherChildTransmission(models.Model):
     date_of_attendance = models.DateField(verbose_name="Date Of Attendance")
     returning_date = models.DateField(verbose_name="Returning Date")
     mc_personnel_name = models.CharField(max_length=100, verbose_name="Name of the MC Personnel")
-    mc_personnel_position = models.CharField(max_length=100, verbose_name="Position of the MC Personnel")
+    mc_personnel_position = models.CharField(max_length=100, choices=POSITION_CHOICES, verbose_name="Position of the MC Personnel")
     comment_on_situation = models.CharField(max_length=15, choices=COMMENT_CHOICES,
                                             verbose_name="Comment on the Situation")
     mc_personnel_sign = models.CharField(max_length=100, verbose_name="Sign of the MC Personnel")
@@ -194,6 +202,8 @@ class MotherChildTransmission(models.Model):
 # table 1
 
 class Admission(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     admission_id = models.BigAutoField(primary_key=True)
     hospital_name = models.CharField(max_length=100, verbose_name="Admitted Hospital Name")
     admission_date = models.DateField(verbose_name="Admission Date")
@@ -214,6 +224,8 @@ class Admission(models.Model):
 # table 2
 
 class PelvicExam(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     sacral_promontory = models.BooleanField(verbose_name="Sacral Promontory")
     ischial_spines_visible = models.BooleanField(verbose_name="Ischial Spines Visible")
     outlet_narrow = models.BooleanField(verbose_name="Outlet Narrow")
@@ -230,6 +242,8 @@ class PelvicExam(models.Model):
 # table 3
 
 class BirthComplications(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     pregancy_age_hint_a_or_b = models.BooleanField(verbose_name="Hint A or B in Pregnancy Age (below 20 years)")
     yoke_broken_without_pain = models.BooleanField(verbose_name="Yoke Broken, Without Pain")
     birth_pain_before_34th_week = models.BooleanField(verbose_name="Birth Pain Before 34th Week")
@@ -252,6 +266,8 @@ class BirthComplications(models.Model):
 # table 4
 
 class Delivery(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     delivery_date = models.DateField(verbose_name="Delivery Date")
     delivery_type = models.CharField(max_length=100, verbose_name="Type Of Delivery")
     placenta_out_datetime = models.DateTimeField(verbose_name="Placenta Out (Date and Time)")
@@ -273,6 +289,8 @@ class Delivery(models.Model):
 # table 5
 
 class DeliverySteps(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     step_1_datetime = models.DateTimeField(verbose_name="Step 1 (Date and Time)")
     step_2_datetime = models.DateTimeField(verbose_name="Step 2 (Date and Time)")
     step_3_datetime = models.DateTimeField(verbose_name="Step 3 (Date and Time)")
@@ -290,6 +308,8 @@ class DeliverySteps(models.Model):
 # table 6
 
 class Child(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     WEIGHT_CHOICES = [(i, i) for i in range(1, 10)]
     SEX_CHOICES = [('Male', 'Male'), ('Female', 'Female')]
     APGAR_CHOICES = [('1 minute', '1 minute'), ('5 minutes', '5 minutes')]

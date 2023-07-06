@@ -17,45 +17,354 @@
             </tr>
         </thead>
         <tbody>
-            {% for patient_information in patient_informations %}
+            {% for data in patient_data %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{patient_information.first_name}}</td>
-                <td>{{patient_information.last_name}}</td>
-                <td>{{patient_information.date_of_birth}}</td>
-                <td>{{patient_information.phone_number}}</td>
-                <td>{{patient_information.national_id}}</td>
-                <td>{{patient_information.email}}</td>
+                <td>{{data.patient.first_name}}</td>
+                <td>{{data.patient.last_name}}</td>
+                <td>{{data.patient.date_of_birth}}</td>
+                <td>{{data.patient.phone_number}}</td>
+                <td>{{data.patient.national_id}}</td>
+                <td>{{data.patient.email}}</td>
                 <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                        data-bs-target="#viewpatientmodal">View Patient</button></td>
+                        data-bs-target="#{{data.patient.first_name}}">View Patient</button></td>
             </tr>
             {% endfor %}
 
-            
+
         </tbody>
     </table>
 
-    
-    
+
+
     <!-- patient view modal -->
-    <div class="modal fade position-relative" id="viewpatientmodal" tabindex="-1" aria-labelledby="viewpatientmodal" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl ">
-            <div class="modal-content " style="width: 500vw;">
+    {% for data in patient_data %}
+    <div class="modal fade " id="{{ data.patient.first_name }}" tabindex="-1" aria-labelledby="viewpatientmodal"
+        aria-hidden="true">
+        <!-- Modal content -->
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+            <div class="modal-content" style="width: 500vw;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="patient-modal-header">Modal title</h5>
+                    <h5 class="modal-title" id="patient-modal-header">Patient information for: <span
+                            class="text-secondary px-2 fw-normal">{{ data.patient.first_name }}
+                            {{ data.patient.last_name }}</span></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <div class="row">
+                        <div class="col-sm-12 fw-bold fs-3">
+                            <p class="text-center"> Previous Pregnancy Information</p>
+                        </div>
+                        {% for pre_preg_info in data.pre_preg_infos %}
+
+                        <div class="col-sm-4">
+                            <span class="px-2"> pregnancy count :</span>
+                            <span class="px-2 text-secondary"> {{ pre_preg_info.pregnancy_count }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> birth count :</span>
+                            <span class="px-2 text-secondary"> {{ pre_preg_info.birth_count }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> children alive :</span>
+                            <span class="px-2 text-secondary"> {{ pre_preg_info.children_alive }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> bad pregancies :</span>
+                            <span class="px-2 text-secondary"> {{ pre_preg_info.bad_pregnancies }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> number of destructed pregancies :</span>
+                            <span class="px-2 text-secondary"> {{ pre_preg_info.destructed_pregnancies_count }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> year of occurances :</span>
+                            <span class="px-2 text-secondary"> {{ pre_preg_info.year_of_occurance }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> age of pregnancy :</span>
+                            <span class="px-2 text-secondary"> {{ pre_preg_info.age_of_pregnancy }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> destruction causes :</span>
+                            <span class="px-2 text-secondary"> {{ pre_preg_info.destruction_cause }}</span>
+                        </div>
+
+                        {% endfor %}
+                    </div>
+                    <!-- end -->
+                    <!-- mother visit starts -->
+                    <div class="row">
+                        <div class="col-sm-12 fw-bold fs-3">
+                            <p class="text-center"> Mother First Visit </p>
+                        </div>
+                        {% for mother_visit in data.mother_visits %}
+                        <div class="col-sm-4">
+                            <span class="px-2"> age_below_20 :</span>
+                            <span class="px-2 text-secondary"> {{ mother_visit.age_below_20 }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Age below 20:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.age_below_20 }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Ten years or more since last birth:</span>
+                            <span
+                                class="px-2 text-secondary">{{ mother_visit.ten_years_or_more_since_last_birth }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">C-section operation:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.c_section_operation }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Still birth:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.still_birth }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Fifth pregnancy or more:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.fifth_pregnancy_or_more }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Height below 150cm:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.height_below_150cm }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">C-section or vacuum delivery:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.c_section_or_vacuum_delivery }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Rectum blockage:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.rectum_blockage }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Pregnancy age above 40:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.pregnancy_age_above_40 }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Two or more destructed pregnancies:</span>
+                            <span
+                                class="px-2 text-secondary">{{ mother_visit.two_or_more_destructed_pregnancies }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Heart disease:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.heart_disease }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Diabetes:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.diabetes }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Tuberculosis:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.tuberculosis }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">First pregnancy above 35:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.first_pregnancy_above_35 }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Waist disability:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.waist_disability }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Excess bleeding after delivery:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.excess_bleeding_after_delivery }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Mother has twins:</span>
+                            <span class="px-2 text-secondary">{{ mother_visit.mother_has_twins }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- lab tests start -->
+                    <div class="row">
+                        <div class="col-sm-12 fw-bold fs-3">
+                            <p class="text-center"> Lab tests </p>
+                        </div>
+                        {% for lab_test in data.lab_tests %}
+                        <div class="col-sm-4">
+                            <span class="px-2"> lab test id </span>
+                            <span class="px-2 text-secondary">{{ lab_test.labtest_id }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> blood group : </span>
+                            <span class="px-2 text-secondary">{{ lab_test.blood_group }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> blood rhesus factor : </span>
+                            <span class="px-2 text-secondary">{{ lab_test.blood_rhesus_factor }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> syphilis sero status : </span>
+                            <span class="px-2 text-secondary">{{ lab_test.syphilis_sero_status }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> blood count : </span>
+                            <span class="px-2 text-secondary">{{ lab_test.blood_count }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> proteinuria : </span>
+                            <span class="px-2 text-secondary">{{ lab_test.proteinuria }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2"> other tests : </span>
+                            <span class="px-2 text-secondary">{{ lab_test.other_tests }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- something issue here -->
+                    <!-- end -->
+                    <!-- clinical attendances -->
+                    <div class="row">
+                        <!-- header -->
+                        <div class="col-sm-12 fw-bold fs-3">
+                            <p class="text-center"> Clinical attendances </p>
+                        </div>
+                        <!-- end -->
+                        {% for clinical_attendance in data.clinical_attendances %}
+                        <div class="col-sm-4">
+                            <span class="px-2"> weight : </span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.weight }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Blood Pressure:</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.blood_pressure }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Albumin In Urine (+):</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.albumin_in_urine }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Blood/Hb (8.5 gm/d):</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.blood_hb }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Age Pregnancy Per Week:</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.age_pregnancy_per_week }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Height Per Week:</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.height_per_week }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Child's Womb Position:</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.child_womb_position }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Frontal Part (36th Week):</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.frontal_part_36th_week }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Child Moves After 20th Week:</span>
+                            <span
+                                class="px-2 text-secondary">{{ clinical_attendance.child_moves_after_20th_week }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Child Heart Beat After 20th Week:</span>
+                            <span
+                                class="px-2 text-secondary">{{ clinical_attendance.child_heartbeat_after_20th_week }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Swollen Legs (Oedema)(++):</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.swollen_legs_oedema }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Ferrous Sulphate (2@day):</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.ferrous_sulphate }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Folic Acid (1@day):</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.folic_acid }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Malaria Dose (SP)(from wk-14):</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.malaria_dose }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Mebandozole (500 gm start):</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.mebandozole }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Tetanus Vaccine:</span>
+                            <span class="px-2 text-secondary">{{ clinical_attendance.tetanus_vaccine }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- end -->
+                    <!-- mother transmission starts -->
+                    <div class="row">
+                        <!-- header -->
+                        <div class="col-sm-12 fw-bold fs-3">
+                            <p class="text-center"> Mother child transmission </p>
+                        </div>
+                        {% for mc_transmission in data.mc_transmissions %}
+                        <div class="col-sm-4">
+                            <span class="px-2">PMTCT / ART (0,-1,2):</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.pmtct_art }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Medicine (ART):</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.medicine_art }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">CTX Before Sickness Diagnosis:</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.ctx_before_sickness_diagnosis }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Relation with CTC Service:</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.relation_with_ctc_service }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Child's Food Diet:</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.child_food_diet }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Adherence:</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.adherence }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Date Of Attendance:</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.date_of_attendance }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Returning Date:</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.returning_date }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Name of the MC Personnel:</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.mc_personnel_name }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Position of the MC Personnel:</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.mc_personnel_position }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Comment on the Situation:</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.comment_on_situation }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Sign of the MC Personnel:</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.mc_personnel_sign }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="px-2">Hospital Advised to Deliver:</span>
+                            <span class="px-2 text-secondary">{{ mc_transmission.hospital_advised_to_deliver }}</span>
+                        </div>
+                        
+                        {% endfor %}
+                        <!-- end -->
+                    </div>
+                    <!-- ends -->
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-    <!-- end -->
+</div>
+{% endfor %}
+
+<!-- end -->
 
 </div>
 {% endblock %}

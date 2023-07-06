@@ -25,6 +25,7 @@ urlpatterns = [
     path('success', views.success_loader, name="success"),
     path('successful_registered', views.successful_registered, name="successful_registered"),
     path('successful_patient_registered', views.successful_patient_registered, name="successful_patient_registered"),
+    path('card_success', views.card_success, name="card_success"),
     # password reset
     path("forgot_password", views.forgot_password, name="forgot_password"),
     path('successful_reset', views.successful_reset, name="successful_reset"),

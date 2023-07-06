@@ -1,5 +1,5 @@
 from django import forms
-from accounts.models import Researcher
+from accounts.models import Patient, Researcher
 
 from regs.models import SpecialLaboratoryTests, ClinicalAttendance, MotherFirstVisit, MotherChildTransmission, PreviousPregnancyInformation, ResearchPublication,ResearchDataRequest
 
@@ -148,6 +148,10 @@ class ClinicalAttendanceForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['created_at', 'updated_at']
 
+    patient = forms.ModelChoiceField(
+        queryset=Patient.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control form-select'}))
+
     def clean(self):
         cleaned_data = super().clean()
         return cleaned_data
@@ -169,6 +173,11 @@ class SpecialLaboratoryTestsForm(forms.ModelForm):
                 'proteinuria': forms.TextInput(attrs={'class': 'form-control'}),
                 'other_tests': forms.TextInput(attrs={'class': 'form-control'}),
             }
+        
+    patient = forms.ModelChoiceField(
+        queryset=Patient.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control form-select'}))
+    
     def clean(self):
         cleaned_data = super().clean()
         return cleaned_data
@@ -200,6 +209,9 @@ class ObservationMotherFirstVisitForm(forms.ModelForm):
                 'mother_has_twins' : forms.CheckboxInput(attrs={'class': 'form-check-input fs-5'}),
                 
             }
+    patient = forms.ModelChoiceField(
+        queryset=Patient.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control form-select'}))
         
 
     def clean(self):
@@ -225,6 +237,10 @@ class PreviousPregnanciesInformationForm(forms.ModelForm):
 
         }
 
+    patient = forms.ModelChoiceField(
+        queryset=Patient.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control form-select'}))
+
     def clean(self):
         cleaned_data = super().clean()
         return cleaned_data
@@ -236,6 +252,8 @@ class MotherChildTransmissionForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['created_at', 'updated_at']
 
+        
+
         widgets = {
             'pmtct_art' : forms.Select(attrs={'class': 'form-control form-select'}),
             'medicine_art' : forms.Select(attrs={'class': 'form-control form-select'}),
@@ -246,11 +264,15 @@ class MotherChildTransmissionForm(forms.ModelForm):
             'date_of_attendance' : forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'returning_date' : forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'mc_personnel_name' : forms.TextInput(attrs={'class': 'form-control'}),
-            'mc_personnel_position' : forms.TextInput(attrs={'class': 'form-control'}),
+            'mc_personnel_position' : forms.Select(attrs={'class': 'form-control form-select'}),
             'comment_on_situation' : forms.Select(attrs={'class': 'form-control form-select'}),
             'mc_personnel_sign' : forms.TextInput(attrs={'class': 'form-control'}),
             'hospital_advised_to_deliver' : forms.TextInput(attrs={'class': 'form-control '}),
         }
+
+    patient = forms.ModelChoiceField(
+        queryset=Patient.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control form-select'}))
     
     def clean(self):
         cleaned_data = super().clean()
