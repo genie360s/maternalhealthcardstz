@@ -195,7 +195,7 @@ class MotherChildTransmission(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.created_at} mother child transmission record"
+        return f"{self.created_at} {self.patient} mother child transmission record"
 
 # delivery pain tables
 

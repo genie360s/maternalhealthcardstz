@@ -1919,3 +1919,29 @@ def retrieve_patients_in_the_hospital(request):
     }
 
     return render(request, "regs/patients_database_view.html", context)
+
+
+{% for data in patient_data %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{data.patient.first_name}}</td>
+                <td>{{data.patient.last_name}}</td>
+                <td>{{data.patient.date_of_birth}}</td>
+                <td>{{data.patient.phone_number}}</td>
+                <td>{{data.patient.national_id}}</td>
+                <td>{{data.patient.email}}</td>
+                <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                        data-bs-target="#{{data.patient.first_name}}">View Patient</button></td>
+                {% for patient in patients%}
+                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="{% url 'regs:patient_track' patient.national_id %}">Track Patient</button></td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+
+ <tr>
+                    <td>attribute</td>
+                    {% for mother_visit in patient_data.0.mother_visits %}
+                      <td>{{ mother_visit.age_below_20 }}</td>
+                    {% endfor %}
+                  </tr>

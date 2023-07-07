@@ -14,20 +14,25 @@
                 <th scope="col">National ID</th>
                 <th scope="col">Email</th>
                 <th scope="col">View Patient</th>
+                <th scope="col">Track Patient</th>
             </tr>
         </thead>
         <tbody>
-            {% for data in patient_data %}
+            {% for patient in patients %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{data.patient.first_name}}</td>
-                <td>{{data.patient.last_name}}</td>
-                <td>{{data.patient.date_of_birth}}</td>
-                <td>{{data.patient.phone_number}}</td>
-                <td>{{data.patient.national_id}}</td>
-                <td>{{data.patient.email}}</td>
+                <td>{{patient.first_name}}</td>
+                <td>{{patient.last_name}}</td>
+                <td>{{patient.date_of_birth}}</td>
+                <td>{{patient.phone_number}}</td>
+                <td>{{patient.national_id}}</td>
+                <td>{{patient.email}}</td>
                 <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                        data-bs-target="#{{data.patient.first_name}}">View Patient</button></td>
+                        data-bs-target="#{{patient.first_name}}">View Patient</button></td>
+
+                <td> <a href="{% url 'regs:patient_track' patient.national_id %}"> <button type="button"
+                            class="btn btn-primary">Track Patient</button> </a></td>
+
             </tr>
             {% endfor %}
 
@@ -349,16 +354,17 @@
                             <span class="px-2">Hospital Advised to Deliver:</span>
                             <span class="px-2 text-secondary">{{ mc_transmission.hospital_advised_to_deliver }}</span>
                         </div>
-                        
+
                         {% endfor %}
                         <!-- end -->
                     </div>
                     <!-- ends -->
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-            </div>
+            
         </div>
     </div>
 </div>

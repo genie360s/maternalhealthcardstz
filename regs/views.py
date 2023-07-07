@@ -12,7 +12,7 @@ from nida import load_user
 from django.contrib.auth.decorators import login_required
 from accounts.forms import PatientRegistrationForm
 from accounts.views import login_required
-from accounts.models import Patient, User, Researcher
+from accounts.models import Hospital, Patient, User, Researcher
 from regs.models import (
     PreviousPregnancyInformation,
     ResearchPublication,
@@ -85,7 +85,7 @@ def researchdashpublications(request):
     publications = ResearchPublication.objects.filter(res_national_id=researcher)
     data_requests = ResearchDataRequest.objects.filter(res_national_id=researcher)
 
-       # Get the number of publications
+    # Get the number of publications
     publication_count = ResearchPublication.objects.filter(res_national_id=researcher).count()
     
     # Get the number of data requests
@@ -140,7 +140,26 @@ def researchdashprofile(request):
 # regulator views
 @login_required
 def regulatordash(request):
-    return render(request, "regs/regulatordash.html")
+    publications = ResearchPublication.objects.all()
+    data_requests = ResearchDataRequest.objects.all()
+    # Get the number of publications
+    publication_count = ResearchPublication.objects.count()  
+    print(publication_count)
+    hospital_count = Hospital.objects.count()  
+    patient_count = Patient.objects.count()
+    # Get the number of data requests
+    data_request_count = ResearchDataRequest.objects.count()
+
+    context = {
+        "publications": publications,
+        "data_requests": data_requests,
+        "publication_count" : publication_count,
+        "data_request_count" : data_request_count,
+        "hospital_count" : hospital_count,
+        "patient_count" : patient_count,
+    }
+
+    return render(request, "regs/regulatordash.html", context)
 
 
 @login_required
@@ -283,6 +302,7 @@ def retrieve_patients_in_the_hospital(request):
 
     context = {
         "patient_data": patient_data,
+        "patients": patients,
     }
 
     return render(request, "regs/patients_database_view.html", context)
@@ -336,7 +356,7 @@ def preclampsia_prediction(request):
 
 # querrying patient
 
-
+@login_required
 def search_patients(request):
     form1 = ClinicalAttendanceForm()
     form2 = SpecialLaboratoryTestsForm()
@@ -369,3 +389,36 @@ def search_patients(request):
     }
 
     return render(request, "regs/hospitaldash_medicaldata.html", context)
+
+@login_required
+def patient_track(request, national_id):
+    patient = Patient.objects.get(national_id=national_id)
+    print(patient)
+
+    
+    pre_preg_infos = PreviousPregnancyInformation.objects.filter(patient=patient)
+    mother_visits = MotherFirstVisit.objects.filter(patient=patient)
+    lab_tests = SpecialLaboratoryTests.objects.filter(patient=patient)
+    clinical_attendances = ClinicalAttendance.objects.filter(patient=patient)
+    mc_transmissions = MotherChildTransmission.objects.filter(patient=patient)
+
+    patient_data = []
+
+    patient_data.append(
+        {
+            "patient": patient,
+            "pre_preg_infos": pre_preg_infos,
+            "mother_visits": mother_visits,
+            "lab_tests": lab_tests,
+            "clinical_attendances": clinical_attendances,
+            "mc_transmissions": mc_transmissions,
+        }
+    )
+
+    print(patient_data)
+    
+    context = {
+        "patient": patient,
+        "patient_data": patient_data,
+    }
+    return render(request, "regs/patient_track.html", context)

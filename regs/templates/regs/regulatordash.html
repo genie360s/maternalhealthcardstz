@@ -239,36 +239,37 @@
             <!-- row 1 of statistics -->
             <div class="row gx-5 py-3">
                 <div class="col">
-                    <div class="p-3 border bg-light shadow " style="border-radius: 15px;">
-                        <h3>Hospitals Registered 43 </h3>
+                    <div class="p-3 border bg-light shadow  text-secondary " style="border-radius: 15px;">
+                        <h3>Hospitals Registered {{ hospital_count }} </h3>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="p-3 border bg-light text-success shadow" style="border-radius: 15px;">
-                        <h3>Researches Published 32</h3>
+                    <div class="p-3 border bg-light text-secondary shadow" style="border-radius: 15px;">
+                        <h3>Researches published {{ publication_count }}</h3>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="p-3 border bg-light text-warning shadow" style="border-radius: 15px;">
-                        <h3>Patients Registered 23</h3>
+                    <div class="p-3 border bg-light text-secondary shadow" style="border-radius: 15px;">
+                        <h3>Patients Registered {{ patient_count }}</h3>
                     </div>
                 </div>
             </div>
             <!-- row 2 of statistics -->
             <div class="row gx-5 py-3">
-                <div class="col">
+                <!-- hid hospitals -->
+                <!-- <div class="col">
                     <div class="p-3 border bg-light text-dark shadow" style="border-radius: 15px;">
                         <h3>Doctors Registered 43 </h3>
+                    </div>
+                </div> -->
+                <div class="col">
+                    <div class="p-3 border bg-light text-secondary shadow" style="border-radius: 15px;">
+                        <h3>Cited Publications 00 </h3>
                     </div>
                 </div>
                 <div class="col">
                     <div class="p-3 border bg-light text-secondary shadow" style="border-radius: 15px;">
-                        <h3>Cited Publications 32</h3>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="p-3 border bg-light text-info shadow" style="border-radius: 15px;">
-                        <h3>Data Requests 23</h3>
+                        <h3>Data Requests {{ data_request_count }}</h3>
                     </div>
                 </div>
             </div>
@@ -301,12 +302,48 @@
                             <th scope="col">Data Request Title</th>
                             <th scope="col">Description</th>
                             <th scope="col">Date Request</th>
+                            <th scope="col">Request Permit</th>
                             <th scope="col">Request Status</th>
 
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- tests -->
+                        {% for data_request in data_requests %}
                         <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{data_request.title}}</td>
+                            <td>{{data_request.short_description}}</td>
+                            <td>{{data_request.request_date}}</td>
+                            <td> <a href="{{data_request.research_permit}}"><button type="button" class="btn btn-success"> Download
+                            </button></a></td>
+                            <td>
+                                <form action="" method="get">
+                                    <select name="" id="approval-select" class="form-select text-center"
+                                        style="color:white; background-color: gray;">
+                                        <option value="pending" default style="color:white; background-color: gray;">
+                                            Pending</option>
+                                        <option value="approved" style="background-color:green; color:white;">Approved
+                                        </option>
+                                        <option value="rejected" style="background-color:red; color:white;">Rejected
+                                        </option>
+                                    </select>
+                                </form>
+
+                                <script>
+                                    const selectElement = document.getElementById("approval-select");
+                                    selectElement.addEventListener("change", function () {
+                                        const selectedOption = this.options[this.selectedIndex];
+                                        selectElement.style.backgroundColor = selectedOption.style
+                                            .backgroundColor;
+                                        selectElement.style.color = selectedOption.style.color;
+                                    });
+                                </script>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <!-- end -->
+                        <!-- <tr>
                             <th scope="row">1</th>
                             <td>Mothers with protenuria</td>
                             <td>Effects of protenuria in preclampsisa.</td>
@@ -334,7 +371,7 @@
                                     });
                                 </script>
                             </td>
-                        </tr>
+                        </tr> -->
                        
                     </tbody>
                 </table>
@@ -363,20 +400,27 @@
                 <thead class="table-primary">
                     <tr>
                         <th scope="col"># (S/NO)</th>
+                        <th scope="col">  Author </th>
                         <th scope="col"> Publication Title</th>
-                        <th scope="col">Publishers</th>
+                        <th scope="col">Medical field</th>
                         <th scope="col">Date Published</th>
+                        <th scope="col">Download Article</th>
 
                     </tr>
                 </thead>
                 <tbody>
+                    {% for publication in publications %}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Effects of protenuria in preclampsisa.</td>
-                        <td>Jacob Malimali</td>
-                        <td>21/05/2023</td>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{publication.authors}}</td>
+                        <td>{{publication.title}}</td>
+                        <td>{{publication.medical_field}}</td>
+                        <td>{{publication.publication_date}}</td>
+                        <td><a href="{{publication.article_file}}"><button type="button" class="btn btn-success"> Download
+                            </button></a></td>
                     </tr>
-                    <tr>
+                    {% endfor %}
+                    <!-- <tr>
                         <th scope="row">2</th>
                         <td>Birth defects in malnutritioned mothers</td>
                         <td>Jacob Malimali</td>
@@ -387,7 +431,7 @@
                         <td>Impact of late Oedema Diagnosis</td>
                         <td>Thornton Asikuji</td>
                         <td>21/05/2023</td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -407,9 +451,9 @@
 
 
     <!-- for bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
+    </script> -->
 
 
 </body>

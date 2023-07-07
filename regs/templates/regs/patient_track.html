@@ -1,0 +1,169 @@
+{% extends './hospitaldash.html' %}
+{% load custom_filters %}
+
+{% block hospital_layout %}
+<div class="container px-3">
+    <div class="container mx-auto position-relative" style="top:10vh;">
+        <h3 class="fw-bold border border-primary rounded py-3">
+            <!-- patient generic identification -->
+            <span class="px-3">Patient Name :</span>
+            <span class="px-3 text-secondary">{{ patient.first_name }} {{ patient.last_name }}</span>
+            <!-- ends -->
+        </h3>
+        <!-- patient track view in tabular format -->
+        <table class="table table-striped table-hover table-bordered border-secondary caption-top py-3"
+            aria-label="patient-track-view">
+            <caption>Patient progress track card.</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Diagnosis Attributes</th>
+                    {% for clinical_attendance in patient_data.0.clinical_attendances %}
+                    <th scope="col">Clinical Visit &nbsp; {{ forloop.counter }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="8" class="">
+                        <p class="text-center fw-bold diplay-6 px-2">Observations mother first visit.</p>
+                    </td>
+                </tr>
+                <!-- mother visit -->
+                {% for attribute, _ in patient_data.0.mother_visits.0|get_attribute:'__dict__'|dict_items %}
+                {% if not attribute|startswithunderscore %}
+                <tr>
+                    <td>{{ attribute|remove_underscore }}</td>
+                    <!-- Iterate  -->
+                    {% for mother_visit in patient_data.0.mother_visits %}
+                    <td>
+                        {% with value=mother_visit|get_attribute:attribute %}
+                        {% if value %}
+                        {{ value }}
+                        {% else %}
+
+                        {% endif %}
+                        {% endwith %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                <!-- end -->
+
+                <tr>
+                    <td colspan="8" class="">
+                        <p class="text-center fw-bold diplay-6 px-2">Previous pregnancies information.</p>
+                    </td>
+                </tr>
+
+                <!-- previous pregnancies information -->
+                {% for attribute, _ in patient_data.0.pre_preg_infos.0|get_attribute:'__dict__'|dict_items %}
+                {% if not attribute|startswithunderscore %}
+                <tr>
+                    <td>{{ attribute|remove_underscore }}</td>
+                    <!-- Iterate  -->
+                    {% for pre_preg_info in patient_data.0.pre_preg_infos %}
+                    <td>
+                        {% with value=pre_preg_info|get_attribute:attribute %}
+                        {% if value %}
+                        {{ value }}
+                        {% else %}
+
+                        {% endif %}
+                        {% endwith %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                <!-- end -->
+                <tr>
+                    <td colspan="8" class="">
+                        <p class="text-center fw-bold diplay-6 px-2">Lab Tests</p>
+                    </td>
+                </tr>
+                <!-- lab tests -->
+                {% for attribute, _ in patient_data.0.lab_tests.0|get_attribute:'__dict__'|dict_items %}
+                {% if not attribute|startswithunderscore %}
+                <tr>
+                    <td>{{ attribute|remove_underscore }}</td>
+                    <!-- Iterate  -->
+                    {% for lab_test in patient_data.0.lab_tests %}
+                    <td>
+                        {% with value=lab_test|get_attribute:attribute %}
+                        {% if value %}
+                        {{ value }}
+                        {% else %}
+
+                        {% endif %}
+                        {% endwith %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                <!-- end -->
+                <tr>
+                    <td colspan="8" class="">
+                        <p class="text-center fw-bold diplay-6 px-2">Clinical attendance.</p>
+                    </td>
+                </tr>
+                <!-- clinical attendances -->
+                {% for attribute, _ in patient_data.0.clinical_attendances.0|get_attribute:'__dict__'|dict_items %}
+                {% if not attribute|startswithunderscore %}
+                <tr>
+                    <td>{{ attribute|remove_underscore }}</td>
+                    <!-- Iterate over mother_visits to display values -->
+                    {% for clinical_attendance in patient_data.0.clinical_attendances %}
+                    <td>
+                        {% with value=clinical_attendance|get_attribute:attribute %}
+                        {% if value %}
+                        {{ value }}
+                        {% else %}
+
+                        {% endif %}
+                        {% endwith %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                <!-- end -->
+                <tr>
+                    <td colspan="8" class="">
+                        <p class="text-center fw-bold diplay-6 px-2">Mother child transmission.</p>
+                    </td>
+                </tr>
+                <!-- mc transmissions -->
+                {% for attribute, _ in patient_data.0.mc_transmissions.0|get_attribute:'__dict__'|dict_items %}
+                {% if not attribute|startswithunderscore %}
+                <tr>
+                    <td>{{ attribute|remove_underscore }}</td>
+                    <!-- Iterate over mother_visits to display values -->
+                    {% for mc_transmission in patient_data.0.mc_transmissions %}
+                    <td>
+                        {% with value=mc_transmission|get_attribute:attribute %}
+                        {% if value %}
+                        {{ value }}
+                        {% else %}
+
+                        {% endif %}
+                        {% endwith %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+                <!-- end -->
+
+            </tbody>
+        </table>
+
+        <!-- end -->
+
+
+
+
+    </div>
+</div>
+{% endblock %}

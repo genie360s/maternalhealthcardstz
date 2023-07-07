@@ -100,16 +100,6 @@ class Researcher(models.Model):
 class Patient(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
-    #foreign keys
-    # hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True)
-    # pregnancy_info = models.ForeignKey(PreviousPregnancyInformation, on_delete=models.CASCADE, null=True)
-    # mother_visit = models.ForeignKey(MotherFirstVisit, on_delete=models.CASCADE, null=True)
-    # lab_tests = models.ForeignKey(SpecialLaboratoryTests, on_delete=models.CASCADE, null=True)
-    # clinical_attendance = models.ForeignKey(ClinicalAttendance, on_delete=models.CASCADE, null=True)
-    # mc_transmission = models.ForeignKey(MotherChildTransmission, on_delete=models.CASCADE, null=True)
-
-
-    # additional fields specific to patients
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     date_of_birth = models.DateField(default=date(1930, 5, 18))
@@ -121,6 +111,7 @@ class Patient(models.Model):
     # Additional fields or methods can be added as needed
     def __str__(self):
         return self.user.email
+    
 # regulator model
 class Regulator(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

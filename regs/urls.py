@@ -35,6 +35,7 @@ urlpatterns = [
     path("view_patients", views.retrieve_patients_in_the_hospital, name="view_patients"),
     path("patientsearch", views.search_patients, name="patientsearch"),
     path("prediction", views.preclampsia_prediction, name="prediction"),
+    path("patient_track/<int:national_id>/", views.patient_track, name="patient_track"),
 
 ]
 
