@@ -1,0 +1,62 @@
+{% extends './hospitaldash.html' %}
+{% load custom_filters %}
+
+{% block hospital_layout %}
+<div class="container px-3">
+    <div class="container mx-auto position-relative" style="top:10vh;">
+        <h3 class="fw-bold border border-primary rounded py-3">
+            <!-- patient generic identification -->
+            <span class="px-3">Patient Name :</span>
+            <span class="px-3 text-secondary">{{ patient.first_name }} {{ patient.last_name }}</span>
+            <!-- ends -->
+        </h3>
+
+        <!-- patient graph starts -->
+        <div class="row">
+            <div class="container py-3 px-5">
+                <canvas id="patient_chart"></canvas>
+            </div>
+            <!-- values for the graph -->
+            <form action="">
+                {% csrf_token %}
+                <input type="hidden" id="totalWeightValue" value="{{ total_weight }}">
+            </form>
+            <!-- ends -->
+
+            <script>
+                const ctx = document.getElementById('patient_chart');
+                var totalWeight = parseInt(document.getElementById('totalWeightValue').value);
+
+               
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Clinical Visit 1', 'Clinical Visit 2', 'Clinical Visit 3', 'Clinical Visit 4',
+                            'Clinical Visit 5', 'Clinical Visit 6', 'Clinical Visit 7',
+                        ],
+                        datasets: [{
+                            label: '# statistics',
+                            data: [totalWeight, 19, 3, 5, 2, 3, 10],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+
+                });
+            </script>
+        </div>
+        <!-- ends -->
+
+
+
+
+    </div>
+</div>
+{% endblock %}

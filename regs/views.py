@@ -422,3 +422,40 @@ def patient_track(request, national_id):
         "patient_data": patient_data,
     }
     return render(request, "regs/patient_track.html", context)
+
+
+@login_required
+def patient_graph(request, national_id):
+    patient = Patient.objects.get(national_id=national_id)
+    print(patient)
+
+    
+    pre_preg_infos = PreviousPregnancyInformation.objects.filter(patient=patient)
+    mother_visits = MotherFirstVisit.objects.filter(patient=patient)
+    lab_tests = SpecialLaboratoryTests.objects.filter(patient=patient)
+    clinical_attendances = ClinicalAttendance.objects.filter(patient=patient)
+    mc_transmissions = MotherChildTransmission.objects.filter(patient=patient)
+    total_weight = sum(attendance.weight for attendance in clinical_attendances)
+    patient_data = []
+
+    patient_data.append(
+        {
+            "patient": patient,
+            "pre_preg_infos": pre_preg_infos,
+            "mother_visits": mother_visits,
+            "lab_tests": lab_tests,
+            "clinical_attendances": clinical_attendances,
+            "mc_transmissions": mc_transmissions,
+            
+        }
+    )
+
+    # print(patient_data)
+    print(total_weight)
+    
+    context = {
+        "patient": patient,
+        "patient_data": patient_data,
+        "total_weight": total_weight,
+    }
+    return render(request, "regs/patient_graph.html", context)

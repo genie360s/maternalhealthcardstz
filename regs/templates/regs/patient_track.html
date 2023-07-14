@@ -8,6 +8,9 @@
             <!-- patient generic identification -->
             <span class="px-3">Patient Name :</span>
             <span class="px-3 text-secondary">{{ patient.first_name }} {{ patient.last_name }}</span>
+            <span class="px-5">
+                <a href="{% url 'regs:patient_graph' patient.national_id %}"> <button class="btn btn-primary"> view graph </button> </a>
+            </span>
             <!-- ends -->
         </h3>
         <!-- patient track view in tabular format -->
